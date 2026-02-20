@@ -6,6 +6,16 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ## 2026-02-20
 
+### Running 3 Content Agents in Parallel
+
+Ran a content audit that surfaced four priorities. Tackled the top three simultaneously using parallel agents: profiles, images, and team affiliations. Each agent worked independently — no conflicts except both the profiles and affiliations agents chose migration number `009`, which was fixed by renaming the affiliations migration to `010`.
+
+**What worked well:** Parallel agents cut wall-clock time significantly. The profiles agent took ~11 minutes (most research-intensive), images ~6 minutes, affiliations ~7 minutes. All three would have been ~24 minutes sequential.
+
+**What to watch for:** Agents that write migrations independently can collide on numbering. Worth establishing a convention — e.g., reserve migration numbers before spawning agents, or have each agent use a unique prefix.
+
+---
+
 ### Scaling Content Profiles -- 15 Bars in One Session
 
 Wrote rich content profiles for 15 bars across 8 cities that previously had zero profiles. Key lessons from scaling this process:

@@ -6,6 +6,18 @@ What we shipped. Update after each feature.
 
 ## 2026-02-20
 
+### Session: Content Quality Sweep (3 parallel workstreams)
+
+Ran a full content audit and executed three priorities in parallel:
+
+1. **15 rich profiles written** — Top 1-2 bars in all 8 cities that had zero content (Charlotte, Columbus, Portland, Kansas City, Austin, Nashville, San Diego, Minneapolis). Content coverage: 21 → 36 bars, 0 cities with 10+ bars and no profiles.
+2. **3 DC bar images found** — Irish Channel, Suzie Q's, Lou's City Bar. Image coverage: 338 → 341 (100%). Lou's City Bar flagged as possibly closed.
+3. **12 team affiliations added** — San Diego FC pub partners (5 bars), Chelsea/Man Utd supporter bars in Denver/SF/San Diego, Boston Legacy FC (NWSL). Team coverage: 233 → 245 bars (72%).
+
+**Migrations:** `009_content_15_bars.sql`, `010_fill_team_affiliations_round2.sql`
+
+---
+
 ### Rich Content Profiles for 15 Bars Across 8 Cities
 
 **Added:**
