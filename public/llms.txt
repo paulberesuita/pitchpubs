@@ -1,0 +1,25 @@
+# [SITE_NAME]
+# Replace this file during setup with a description of your directory.
+#
+# This file helps AI crawlers understand your site.
+# See: https://llmstxt.org
+
+> This is a curated directory. Browse our collection at the homepage.
+
+## Pages
+- / — Homepage with featured items and search
+- /items — Browse all items with filters
+- /categories — All categories
+- /search — Search the directory
+- /about — About this directory
+- /faq — Frequently asked questions
+- /contact — Get in touch
+- /submit — Submit a new item
+
+## API
+- /api/items — List items (supports ?category, ?state, ?city, ?q, ?limit, ?offset)
+- /api/items/[slug] — Single item detail
+- /api/categories — All categories with counts
+
+## Full Data
+- /llms-full.txt — Complete database dump with all items and content

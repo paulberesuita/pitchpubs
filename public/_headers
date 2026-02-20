@@ -1,0 +1,21 @@
+# Cloudflare Pages custom headers
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+# All pages — security headers
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Images — immutable cache (1 year)
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Static assets — long cache
+/favicon.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+# API — short cache with CORS
+/api/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300
