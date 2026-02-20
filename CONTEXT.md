@@ -6,6 +6,45 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ## 2026-02-20
 
+### Image Sourcing for Local Bars — What Works
+
+Finding images for small local bars/restaurants is much harder than for well-known landmarks. Here's what we learned:
+
+**Best sources (most reliable for accessible image URLs):**
+1. **Fanzo/MatchPint CDN** (`matchpint-cdn.matchpint.cloud`) -- Soccer bar aggregator with `_original`, `_big`, `_banner` size variants. Best source for soccer bars specifically.
+2. **TimeOut** (`media.timeout.com`) -- Clean 750x422 JPEG URLs directly in page source. Great for bars in major cities.
+3. **Visit [City] tourism sites** (e.g., visitlongbeach.com, visitorlando.com) -- Tourism boards often have accessible business images.
+4. **Portland Monthly / Cloudinary** -- Magazine images via Cloudinary CDN are directly fetchable.
+5. **OpenTable** (`resizer.otstatic.com`) -- Append `?width=1280&height=720&format=jpeg` for high-res versions.
+6. **Untappd** (`assets.untappd.com`) -- Beer check-in photos often show bar interiors. Hit-or-miss quality.
+7. **Sideways NYC** (`images.sideways.nyc`) -- NYC neighborhood guides with accessible bar images.
+8. **Official team/club sites** (e.g., tottenhamhotspur.com) -- Supporters club pages sometimes have venue photos.
+9. **Local blog posts** (e.g., Scott Joseph Orlando, Boston Magazine) -- WordPress blogs often have directly accessible image URLs.
+
+**Sources that don't work for scraping:**
+- Yelp, TripAdvisor, Google Maps (all block direct image access)
+- Wix/Squarespace sites (images are JS-rendered, not in HTML source)
+- Instagram/Facebook (require auth for image access)
+- Foursquare (redirects to app, requires login)
+
+**Naming convention:** `bars/[city-lowercase]/[slug].jpg` in R2, matching the existing 302 migrated images.
+
+---
+
+### Geocoding 322 Bars — Nominatim at Scale
+
+Geocoded all 322 bars using OpenStreetMap's Nominatim API. The map feature (Leaflet) was already built and waiting for this data.
+
+**Approach:** Node.js script with 1.1s delay between requests (Nominatim rate limit is 1 req/sec). Script saves progress every 20 bars to a JSON file so it can resume if interrupted. Generated a SQL migration file with all UPDATE statements, then ran it against remote D1 in one batch.
+
+**Failure patterns:** 9 out of 322 addresses failed initial geocoding. All failures were addresses with "Ste", "Suite", or "Unit" suffixes that Nominatim couldn't parse. Stripping those suffixes resolved 7. The remaining 2 (Kiwi's Pub on State Road 436, XL Soccer World) failed because Nominatim doesn't handle Florida state road numbering well -- resolved via manual lookup from Waze and GoodRec.
+
+**Quality control:** Queens-style addresses ("33-15 Ditmars Blvd") cause Nominatim to misinterpret the hyphenated house number. Rivercrest in Astoria was geocoded to Albany, NY. Caught this with a city-average outlier query (`WHERE ABS(lat - city_avg_lat) > 0.3`). Only 1 bar out of 322 needed correction -- the geocoding quality was excellent overall.
+
+**Lesson:** For future geocoding, always run an outlier detection query after the bulk update. The query compares each bar's coordinates to its city's average and flags anything more than 0.3 degrees off. This catches misgeocoded addresses that would look wrong on the map.
+
+---
+
 ### Homepage Redesign — Less Is More
 
 Iterated through ~15 rounds of design changes to get the homepage right. Started with a feature-heavy layout (hero + features strip + Featured Cities + Popular Leagues + 15-bar grid with filter pills) and progressively stripped it down to a clean directory-first experience.

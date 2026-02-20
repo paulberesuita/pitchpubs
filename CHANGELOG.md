@@ -6,6 +6,51 @@ What we shipped. Update after each feature.
 
 ## 2026-02-20
 
+### 100% Image Coverage -- All 20 Missing Bar Images Uploaded
+
+**Added:**
+- Images for all 20 bars that were missing images, bringing coverage from 93.8% (302/322) to 100% (322/322)
+- 20 new images uploaded to R2 bucket `soccerbars-v2-images`
+
+**Bars with new images:**
+- Boston: The Greatest Bar (from Discotech)
+- Houston: Ron's Pub (from TripAdvisor CDN), Social Beer Garden HTX (from 365 Things Houston)
+- Los Angeles: La Chuperia (from Fanzo/MatchPint CDN), Rock & Reilly's (from TimeOut), Shannon's On Pine (from Visit Long Beach), Springbok Bar & Grill (from TimeOut), Trademark Brewing (from Visit Long Beach), Wirtshaus (from TimeOut)
+- New York: Flannery's Bar (from Tottenham Hotspur official), Football Factory at Legends (from Sideways NYC), New York Beer Company (from MurphGuide)
+- Orlando: Burton's Thornton Park (from Downtown Orlando), Fixtion (from OpenTable), The Castle Irish Pub (from Scott Joseph Orlando), The Sideline at XL Soccer World (from Fanzo/MatchPint CDN), Yard Bar (from Untappd)
+- Portland: Calcio Soccer Bar (from Untappd), GOL Soccer Bar (from Portland Monthly/Cloudinary)
+- Somerville: Parlor Sports (from Boston Magazine)
+
+**Image naming convention:** `bars/[city-lowercase]/[slug].jpg` matching existing pattern
+
+---
+
+### Fix League Name Duplicates
+
+**Fixed:**
+- Standardized "Champions League" (17 rows) to "UEFA Champions League" -- was showing as two separate leagues
+- Standardized "Major League Soccer" (4 rows) to "MLS" -- was showing as two separate leagues
+
+---
+
+### Geocode All 322 Bars
+
+**Added:**
+- Latitude and longitude coordinates for all 322 bars (100% coverage, was 0%)
+- Migration `003_geocode_bars.sql` with 322 UPDATE statements
+- Geocoding script `scripts/geocode_bars.mjs` using Nominatim/OpenStreetMap API
+- Retry script `scripts/geocode_retry.mjs` for handling addresses with suite/unit numbers
+
+**Fixed:**
+- Rivercrest (Astoria, Queens) was geocoded to Albany, NY due to Queens-style "33-15" address format -- corrected to proper Astoria coordinates
+
+**Data quality:**
+- All coordinates verified within continental US bounds (lat 25.75-47.68, lng -122.75 to -71.05)
+- Outlier detection run: only 1 bar needed correction out of 322
+- 313 bars geocoded on first pass, 7 on retry with simplified addresses, 2 manually looked up
+
+---
+
 ### Homepage Redesign — Minimalist Directory Layout
 
 **Added:**
