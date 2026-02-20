@@ -4,6 +4,28 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ---
 
+## 2026-02-20
+
+### Homepage Redesign — Less Is More
+
+Iterated through ~15 rounds of design changes to get the homepage right. Started with a feature-heavy layout (hero + features strip + Featured Cities + Popular Leagues + 15-bar grid with filter pills) and progressively stripped it down to a clean directory-first experience.
+
+**Key decisions:**
+
+**Infinite scroll over pagination:** Inspired by nomads.com. First 24 bars are server-rendered (SEO-safe), additional bars load via `/api/items` as user scrolls. IntersectionObserver triggers fetch 400px before reaching the spinner. The `/bars` browse page still has traditional pagination for full crawlability.
+
+**Search as expandable icon, not persistent bar:** The search bar took up too much visual space. Instead, a search icon in the filter row expands inline into an input when clicked. Filters cards client-side in real time using `data-search` attributes containing name, city, state, neighborhood, description.
+
+**State pills with full names:** Abbreviations (CA, TX, NY) were confusing. Full names (California, Texas, New York) are clearer but need horizontal scroll. Used CSS `mask-image` gradient fade to hint scrollability, removed via JS `scroll` listener when at the end.
+
+**Wider container (max-w-7xl):** Inspired by OpenAlternative/EuroAlternative. The old `max-w-5xl` (1024px) felt restrictive with 4-column card grid. 1280px gives room to breathe.
+
+**Dropdowns for city + sort, pills for state:** States are browseable (you want to see all options at once), so pills work. Cities (22) and sort options are better as dropdowns to save space.
+
+**Sections removed:** Features strip, Featured Cities, Popular Leagues all added visual noise without helping the core task (finding a bar). The directory grid IS the homepage now.
+
+---
+
 ## 2026-02-19
 
 ### Migration from Custom SoccerBars to Directory Template

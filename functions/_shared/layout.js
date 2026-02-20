@@ -70,7 +70,7 @@ export function renderHead({ title, description, url, image, type = 'website', j
           colors: {
             'primary': '#1c1917',
             'primary-hover': '#292524',
-            'background': '#fafaf9',
+            'background': '#ffffff',
             'surface': '#f5f5f4',
             'surface-hover': '#e7e5e4',
             'border': '#e7e5e4',
@@ -173,16 +173,15 @@ export function renderNav(currentPath = '') {
   };
 
   return `
-  <header class="sticky top-0 z-40 bg-background border-b border-border">
-    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+  <header class="sticky top-0 z-40 bg-background">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
       <a href="/" class="font-display text-xl font-bold">${SITE_NAME}</a>
 
       <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-8 text-sm">
         ${navLink(`/${ITEMS_PATH}`, 'Browse')}
-        ${navLink('/states', 'States')}
         ${navLink('/cities', 'Cities')}
-        ${navLink('/categories', 'Categories')}
+        ${navLink('/leagues', 'Leagues')}
         ${navLink('/about', 'About')}
         <a href="/submit" class="bg-primary hover:bg-primary-hover text-white font-medium px-5 py-2 rounded-xl transition-colors">
           Submit
@@ -201,9 +200,8 @@ export function renderNav(currentPath = '') {
     <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-background">
       <nav class="flex flex-col px-6 py-4 gap-1 text-sm">
         ${mobileLink(`/${ITEMS_PATH}`, 'Browse')}
-        ${mobileLink('/states', 'States')}
         ${mobileLink('/cities', 'Cities')}
-        ${mobileLink('/categories', 'Categories')}
+        ${mobileLink('/leagues', 'Leagues')}
         ${mobileLink('/about', 'About')}
         <a href="/submit" class="bg-primary hover:bg-primary-hover text-white font-medium px-5 py-3 rounded-xl transition-colors text-center mt-3">
           Submit
@@ -238,7 +236,7 @@ export function renderFooter() {
   const year = new Date().getFullYear();
   return `
   <footer class="border-t border-border mt-24">
-    <div class="max-w-5xl mx-auto px-6 py-16">
+    <div class="max-w-7xl mx-auto px-6 py-16">
       <div class="flex flex-col md:flex-row items-start justify-between gap-10">
         <div>
           <p class="font-display text-lg font-bold text-primary mb-2">${SITE_NAME}</p>
@@ -338,8 +336,5 @@ export function renderBreadcrumbs(items, baseUrl = '') {
 
   return `
   ${jsonLd ? `<script type="application/ld+json">${jsonLd}</script>` : ''}
-  <nav class="flex items-center gap-2 text-sm" aria-label="Breadcrumb">
-    ${crumbs}
-  </nav>
   `;
 }

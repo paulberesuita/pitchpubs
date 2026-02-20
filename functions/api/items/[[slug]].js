@@ -59,8 +59,17 @@ async function handleList(env, request) {
       ? `WHERE ${conditions.join(' AND ')}`
       : '';
 
+    const sort = url.searchParams.get('sort') || '';
+    const sortOptions = {
+      'latest': 'created_at DESC',
+      'az': 'name ASC',
+      'za': 'name DESC',
+      '': 'CASE WHEN image_url IS NOT NULL AND image_url != \'\' THEN 0 ELSE 1 END, name ASC'
+    };
+    const orderBy = sortOptions[sort] || sortOptions[''];
+
     const { results: items } = await env.DB.prepare(
-      `SELECT * FROM ${TABLE_NAME} ${whereClause} ORDER BY name ASC LIMIT ? OFFSET ?`
+      `SELECT * FROM ${TABLE_NAME} ${whereClause} ORDER BY ${orderBy} LIMIT ? OFFSET ?`
     ).bind(...bindings, limit, offset).all();
 
     const countResult = await env.DB.prepare(

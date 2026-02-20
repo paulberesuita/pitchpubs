@@ -4,6 +4,38 @@ What we shipped. Update after each feature.
 
 ---
 
+## 2026-02-20
+
+### Homepage Redesign — Minimalist Directory Layout
+
+**Added:**
+- Infinite scroll on homepage — loads 24 bars at a time via `/api/items` endpoint as user scrolls
+- City dropdown filter — all 22 cities with bar counts
+- Order by dropdown — Latest, Name (A to Z), Name (Z to A)
+- State filter pills with full state names (California, not CA) in horizontal scrollable row
+- Scroll fade hint on pills row — gradient fades out at right edge, disappears when fully scrolled
+- Expandable inline search — search icon expands to input field, filters cards in real time client-side
+- Sort support added to `/api/items` endpoint (latest, az, za)
+
+**Changed:**
+- Container width expanded from `max-w-5xl` (1024px) to `max-w-7xl` (1280px) across all pages
+- Grid changed from 3 columns to 4 columns on desktop
+- Hero simplified — removed search bar, just headline + tagline
+- Removed features strip, Featured Cities section, Popular Leagues section from homepage
+- Removed border under navigation header
+- Reduced spacing between hero and directory listings
+- Nav links simplified: Browse, Cities, Leagues, About (removed States, Categories)
+- Custom dropdown chevrons with proper spacing (replaced cramped native carets)
+- Replaced pagination with infinite scroll
+
+**Removed:**
+- Features strip section
+- Featured Cities cards section
+- Popular Leagues cards/pills section
+- Server-side pagination on homepage
+
+---
+
 ## 2026-02-19
 
 ### SoccerBars Migration to Directory Template
