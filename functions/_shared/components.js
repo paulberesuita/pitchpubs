@@ -9,8 +9,9 @@ import { escapeHtml } from './utils.js';
  * Render item card with image dimensions for CLS prevention
  */
 export function renderCard(item, basePath = ITEMS_PATH) {
+  const imageSrc = item.image_url?.startsWith('/') ? item.image_url : `/images/${item.image_url}`;
   const imageHtml = item.image_url
-    ? `<img src="${escapeHtml(item.image_url)}" alt="${escapeHtml(item.name)}"
+    ? `<img src="${escapeHtml(imageSrc)}" alt="${escapeHtml(item.name)}"
          width="400" height="300"
          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" loading="lazy"
          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">

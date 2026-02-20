@@ -311,8 +311,9 @@ async function renderDetailPage(context, baseUrl, slug) {
     });
 
     // Image HTML — includes dimensions for CLS prevention + onerror fallback
+    const detailImageSrc = item.image_url?.startsWith('/') ? item.image_url : `/images/${item.image_url}`;
     const imageHtml = item.image_url
-      ? `<img src="${escapeHtml(item.image_url)}" alt="${escapeHtml(item.name)}" width="800" height="400" class="w-full h-full object-cover" loading="eager"
+      ? `<img src="${escapeHtml(detailImageSrc)}" alt="${escapeHtml(item.name)}" width="800" height="400" class="w-full h-full object-cover" loading="eager"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
          <div class="w-full h-full bg-surface items-center justify-center" style="display:none"><span class="text-4xl opacity-30">&#128230;</span></div>`
       : `<div class="w-full h-full bg-surface flex items-center justify-center"><span class="text-4xl opacity-30">&#128230;</span></div>`;
