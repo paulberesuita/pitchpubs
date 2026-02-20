@@ -6,6 +6,87 @@ What we shipped. Update after each feature.
 
 ## 2026-02-20
 
+### Rich Content Profiles for 15 Bars Across 8 Cities
+
+**Added:**
+- Detailed 200-400 word write-ups for 15 bars across 8 cities that previously had zero content profiles
+- All profiles follow the established 6-section format: The Vibe, The Setup, Match Day Experience, Food and Drink, Who Goes There, Insider Tips
+- Content stored in `bars.content` field as structured HTML
+- All content sourced from official websites, news articles, supporter club sites, and verified reviews
+
+**Bars with new content by city:**
+- Charlotte: Courtyard Hooligans -- Charlotte's OG soccer bar since 2009, Save The Crew era David Tepper visit
+- Columbus: Fado Irish Pub (Easton) -- Four authentic Irish interiors, Crew Pub Network; Endeavor Brewing -- Save The Crew movement HQ, Columbus's only brewstillery
+- Portland: GOL Soccer Bar -- Dedicated soccer bar since 2019 on Hawthorne; Horse Brass Pub -- Portland institution since 1976, Don Younger's craft beer pioneer pub
+- Kansas City: No Other Pub -- Official 21,000 sqft Sporting KC bar with bowling/gaming; Johnny's Tavern -- Cauldron and American Outlaws home base
+- Austin: Haymaker -- Austin Chronicle Best Sports Bar 2023/2024, American Outlaws HQ; Mister Tramps -- Scottish-owned Tottenham bar with soccer field floor since 2009
+- Nashville: Fogg Street Lawn Club -- Official Nashville SC pub with rooftop lawn bowling; Fleet Street Pub -- Manchester-born owner's underground English pub on Printers Alley
+- San Diego: Shakespeare Pub -- British expat institution since 1990, Best Fish & Chips in USA 2017; Princess Pub -- San Diego's original British pub since 1984, Scouse-owned Liverpool FC home
+- Minneapolis: Brit's Pub -- 30+ year institution with rooftop lawn bowling, Pub of Year 2025; The Local -- 11,000 sqft Irish pub, world's #1 Jameson seller four years running
+
+**Content coverage:**
+- Before: 21 bars with content across 15 cities
+- After: 36 bars with content across 23 cities
+- All 8 target cities went from 0 profiles to 1-2 profiles each
+
+**Migration:** `009_content_15_bars.sql`
+
+---
+
+### Team Affiliation Round 2 -- 7 Bars in 4 Cities + 2 New MLS/NWSL Teams
+
+**Added:**
+- 12 new team affiliations across 8 bars in 4 cities:
+  - Denver: The British Bulldog (Chelsea FC via Rocky Mountain Blues)
+  - San Diego: Shakespeare Pub (Chelsea FC, Manchester United, San Diego FC), Fairplay (San Diego FC), SD TapRoom (San Diego FC), Knotty Barrel (San Diego FC), Bluefoot Bar (San Diego FC), O'Brien's Pub (San Diego FC)
+  - Boston: Drawdown Brewing (Boston Legacy FC)
+  - San Francisco: Mad Dog in the Fog (Chelsea FC via SF Bay Area Blues)
+- 2 new teams added to teams table: San Diego FC (MLS), Boston Legacy FC (NWSL)
+- San Diego FC pub partner affiliations verified from official sandiegofc.com/club/events/pub-partner page
+
+**Research methodology:**
+- Verified Rocky Mountain Blues as official Chelsea FC supporters at British Bulldog (rockymountainblues.wordpress.com)
+- Shakespeare Pub confirmed as Chelsea/Man Utd home bar via SoccerNation and The Voyageer
+- San Diego FC Pub Partner list scraped from official SDFC website -- 4 bars in our DB are partners
+- Mad Dog in the Fog confirmed as SF Bay Area Blues (Chelsea) home via premierleague.com USA Bar Finder
+- Drawdown Brewing confirmed as Boston Legacy FC hub via Matador Network and NWSL Boston ISA events
+- 26 bars in Dallas, Denver, Boston, SF researched with no verifiable team affiliation -- documented as general sports bars in migration comments
+
+**Team coverage by city (before -> after):**
+| City | Before | After |
+|------|--------|-------|
+| San Diego | 42% (5/12) | 75% (9/12) |
+| San Francisco | 45% (5/11) | 55% (6/11) |
+| Denver | 43% (6/14) | 50% (7/14) |
+| Boston | 36% (4/11) | 45% (5/11) |
+| Dallas | 45% (5/11) | 45% (5/11) -- no new affiliations found |
+
+**Overall:** 233 bars with teams -> 245 bars with teams (72% of 341)
+
+**Migration:** `009_fill_team_affiliations_round2.sql`
+
+---
+
+### Final 3 DC Bar Images -- 100% Coverage Maintained at 341 Bars
+
+**Added:**
+- Images for the last 3 Washington DC bars that were missing images:
+  - Irish Channel (Chinatown) -- exterior photo from Downtown DC / Google Maps Place Photos showing the burgundy awning and brick building on H Street
+  - Suzie Q's (Navy Yard) -- exterior photo from PoPville showing the "Cold Beer Suzie Q's Sold Here" signage with outdoor picnic tables
+  - Lou's City Bar (Columbia Heights) -- Arsenal supporters match day atmosphere photo from PoPville showing packed bar watching soccer on big screens
+- 3 new images uploaded to R2 bucket `soccerbars-v2-images` at `bars/washington/`
+
+**Image coverage:** 341/341 bars (100%) -- zero bars missing images across the entire database
+
+**Sources:**
+- Irish Channel: Downtown DC business directory (Google Maps Place Photos CDN)
+- Suzie Q's: PoPville opening announcement article (May 2025)
+- Lou's City Bar: PoPville sports bar feature article (July 2023, photo credit Joe Newman)
+
+**Note:** Lou's City Bar appears to have permanently closed as of April 2025 per PoPville reporting. May need to be flagged or removed in a future data quality pass.
+
+---
+
 ### Washington DC & Arlington -- 19 Soccer Bars Added
 
 **Added:**

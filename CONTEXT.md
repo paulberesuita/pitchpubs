@@ -6,6 +6,69 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ## 2026-02-20
 
+### Scaling Content Profiles -- 15 Bars in One Session
+
+Wrote rich content profiles for 15 bars across 8 cities that previously had zero profiles. Key lessons from scaling this process:
+
+**Batch research is efficient but requires discipline.** Researching 15 bars in parallel (vs. the deep-research skill's one-at-a-time approach) is significantly faster but requires maintaining a clear mental model of what you know about each bar. The risk is blending details across bars or filling gaps with assumptions. Mitigated this by keeping research notes per bar and only writing claims that appeared in at least one source.
+
+**Bar archetypes make writing faster.** After writing 36 profiles, clear archetypes emerge: (1) the British expat pub (Shakespeare, Princess, Horse Brass, Fleet Street), (2) the MLS official partner bar (No Other Pub, Fogg Street, Fado), (3) the supporter group home base (Johnny's/Cauldron, Princess/LFC, Mister Tramps/Spurs), (4) the community-born soccer bar (Courtyard Hooligans, GOL, Haymaker), (5) the historic institution (Horse Brass since 1976, Brit's since 1990, Princess since 1984). Each archetype has a natural narrative arc, which speeds up writing without making profiles formulaic.
+
+**Best research sources for bar profiles (ranked):**
+1. Official bar websites (hours, menus, events)
+2. Local news articles with quotes (WBTV, Axios, Austin Chronicle, Portland Monthly)
+3. MLS team partnership announcements (sportingkc.com, nashvillesc.com, charlottefootballclub.com)
+4. SoccerNation supporter specials (excellent for Liverpool/Arsenal supporter bars)
+5. CultureMap/TimeOut/Matador Network city guides (good color and atmosphere details)
+6. Yelp/TripAdvisor for crowd-sourced atmosphere details (use cautiously, verify with other sources)
+
+**Wix sites are useless for scraping.** Courtyard Hooligans, GOL, and several others use Wix, which renders all content via JavaScript. WebFetch returns only framework code. Workaround: use search result snippets and cached text from aggregator sites (Wanderlog, menu-world.com, Foursquare tips).
+
+---
+
+### Team Affiliation Round 2 -- MLS Pub Partners Are the New Gold Mine
+
+Researched team affiliations for 34 bars across 5 cities (Denver, San Diego, Boston, Dallas, San Francisco). Only 7 bars gained new verified affiliations. This reinforces the earlier finding: **most soccer bars are general sports bars with no specific team affiliation.**
+
+**Key insight -- MLS Pub Partner programs:**
+
+The biggest source of new affiliations was the San Diego FC Pub Partner program (sandiegofc.com/club/events/pub-partner). SDFC launched their program in 2025 for their inaugural MLS season, and the official list includes 60+ bars across San Diego. Four of our 12 San Diego bars are on this list (Bluefoot, Fairplay, O'Brien's, SD TapRoom, Knotty Barrel). This is the same pattern we saw with Charlotte FC's bar network -- MLS teams publish official bar lists that give us verified affiliations at scale.
+
+**Checked and confirmed:** Colorado Rapids bar partners (coloradorapids.com/fans/barpartners) already matched what we had -- DNVR Bar, Stoney's, Stoney's Uptown, Origins were already tagged. New England Revolution pub partners (revolutionsoccer.net/fans/partner-bars) includes The Banshee and Ducali, both already tagged. No new bars from those lists.
+
+**Why Dallas had zero new affiliations:** Dallas has strong dedicated team bars (Harwood Arms for Chelsea, Blackfriar for Liverpool, The Irishman for Spurs, Peticolas for FC Dallas/Everton, The Dubliner for Newcastle) but the remaining 6 bars are genuinely general sports bars. Frankie's Downtown, The Nodding Donkey, Off The Cuff, Sportsbook, Bryan Street Tavern, and Christie's all show all sports with no team-specific identity. FC Dallas's watch party venues don't overlap with our remaining bars.
+
+**NWSL as an emerging data source:** Boston Legacy FC (joining NWSL in 2026) has Drawdown Brewing as its community hub. This is the first NWSL-specific bar affiliation in our dataset. As more NWSL teams launch (Bay FC, Angel City, etc.), their community bar partnerships will be another source of affiliations.
+
+**Shakespeare Pub's layered affiliations:** Shakespeare Pub in San Diego is a good example of a bar with multiple verifiable affiliations from different sources: Chelsea and Manchester United supporters (SoccerNation, The Voyageer), plus San Diego FC game day programming (their own website). The Red Devils of San Diego (Man Utd) actually started at Shakespeare before moving to Liberty Call Distilling.
+
+---
+
+### Sourcing Images for Wix/Toast Bars -- What Finally Works
+
+The last 3 DC bars (Irish Channel, Suzie Q's, Lou's City Bar) all had websites on Wix or Toast, which don't expose images in HTML source and return 403 on fetch attempts. Previous sessions flagged these as "hard to source."
+
+**What worked:**
+
+1. **Downtown DC business directory** (`downtowndc.org`) -- Their business listings embed Google Maps Place Photos API URLs with API keys included. These URLs are directly downloadable via curl and return proper JPEG images. The Irish Channel listing had 8+ photos this way.
+
+2. **PoPville WordPress articles** -- PoPville covers DC bar openings and features extensively. Their WordPress media uploads (`popville.com/wp-content/uploads/`) are directly accessible. Found both Suzie Q's (opening announcement, May 2025) and Lou's City Bar (sports bar feature, July 2023) through PoPville articles.
+
+3. **Google Maps Place Photos via third-party embeds** -- While Google Maps itself blocks scraping, third-party sites that embed Place Photos (like business directories, tourism sites) expose the full API URL including photo reference and API key. These work as direct download links.
+
+**What still does not work:**
+- Wix sites (403 on all fetch attempts, JS-rendered images)
+- Toast/ToastTab ordering pages (no images in HTML)
+- Yelp, TripAdvisor, Foursquare (all block direct image access)
+- Instagram/Facebook (require auth)
+- Capitol Riverfront tourism site (returned 403)
+
+**Key lesson:** For Wix/Toast bars, skip the official site entirely. Go straight to local blog coverage (PoPville for DC, Eater/TimeOut for other cities) and business directory listings that embed Google Maps photos. The workaround is not to crack Wix -- it is to find the same image on a more accessible platform.
+
+**Data quality flag:** Lou's City Bar appears permanently closed as of April 2025. The image is from when it was open (July 2023 PoPville article). A future data quality pass should decide whether to keep closed bars with a status flag or remove them.
+
+---
+
 ### Adding Washington DC -- Research Methodology for a New City
 
 Researched DC soccer bars from scratch using multiple source types: Washington Post soccer bar guides (2019 and 2025 articles), GoodRec top-10 list, DC United official bar partners page, Fanzo/MatchPint directory, official supporter club websites (DC Armoury for Arsenal, DC Spurs for Tottenham, Beltway Blues for Chelsea, Red Devils DC for Manchester United, LFCDC for Liverpool), and the Premier League's own USA bar finder.
