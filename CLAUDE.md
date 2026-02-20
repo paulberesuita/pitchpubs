@@ -1,14 +1,12 @@
-# Directory Template
+# SoccerBars
 
-A template for building directory-style apps with Claude agents.
+The best soccer bars in America — curated for fans who want the real match-day experience.
 
 ---
 
 ## On Session Start
 
-**Check if this is a new project:** Read `functions/_shared/config.js`. If `CONFIGURED` is `false`, this project hasn't been set up yet. The **setup** agent handles the full bootstrap flow — say "setup" to run it.
-
-**Otherwise, read context:** Skim the first ~150 lines of:
+**Read context:** Skim the first ~150 lines of:
 - `CONTEXT.md` — Key decisions and lessons learned
 - `CHANGELOG.md` — Recent changes and current status
 
@@ -110,7 +108,7 @@ After work completes, always update:
 
 **Tech:** Cloudflare Pages + D1 (SQLite) + R2 (images). Vanilla HTML/JS + Tailwind CDN. All pages server-side rendered. No local dev — deploy and test on production.
 
-**Environments:** Preview (`[PROJECT].pages.dev`) and Production (`[DOMAIN]`) — single deploy updates both.
+**Environments:** Preview (`soccerbars-v2.pages.dev`) and Production (`soccerbars.fyi`) — single deploy updates both.
 
 ### Project Structure
 
@@ -131,7 +129,7 @@ After work completes, always update:
 │   │   ├── map.js           # renderMapToggle, renderMap (Leaflet grid/map toggle)
 │   │   └── response.js      # renderPage, htmlResponse, jsonResponse, errorResponse
 │   ├── index.js             # GET / (homepage with client-side filtering)
-│   ├── [ITEMS_PATH]/[[slug]].js  # Browse + detail (rename folder to match ITEMS_PATH)
+│   ├── bars/[[slug]].js     # Browse + detail
 │   ├── states/[[slug]].js   # States index + detail (items grouped by city)
 │   ├── cities/[[slug]].js   # Cities index + detail (items grouped by category)
 │   ├── category/[[slug]].js # Category detail with state filter
@@ -197,11 +195,11 @@ These are baked into the template — no setup needed:
 
 ```bash
 # Deploy
-wrangler pages deploy ./public --project-name=[PROJECT]
+wrangler pages deploy ./public --project-name=soccerbars-v2
 
 # Run migration
-npx wrangler d1 execute [PROJECT]-db --file=./migrations/XXX.sql --remote
+npx wrangler d1 execute soccerbars-v2-db --file=./migrations/XXX.sql --remote
 
 # Query database
-npx wrangler d1 execute [PROJECT]-db --remote --command "SELECT COUNT(*) FROM [TABLE];"
+npx wrangler d1 execute soccerbars-v2-db --remote --command "SELECT COUNT(*) FROM bars;"
 ```

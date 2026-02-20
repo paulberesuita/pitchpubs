@@ -1,25 +1,29 @@
-# [SITE_NAME]
-# Replace this file during setup with a description of your directory.
+# SoccerBars
+# The best soccer bars in America — curated for fans who want the real match-day experience.
 #
-# This file helps AI crawlers understand your site.
+# This file helps AI crawlers understand the site.
 # See: https://llmstxt.org
 
-> This is a curated directory. Browse our collection at the homepage.
+> SoccerBars is a curated directory of 310+ soccer-friendly bars across 22 US cities. Find the best spots to watch Premier League, MLS, Champions League, and World Cup 2026 matches.
 
 ## Pages
-- / — Homepage with featured items and search
-- /items — Browse all items with filters
+- / — Homepage with featured bars and state filters
+- /bars — Browse all soccer bars with filters
+- /states — Browse bars by state
+- /cities — Browse bars by city
 - /categories — All categories
 - /search — Search the directory
-- /about — About this directory
+- /about — About SoccerBars
 - /faq — Frequently asked questions
 - /contact — Get in touch
-- /submit — Submit a new item
+- /submit — Submit a new bar
 
 ## API
-- /api/items — List items (supports ?category, ?state, ?city, ?q, ?limit, ?offset)
-- /api/items/[slug] — Single item detail
+- /api/items — List bars (supports ?category, ?state, ?city, ?q, ?limit, ?offset)
+- /api/items/[slug] — Single bar detail
 - /api/categories — All categories with counts
+- /api/states — States with bar counts
+- /api/cities — Cities with bar counts
 
 ## Full Data
-- /llms-full.txt — Complete database dump with all items and content
+- /llms-full.txt — Complete database dump with all bars and content

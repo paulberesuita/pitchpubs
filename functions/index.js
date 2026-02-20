@@ -2,7 +2,7 @@
  * Homepage
  * GET /
  *
- * Calm hero, features strip, full directory grid
+ * Soccer bar directory — warm hero, features strip, full directory grid
  */
 
 import {
@@ -80,8 +80,8 @@ export async function onRequestGet(context) {
     ];
 
     const head = renderHead({
-      title: `${totalCount} Work-Friendly Cafes - Find Your Next Workspace`,
-      description: `${SITE_NAME} is a curated directory of ${totalCount} work-friendly cafes. Find fast WiFi, quiet corners, and great coffee.`,
+      title: `${totalCount} Soccer Bars in America - Find Where to Watch`,
+      description: `${SITE_NAME} is a curated directory of ${totalCount} soccer-friendly bars across 22 US cities. Find the best spots to watch Premier League, MLS, Champions League, and World Cup 2026 matches.`,
       url: baseUrl,
       jsonLd
     });
@@ -102,30 +102,30 @@ export async function onRequestGet(context) {
           return `<div class="reveal item-card" data-filter-value="${escapeHtml(filterValue)}" style="transition-delay: ${Math.min(i, 8) * 60}ms">${renderCard(item)}</div>`;
         }).join('\n')
       : renderEmptyState({
-          emoji: '&#9749;',
-          title: 'No cafes yet',
-          message: 'Be the first to add a work-friendly cafe.',
-          action: { href: '/submit', label: 'Submit a Cafe' }
+          emoji: '&#9917;',
+          title: 'No bars yet',
+          message: 'Be the first to add a soccer bar.',
+          action: { href: '/submit', label: 'Submit a Bar' }
         });
 
     const body = `
     ${renderNav('/')}
 
-    <!-- Hero — compact and calm -->
+    <!-- Hero -->
     <section class="border-b border-border">
       <div class="max-w-5xl mx-auto px-6 py-16 md:py-20">
-        <p class="text-sm font-medium text-muted uppercase tracking-[0.15em] mb-4 animate-fade-in"><span class="count-up">${totalCount}</span> curated cafes</p>
-        <h1 class="font-display text-3xl md:text-4xl font-bold tracking-tight mb-4 animate-fade-in-up stagger-2">Find your next workspace</h1>
-        <p class="text-muted max-w-md mb-8 animate-fade-in-up stagger-3 leading-relaxed">Work-friendly cafes with fast WiFi, good coffee, and the right vibe.</p>
+        <p class="text-sm font-medium text-muted uppercase tracking-[0.15em] mb-4 animate-fade-in"><span class="count-up">${totalCount}</span> soccer bars across America</p>
+        <h1 class="font-display text-3xl md:text-4xl font-bold tracking-tight mb-4 animate-fade-in-up stagger-2">Find where to watch the beautiful game</h1>
+        <p class="text-muted max-w-md mb-8 animate-fade-in-up stagger-3 leading-relaxed">Soccer-friendly bars with early opens, big screens, and fans who actually care.</p>
 
         <form action="/search" method="GET" class="flex gap-3 max-w-md animate-fade-in-up stagger-4">
           <input
             type="search"
             name="q"
-            placeholder="Search cafes..."
+            placeholder="Search bars, cities, teams..."
             class="flex-1 bg-surface border border-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-primary transition-all placeholder:text-muted"
           >
-          <button type="submit" class="bg-primary hover:bg-primary-hover text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-colors">
+          <button type="submit" class="bg-accent hover:bg-accent-hover text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-colors">
             Search
           </button>
         </form>
@@ -138,38 +138,38 @@ export async function onRequestGet(context) {
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 animate-fade-in stagger-3">
           <div class="flex items-start gap-4">
             <div class="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.858 15.355-5.858 21.213 0"></path>
+              <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
             </div>
             <div>
-              <p class="text-sm font-medium mb-1">Verified WiFi</p>
-              <p class="text-sm text-muted leading-relaxed">Every cafe tested for speed and reliability.</p>
+              <p class="text-sm font-medium mb-1">Early Opens</p>
+              <p class="text-sm text-muted leading-relaxed">Bars that open early for Premier League and Champions League kickoffs.</p>
             </div>
           </div>
 
           <div class="flex items-start gap-4">
             <div class="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+              <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
               </svg>
             </div>
             <div>
-              <p class="text-sm font-medium mb-1">Work-Ready</p>
-              <p class="text-sm text-muted leading-relaxed">Power outlets, good seating, and no side-eyes.</p>
+              <p class="text-sm font-medium mb-1">Real Fan Culture</p>
+              <p class="text-sm text-muted leading-relaxed">Supporter groups, chants, and match-day atmosphere — not just a TV on mute.</p>
             </div>
           </div>
 
           <div class="flex items-start gap-4">
             <div class="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
               </svg>
             </div>
             <div>
-              <p class="text-sm font-medium mb-1">Real Places</p>
-              <p class="text-sm text-muted leading-relaxed">Every spot visited and reviewed by remote workers.</p>
+              <p class="text-sm font-medium mb-1">22 Cities</p>
+              <p class="text-sm text-muted leading-relaxed">From NYC to LA, every major soccer city covered.</p>
             </div>
           </div>
         </div>
@@ -182,7 +182,7 @@ export async function onRequestGet(context) {
       <!-- Filter pills -->
       ${filterPills.length > 0 ? `
       <div class="flex flex-wrap items-center gap-2.5 mb-10 reveal" id="filter-bar">
-        <button data-filter="" class="filter-pill text-sm bg-primary text-white px-4 py-2 rounded-xl font-medium cursor-pointer active">All</button>
+        <button data-filter="" class="filter-pill text-sm bg-accent text-white px-4 py-2 rounded-xl font-medium cursor-pointer active">All</button>
         ${pillsHtml}
       </div>
       ` : ''}
@@ -195,7 +195,7 @@ export async function onRequestGet(context) {
       <!-- View all link -->
       ${totalCount > 15 ? `
       <div class="text-center mt-12">
-        <a href="/${ITEMS_PATH}" class="text-sm text-muted hover:text-primary transition-colors">View all ${totalCount} cafes &rarr;</a>
+        <a href="/${ITEMS_PATH}" class="text-sm text-muted hover:text-primary transition-colors">View all ${totalCount} bars &rarr;</a>
       </div>
       ` : ''}
 
@@ -212,10 +212,10 @@ export async function onRequestGet(context) {
 
             // Update active pill styling
             pills.forEach(p => {
-              p.classList.remove('bg-primary', 'text-white', 'font-medium', 'active');
+              p.classList.remove('bg-accent', 'text-white', 'font-medium', 'active');
               p.classList.add('text-muted', 'border', 'border-border');
             });
-            this.classList.add('bg-primary', 'text-white', 'font-medium', 'active');
+            this.classList.add('bg-accent', 'text-white', 'font-medium', 'active');
             this.classList.remove('text-muted', 'border', 'border-border');
 
             // Filter cards
@@ -239,7 +239,7 @@ export async function onRequestGet(context) {
 
     const head = renderHead({
       title: SITE_NAME,
-      description: 'Find work-friendly cafes with great WiFi and good coffee.',
+      description: 'Find the best soccer bars in America. Curated for fans who want the real match-day experience.',
       url: baseUrl
     });
 
@@ -248,10 +248,10 @@ export async function onRequestGet(context) {
 
     <section class="max-w-6xl mx-auto px-6 py-20">
       ${renderEmptyState({
-        emoji: '&#9749;',
+        emoji: '&#9917;',
         title: 'Getting Started',
-        message: 'Run the bootstrap process to set up your database and add cafes.',
-        action: { href: '/submit', label: 'Submit a Cafe' }
+        message: 'Run the bootstrap process to set up your database and add bars.',
+        action: { href: '/submit', label: 'Submit a Bar' }
       })}
     </section>
 

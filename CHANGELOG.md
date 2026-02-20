@@ -6,6 +6,31 @@ What we shipped. Update after each feature.
 
 ## 2026-02-19
 
+### SoccerBars Migration to Directory Template
+
+**Added:**
+- Fresh Cloudflare infrastructure: Pages project (`soccerbars-v2`), D1 (`soccerbars-v2-db`), R2 (`soccerbars-v2-images`)
+- SoccerBars schema: `bars` table with `city_slug`, `neighborhood`, `opens_early`, `website` columns
+- Junction tables: `bar_teams`, `bar_leagues` for team/league affiliations
+- Lookup tables: `cities` (with World Cup host flag), `teams`
+- Soccer bar design: pitch green accent (`#166534`), Epilogue/Inter fonts
+- SoccerBars content: homepage hero, about page, FAQ, llms.txt
+
+**Changed:**
+- Template table `items` renamed to `bars`
+- Template folder `cafes/` renamed to `bars/`
+- `CATEGORY_FIELD` set to `city` (geographic directory, not category-based)
+- `SCHEMA_TYPE` set to `BarOrClub`
+
+**Migrated:**
+- 322 bars from old SoccerBars D1 (was 310 at plan time, grew to 322)
+- 284 bar-team affiliations
+- 436 bar-league affiliations
+- 21 cities and 49 teams
+- 302 images from old R2 bucket
+
+---
+
 ### Agent & Docs Alignment
 
 **Added:**

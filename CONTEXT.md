@@ -6,6 +6,24 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ## 2026-02-19
 
+### Migration from Custom SoccerBars to Directory Template
+
+The old SoccerBars project had a custom codebase with non-standard routing (city-based instead of template's items-based), no agent system, and limited skill definitions. Rather than incrementally fixing it, we did a clean migration: clone the directory template, configure it for SoccerBars, and move just the data.
+
+**Key decisions:**
+
+**Reuse existing Cloudflare resources vs fresh:** Chose fresh D1/R2 with `-v2` suffix. The old infrastructure stays running until the domain is pointed at the new project. Zero downtime migration.
+
+**CATEGORY_FIELD = 'city':** SoccerBars groups bars by city, not by type/category. Setting `CATEGORY_FIELD` to `city` makes the template's category system work as city grouping. The template's `/categories` page becomes a city index, which is the right mental model for this directory.
+
+**Schema additions:** Added `city_slug`, `neighborhood`, `opens_early`, `website` as SoccerBars-specific columns. Kept template's `content`, `latitude`, `longitude`, `featured`, `updated_at` for future use (old SoccerBars didn't have these).
+
+**Junction tables preserved:** `bar_teams` and `bar_leagues` give SoccerBars unique value — you can browse by team affiliation. These are SoccerBars-specific and not part of the base template schema.
+
+**macOS case-insensitive filesystem gotcha:** `~/Desktop/soccerbars` and `~/Desktop/SoccerBars` are the same directory on macOS. Used `soccerbars-v2` as the directory name to avoid the collision.
+
+---
+
 ### README as Living Doc
 
 The README was bloated with maintenance-heavy lists (19-row pages table, 14-row skills table, agents table, SEO features list, commands, project structure). Every structural change required updating the README too. Decided: **the README is for the product story, not an inventory.**

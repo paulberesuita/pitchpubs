@@ -28,7 +28,7 @@ export async function onRequestGet(context) {
 
   const head = renderHead({
     title: 'About',
-    description: `Learn more about ${SITE_NAME} — our mission, what we do, and why we built this directory.`,
+    description: `Learn more about ${SITE_NAME} — why we built the definitive guide to soccer bars in America.`,
     url: `${baseUrl}/about`,
     jsonLd
   });
@@ -53,37 +53,37 @@ export async function onRequestGet(context) {
 
       <div class="prose prose-stone max-w-none text-muted leading-relaxed space-y-6">
         <p class="text-lg leading-relaxed">
-          ${SITE_NAME} is a curated directory of work-friendly cafes. We help remote workers, freelancers, and anyone with a laptop find the right place to get things done.
+          ${SITE_NAME} is a curated directory of the best soccer-friendly bars across America. We help fans find the right place to watch — whether it's a 7:30 AM Premier League kickoff, a Champions League night, or a World Cup 2026 match.
         </p>
 
         <h2 id="our-mission" class="font-display text-xl font-bold text-primary mt-12 mb-4">Why We Built This</h2>
         <p>
-          Finding a good cafe to work from shouldn't require trial and error. You show up, the WiFi is slow, there are no outlets, and the staff gives you looks after an hour. We've been there. ${SITE_NAME} exists so you don't have to guess anymore.
+          Finding a good soccer bar shouldn't be guesswork. You want to know: Will they actually have the match on? Will they open early for a morning kickoff? Is there a supporters' group that watches here? ${SITE_NAME} answers those questions so you can just show up and watch.
         </p>
 
         <h2 class="font-display text-xl font-bold text-primary mt-12 mb-4">What We Look For</h2>
         <p>
-          Not every cafe is a good work cafe. We evaluate spots on the things that actually matter to people working remotely:
+          Not every sports bar is a soccer bar. We look for places where football is the priority, not an afterthought:
         </p>
         <ul class="list-disc list-inside space-y-3">
-          <li><strong>WiFi speed and reliability</strong> — Can you take a video call without buffering?</li>
-          <li><strong>Power access</strong> — Are there enough outlets, and are they reachable?</li>
-          <li><strong>Seating comfort</strong> — Can you sit for 3 hours without your back giving out?</li>
-          <li><strong>Noise level</strong> — Buzzy and social, or quiet and focused?</li>
-          <li><strong>Vibe</strong> — Do they welcome laptop workers or barely tolerate them?</li>
+          <li><strong>Match coverage</strong> — Do they show Premier League, La Liga, Champions League, MLS, and international matches?</li>
+          <li><strong>Early opens</strong> — Will they open at 7 AM for a morning kickoff?</li>
+          <li><strong>Fan culture</strong> — Are there supporter groups, chants, and real atmosphere?</li>
+          <li><strong>Screens and sound</strong> — Can you actually hear the commentary, or is it drowned out?</li>
+          <li><strong>The vibe</strong> — Does it feel like a match day, or just a bar with a TV?</li>
         </ul>
 
         <h2 id="how-we-research" class="font-display text-xl font-bold text-primary mt-12 mb-4">How We Research</h2>
         <p>
-          Every cafe in our directory has been visited or verified by remote workers. We cross-reference reviews, check WiFi speeds, and confirm details before publishing. If something changes — a cafe closes, drops its WiFi quality, or stops welcoming workers — we update the listing.
+          Every bar in our directory has been verified through supporter communities, local fan groups, and direct outreach. We cross-reference Google reviews, Reddit threads, and social media to confirm each bar is genuinely soccer-friendly. When things change — a bar stops showing matches or a new spot opens — we update the listing.
         </p>
 
         <h2 class="font-display text-xl font-bold text-primary mt-12 mb-4">Contribute</h2>
         <p>
-          Know a great work cafe we're missing? We'd love to hear about it. Every submission is reviewed before being added to the directory.
+          Know a great soccer bar we're missing? We'd love to hear about it. Every submission is reviewed before being added to the directory.
         </p>
         <p>
-          <a href="/submit" class="text-primary hover:text-primary-hover font-medium transition-colors duration-200">Submit a cafe &rarr;</a>
+          <a href="/submit" class="text-accent hover:text-accent-hover font-medium transition-colors duration-200">Submit a bar &rarr;</a>
         </p>
       </div>
     </article>

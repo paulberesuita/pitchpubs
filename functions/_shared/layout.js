@@ -75,8 +75,8 @@ export function renderHead({ title, description, url, image, type = 'website', j
             'surface-hover': '#e7e5e4',
             'border': '#e7e5e4',
             'muted': '#57534e',
-            'accent': '#1c1917',       // customize per directory
-            'accent-hover': '#292524', // customize per directory
+            'accent': '#166534',       // pitch green
+            'accent-hover': '#14532d', // darker green
             'error': '#dc2626',
             'error-bg': '#fef2f2',
             'success': '#16a34a',
@@ -242,7 +242,7 @@ export function renderFooter() {
       <div class="flex flex-col md:flex-row items-start justify-between gap-10">
         <div>
           <p class="font-display text-lg font-bold text-primary mb-2">${SITE_NAME}</p>
-          <p class="text-sm text-muted max-w-xs">Discover and explore the best.</p>
+          <p class="text-sm text-muted max-w-xs">The best soccer bars in America.</p>
         </div>
         <div class="flex flex-wrap gap-x-10 gap-y-3">
           <a href="/about" class="text-sm text-muted hover:text-primary transition-colors duration-200">About</a>

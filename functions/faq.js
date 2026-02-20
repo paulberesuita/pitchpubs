@@ -9,35 +9,34 @@ import {
   renderPage, htmlResponse
 } from './_shared.js';
 
-// FAQ items tailored for DeskCafe
 const FAQ_ITEMS = [
   {
-    question: 'What is DeskCafe?',
-    answer: `${SITE_NAME} is a curated directory of work-friendly cafes. We help remote workers, freelancers, and digital nomads find cafes with fast WiFi, good seating, and the right vibe for getting work done.`
+    question: 'What is SoccerBars?',
+    answer: `${SITE_NAME} is a curated directory of soccer-friendly bars across America. We help fans find the best spots to watch Premier League, Champions League, MLS, La Liga, and World Cup matches — bars where football is the main event, not background noise.`
   },
   {
-    question: 'How do you pick which cafes to include?',
-    answer: 'Every cafe is visited or verified by remote workers before being listed. We check WiFi speed, outlet availability, seating comfort, noise levels, and whether the cafe actually welcomes laptop workers. Not every good cafe is a good work cafe.'
+    question: 'How do you pick which bars to include?',
+    answer: 'We verify every bar through supporter communities, local fan groups, Google reviews, Reddit, and social media. A bar makes our list when it consistently shows soccer matches, has a genuine fan atmosphere, and is recommended by the local soccer community.'
   },
   {
-    question: 'Can I submit a cafe?',
-    answer: 'Yes! If you know a great work-friendly cafe, click the Submit button and tell us about it. Include details like WiFi quality, hours, and what makes it good for working. We review every submission before publishing.'
+    question: 'Can I submit a bar?',
+    answer: 'Yes! If you know a great soccer bar, click the Submit button and tell us about it. Include details like what leagues they show, whether they open early, and if any supporter groups watch there. We review every submission before publishing.'
   },
   {
-    question: 'What do the categories mean?',
-    answer: 'We group cafes by what they do best. "Fast WiFi" means reliable, high-speed internet. "Quiet & Focused" is for deep work with minimal noise. "Social & Buzzy" is for collaborative energy. "Late Night" stays open past normal hours. "Outdoor" has patios or garden workspaces.'
+    question: 'What does "opens early" mean?',
+    answer: 'Bars marked "opens early" will open before their normal hours for morning soccer matches — typically for 7:30 AM ET Premier League kickoffs or Champions League games. This is a big deal for fans on the West Coast where matches start at 4:30 AM.'
   },
   {
-    question: 'Is DeskCafe free?',
-    answer: 'Completely free. Browse cafes, read reviews, and find your next workspace without paying anything. No account required.'
+    question: 'Is SoccerBars free?',
+    answer: 'Completely free. Browse bars, search by city or team, and find your next match-day spot without paying anything. No account required.'
   },
   {
-    question: 'A cafe on here has closed or changed. How do I report it?',
-    answer: 'Things change! If a cafe has closed, moved, dropped its WiFi quality, or stopped welcoming remote workers, let us know through our contact page. We update listings as quickly as we can.'
+    question: 'A bar on here has closed or stopped showing soccer. How do I report it?',
+    answer: 'Things change! If a bar has closed, stopped showing matches, or changed in a way that affects its listing, let us know through our contact page. We update listings as quickly as we can.'
   },
   {
-    question: 'Do you verify WiFi speeds?',
-    answer: 'Yes. We test or collect speed reports from real users at each location. If a cafe claims "fast WiFi" but can barely load a webpage, it won\'t make our list.'
+    question: 'How is this different from just searching Google Maps?',
+    answer: 'Google Maps tells you a place exists. We tell you if it\'s actually worth going to for soccer. We verify match coverage, fan atmosphere, early opens, and supporter group affiliations — things you can\'t get from a pin on a map.'
   }
 ];
 
@@ -62,7 +61,7 @@ export async function onRequestGet(context) {
 
   const head = renderHead({
     title: 'Frequently Asked Questions',
-    description: `Common questions about ${SITE_NAME}. Learn how to use the directory, submit items, and more.`,
+    description: `Common questions about ${SITE_NAME}. Learn how to use the directory, submit bars, and more.`,
     url: `${baseUrl}/faq`,
     jsonLd
   });
@@ -107,7 +106,7 @@ export async function onRequestGet(context) {
     <div class="mt-12 bg-surface rounded-xl p-8 text-center">
       <h2 class="text-xl font-semibold mb-2">Still have questions?</h2>
       <p class="text-muted mb-6">Can't find what you're looking for? Get in touch with us.</p>
-      <a href="/contact" class="bg-primary hover:bg-primary-hover text-white font-medium px-6 py-3 rounded-lg transition-all inline-block">
+      <a href="/contact" class="bg-accent hover:bg-accent-hover text-white font-medium px-6 py-3 rounded-lg transition-all inline-block">
         Contact Us
       </a>
     </div>
