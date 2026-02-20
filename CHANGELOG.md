@@ -6,6 +6,97 @@ What we shipped. Update after each feature.
 
 ## 2026-02-20
 
+### Washington DC & Arlington -- 19 Soccer Bars Added
+
+**Added:**
+- 19 soccer bars across Washington DC (17) and Arlington, VA (2)
+- Washington DC and Arlington added to the cities table
+- 2 new cities: Washington (DC) and Arlington (VA)
+- 16 of 19 bars have images (84% coverage) uploaded to R2
+- All 19 bars geocoded with coordinates for map view
+- 38 team affiliations including DC United, Arsenal, Liverpool, Tottenham, Chelsea, Manchester United, FC Barcelona, Fulham, Crystal Palace
+- 86 league affiliations (Premier League, MLS, Champions League, La Liga, Serie A, Bundesliga, FIFA World Cup, GAA)
+
+**Notable DC bars:**
+- Lucky Bar (Dupont Circle) -- THE legendary DC soccer bar, Arsenal/Man United/Man City
+- The Queen Vic (H Street) -- Official Liverpool FC bar
+- Exiles Bar (U Street) -- Liverpool FC watch bar
+- Franklin Hall (U Street) -- Official Arsenal bar, DC Armoury home pub
+- Irish Channel (Chinatown) -- Official Tottenham Spurs bar, DC Spurs home
+- The Artemis (Columbia Heights) -- Premier soccer bar with 20 HD TVs
+- Elephant & Castle (Downtown) -- FC Barcelona supporters, British pub
+- Ireland's Four Courts (Arlington) -- Named top 100 soccer bar by Men in Blazers, Chelsea/Crystal Palace
+- Suzie Q's (Navy Yard) -- Fulham FC supporters bar
+
+**Data quality:**
+- All bars have 3-5 verified sources (Washington Post, Fanzo, GoodRec, DC United, supporter club sites)
+- 10 bars confirmed as opening early for morning Premier League matches
+- Total bar count: 322 -> 341
+
+**Migrations:**
+- `004_washington_dc_bars.sql` -- 19 bars, team/league affiliations, cities
+- `005_geocode_dc.sql` -- Coordinates for all 19 bars
+- `006_dc_images.sql` + `007_dc_images2.sql` -- Image URL updates
+
+---
+
+### Rich Long-Form Content for 16 Iconic Soccer Bars
+
+**Added:**
+- Detailed 200-400 word write-ups for 16 bars across major cities, covering: The Vibe, The Setup, Match Day Experience, Food & Drink, Who Goes There, and Insider Tips
+- Content stored in `bars.content` field as structured HTML with `<h3>` subheadings and `<p>` paragraphs
+- All content sourced from official websites, reviews, articles, and supporter group pages
+
+**Bars with new content:**
+- Atlanta: Brewhouse Cafe (id 1) -- America's Best Soccer Bar per Men in Blazers
+- Boston: The Banshee (id 71) -- Boston's #1 soccer bar
+- Chicago: AJ Hudson's Public House (id 268) -- Chicago's original soccer pub since 1992
+- Denver: The Celtic on Market (id 297) -- 40+ screens, 12+ supporter clubs
+- Houston: The Phoenix on Westheimer (id 112), Social Beer Garden HTX (id 111)
+- Los Angeles: Joxer Daly's (id 124), Lucky Baldwin's Pub (id 127)
+- New York: Football Factory at Legends (id 157), Smithfield Hall (id 158), Banter Bar (id 176)
+- Orlando: Harp & Celt Irish Pub (id 285), Murphy's Pub Orlando (id 286)
+- Philadelphia: Cavanaugh's Headhouse (id 21)
+- San Francisco: Danny Coyle's (id 47)
+- Seattle: The Atlantic Crossing (id 59)
+
+**Changed:**
+- Detail page (`functions/bars/[[slug]].js`) now renders `content` field as trusted HTML instead of escaping it, with Tailwind prose styling for `<h3>` and `<p>` elements
+- Description fallback still escaped for safety
+- Auto-linking of city/state mentions works in both HTML content and plain description modes
+
+---
+
+### Fill Team & League Affiliations for Priority Cities
+
+**Added:**
+- 14 new team affiliations across 12 bars in 4 cities:
+  - Boston: The Greatest Bar (Liverpool FC via LFC Boston)
+  - Charlotte: Courtyard Hooligans (Tottenham Hotspur, USMNT), Big Ben (Crystal Palace, West Ham United), The Workman's Friend (Charlotte FC), Kilted Buffalo (Charlotte FC), HopFly Brewing (Charlotte FC), Salud Beer Shop (Arsenal FC), Gin Mill South End (Charlotte FC), Queen Park Social (Charlotte FC)
+  - Minneapolis: The Local (Minnesota United FC), Kieran's Irish Pub (USMNT)
+- Charlotte FC added as new team slug in bar_teams (5 bars in Charlotte FC bar network)
+- 39 new league affiliations across 29 bars in all 7 priority cities
+- League coverage in priority cities jumped to 100% for 6 of 7 cities (Boston at 82%)
+
+**Research methodology:**
+- Verified affiliations from official supporters club websites (lfcboston.com, charlottefootballclub.com/bar-network)
+- Cross-referenced Premier League USA Bar Finder, Matador Network city guides, local news articles
+- Used `INSERT OR IGNORE` to safely handle any existing data
+- Documented unverified bars with comments explaining why no affiliation was added
+
+**Migration:** `004_fill_team_affiliations.sql`
+
+**Team coverage by city (before -> after):**
+| City | Before | After |
+|------|--------|-------|
+| Charlotte | 25% (4/16) | 75% (12/16) |
+| Minneapolis | 33% (3/9) | 56% (5/9) |
+| Boston | 27% (3/11) | 36% (4/11) |
+
+**Overall:** 211 bars with teams -> 222 bars with teams (69% of 322)
+
+---
+
 ### 100% Image Coverage -- All 20 Missing Bar Images Uploaded
 
 **Added:**

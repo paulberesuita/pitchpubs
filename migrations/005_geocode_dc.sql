@@ -1,0 +1,20 @@
+-- Geocode DC/Arlington bars
+UPDATE bars SET latitude = 38.906617, longitude = -77.0411955 WHERE id = 323;
+UPDATE bars SET latitude = 38.9003573, longitude = -76.9898735 WHERE id = 324;
+UPDATE bars SET latitude = 38.9167433, longitude = -77.0373178 WHERE id = 325;
+UPDATE bars SET latitude = 38.9200515, longitude = -77.0312484 WHERE id = 326;
+UPDATE bars SET latitude = 38.8993983, longitude = -77.0191711 WHERE id = 327;
+UPDATE bars SET latitude = 38.9364155, longitude = -77.0324022 WHERE id = 328;
+UPDATE bars SET latitude = 38.9062793, longitude = -77.0419499 WHERE id = 329;
+UPDATE bars SET latitude = 38.87564, longitude = -77.0070472 WHERE id = 330;
+UPDATE bars SET latitude = 38.8957096, longitude = -77.0285941 WHERE id = 331;
+UPDATE bars SET latitude = 38.8785158, longitude = -77.0244116 WHERE id = 332;
+UPDATE bars SET latitude = 38.8747153, longitude = -77.0080015 WHERE id = 333;
+UPDATE bars SET latitude = 38.8714949, longitude = -77.0069691 WHERE id = 334;
+UPDATE bars SET latitude = 38.9285884, longitude = -77.0333593 WHERE id = 335;
+UPDATE bars SET latitude = 38.934116, longitude = -77.0572055 WHERE id = 336;
+UPDATE bars SET latitude = 38.9000608, longitude = -76.9997656 WHERE id = 337;
+UPDATE bars SET latitude = 38.9123372, longitude = -77.0387101 WHERE id = 338;
+UPDATE bars SET latitude = 38.9168338, longitude = -77.030586 WHERE id = 339;
+UPDATE bars SET latitude = 38.8918992, longitude = -77.0842156 WHERE id = 340;
+UPDATE bars SET latitude = 38.853563, longitude = -77.0543145 WHERE id = 341;

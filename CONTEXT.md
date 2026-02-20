@@ -6,6 +6,64 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ## 2026-02-20
 
+### Adding Washington DC -- Research Methodology for a New City
+
+Researched DC soccer bars from scratch using multiple source types: Washington Post soccer bar guides (2019 and 2025 articles), GoodRec top-10 list, DC United official bar partners page, Fanzo/MatchPint directory, official supporter club websites (DC Armoury for Arsenal, DC Spurs for Tottenham, Beltway Blues for Chelsea, Red Devils DC for Manchester United, LFCDC for Liverpool), and the Premier League's own USA bar finder.
+
+**Key decisions:**
+
+**19 bars, not 25:** The task suggested 15-25. We found ~25 candidates but excluded: Across the Pond (closed as of late 2025, may relocate), Fado Irish Pub (closed permanently), Buddy's DC (limited hours, doesn't open early, more dinner bar than soccer bar), Ivy and Coney (general sports bar rather than dedicated soccer), Scarlet Oak / Agua 301 (too restaurant-focused), Solace Outpost (replaced by Suzie Q's at same address).
+
+**Solace Outpost vs Suzie Q's:** Suzie Q's took over Solace Outpost's space at 71 Potomac Ave SE in Navy Yard in May 2025. Red Devils DC (Manchester United supporters) had been meeting at Solace. We included Suzie Q's (which is now the Fulham bar) rather than the defunct Solace. Red Devils DC's current location may be Lucky Bar or another venue.
+
+**Arlington VA as a separate city:** Ireland's Four Courts and Crystal City Sports Pub are technically in Arlington, Virginia, but are essential DC-area soccer bars. Rather than listing them under "Washington," we created a separate Arlington city entry to keep the data accurate.
+
+**Image sourcing for DC:** Best CDN sources for DC bars: MatchPint/Fanzo (Exiles Bar, Public Bar Live, Sports & Social), Squarespace CDN (Queen Vic, Franklin Hall, Kirwan's), WordPress (Lucky Bar from PoPville, The Artemis, Nanny O'Brien's), OpenTable resizer (Elephant & Castle, The Commodore), TimeOut (The Big Board, Lucky Bar backup). Irish Channel and Lou's City Bar use Wix/Toast, which don't expose images in HTML.
+
+---
+
+### Long-Form Content Strategy -- What Makes a Great Bar Write-Up
+
+Wrote rich content for 16 bars across 11 cities. Key learnings:
+
+**Structure that works:** Six consistent sections (The Vibe, The Setup, Match Day Experience, Food & Drink, Who Goes There, Insider Tips) give every write-up a predictable but not formulaic shape. Readers can scan for the section they care about. This mirrors how you'd actually describe a bar to a friend: atmosphere first, then practical details, then tips.
+
+**Research depth matters:** Official supporter group pages and bar websites provide the specific details (screen counts, opening times, supporter club names) that make content useful rather than generic. Reviews from Yelp/TripAdvisor provide atmosphere descriptions and food quality signals. Blog articles from local publications (TimeOut, AJC, Matador Network) provide context and history. The combination of all three creates content that could not have been written from a single source.
+
+**Content field as trusted HTML:** The `content` field stores raw HTML (`<h3>`, `<p>` tags). The detail page now renders this directly instead of escaping it. This requires trusting the content (we write it, not users), but gives us full control over formatting. The description field remains escaped since it's shorter text. Both paths support auto-linking of city/state mentions to geographic pages.
+
+**Tailwind prose styling for content:** Added scoped Tailwind classes using the `[&_h3]` and `[&_p]` child selector pattern to style h3 and p elements within the content div. This avoids needing a separate CSS file while keeping the heading and paragraph styles consistent with the site's design system.
+
+**SQL escaping for HTML content:** Single quotes in HTML content must be doubled for SQL (`''`). This is the main gotcha when inserting long-form HTML via `wrangler d1 execute --command`. No issues with double quotes, angle brackets, or ampersands since those are SQL-safe.
+
+---
+
+### Team Affiliation Research -- What's Verifiable vs What Isn't
+
+Researched team affiliations for 53 bars across 7 priority cities. Only 14 team affiliations could be verified from sources. Key insight: **most soccer bars are general sports bars that show all matches, not dedicated team bars.** Specific team affiliations exist only when:
+
+1. **An official supporters club meets there** -- e.g., LFC Boston at The Greatest Bar, San Diego Gooners at Bluefoot. These are the most reliable and come from supporter club websites.
+2. **The bar is in an official team bar network** -- e.g., Charlotte FC's "Bar Network" lists 10 bars. The team's own website confirms these.
+3. **The bar has strong thematic identity** -- e.g., Courtyard Hooligans with Tottenham scarves on walls, Caffe dello Sport as an Italian cafe showing Serie A.
+
+**What doesn't work:** Trying to assign teams to general sports bars like Tom's Watch Bar, Final Final, or Christie's. These show everything and have no specific affiliation. Forcing a team on them would be inaccurate data.
+
+**Best research sources for team affiliations:**
+- Official supporter club websites (lfcboston.com, bostongooners.com, manchesterunitedsandiego.com)
+- MLS team "bar network" / "watch spots" pages (charlottefootballclub.com/bar-network, mnufc.com/fan-resources)
+- Premier League USA Bar Finder (premierleague.com/usa-bar-finder)
+- Matador Network city-specific soccer bar guides (consistently the best third-party source)
+- Local city tourism soccer guides (charlottesgotalot.com, minneapolis.org)
+- SoccerNation supporter profiles (for San Diego especially)
+
+**Cities with best existing affiliation data:** New York, Chicago, Seattle, Portland -- these had supporter groups baked in during initial data migration. Cities like Dallas and San Francisco have strong soccer bar scenes but affiliations are more diffuse (many general bars, few dedicated team bars).
+
+**Charlotte FC is a new team slug** -- added to 5 bars via their official bar network. This is a useful pattern: when MLS teams launch in new cities, their official bar network gives us verified affiliations for multiple bars at once.
+
+**League affiliations are easier to verify than teams.** If a bar shows Premier League at all (which most soccer bars do), that's a safe league to add. Added 39 league affiliations and brought 6 of 7 priority cities to 100% league coverage.
+
+---
+
 ### Image Sourcing for Local Bars — What Works
 
 Finding images for small local bars/restaurants is much harder than for well-known landmarks. Here's what we learned:

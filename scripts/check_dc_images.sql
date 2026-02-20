@@ -1,0 +1,1 @@
+SELECT name, image_url FROM bars WHERE city IN ('Washington', 'Arlington') ORDER BY name;

@@ -431,11 +431,31 @@ async function renderDetailPage(context, baseUrl, slug) {
           <!-- About -->
           <section class="bg-surface rounded-2xl border border-border p-8 reveal">
             <h2 class="font-display text-xl font-semibold tracking-tight mb-5">About</h2>
-            <div class="prose prose-stone max-w-none text-muted leading-relaxed">
+            <div class="prose prose-stone max-w-none text-muted leading-relaxed
+              [&_h3]:font-display [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:tracking-tight [&_h3]:text-heading [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:first:mt-0
+              [&_p]:mb-4 [&_p]:last:mb-0">
               ${(() => {
-                const raw = escapeHtml(item.content || item.description || 'No description available.');
-                // Auto-link first city and state mention to geographic pages
-                // Regex-escape special chars (., (, ), etc.) in names
+                // If content exists, render it as trusted HTML (author-written)
+                // Only escape description fallback (user-submitted, short text)
+                if (item.content) {
+                  // Content is trusted HTML with <h3> and <p> tags
+                  const reEscape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                  let html = item.content;
+                  // Auto-link first city and state mention
+                  if (item.city && item.state) {
+                    const cityLink = `/cities/${slugify(item.city + '-' + item.state)}`;
+                    const cityPattern = new RegExp(`(?<![>\/])\\b${reEscape(item.city)}\\b(?![<])`);
+                    html = html.replace(cityPattern, `<a href="${cityLink}" class="text-primary hover:text-primary-hover transition-colors">${escapeHtml(item.city)}</a>`);
+                  }
+                  if (item.state) {
+                    const stateLink = `/states/${slugify(item.state)}`;
+                    const statePattern = new RegExp(`(?<![>\/])\\b${reEscape(item.state)}\\b(?![<])`);
+                    html = html.replace(statePattern, `<a href="${stateLink}" class="text-primary hover:text-primary-hover transition-colors">${escapeHtml(item.state)}</a>`);
+                  }
+                  return html;
+                }
+                // Fallback: escape description text and wrap in paragraph
+                const raw = escapeHtml(item.description || 'No description available.');
                 const reEscape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 let linked = raw;
                 if (item.city && item.state) {
