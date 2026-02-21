@@ -6,6 +6,131 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ## 2026-02-20
 
+### Tampa / St. Petersburg Expansion -- Two-City Metro with Distinct Soccer Identities
+
+Tampa and St. Petersburg are 25 miles apart across Tampa Bay but have distinct soccer bar cultures. Tampa's scene is dominated by Irish pubs that double as supporter club homes, while St. Pete has more British-owned pubs focused on the EPL viewing experience.
+
+**MacDinton's is the clear epicenter.** Every source names MacDinton's SoHo as the number one soccer bar in Tampa. It hosts 4+ supporter clubs under one roof: Gulf Coast Gooners (Arsenal, since 2010), Toon Army Tampa Bay (Newcastle), plus Man Utd and Man City supporters. The Liverpool OLSC Tampa Bay was born here before moving to Maloney's. MacDinton's had a St. Pete location too, but it closed April 2022.
+
+**Liverpool has the strongest organized presence.** Two bars are dedicated Liverpool homes: Maloney's Local (OLSC Tampa Bay, official since 2008) in Tampa and The Horse & Jockey (Pinellas County LFC Supporters) in South Pasadena. The Horse & Jockey was purchased by Liverpool native Lea Doyle in 2008.
+
+**St. Pete's soccer bar scene is newer and growing fast.** Dublin Drop (March 2025) and Green Turtle Brewery (2025) both opened in 2025 specifically to capture the soccer pub market. Green Turtle is the only bar in St. Pete with traditional English cask ales on hand-pulled beer engines.
+
+**The Horse & Jockey is technically in South Pasadena** (~6,000 population within St. Pete metro). Listed under St. Petersburg because every local guide includes it as a St. Pete bar and creating a separate city entry for 1 bar is excessive.
+
+**No Tampa Bay Rowdies bar partner program exists.** Unlike MLS teams that publish official pub partner lists, the Rowdies (USL) do not have a formal bar partnership. Ralph's Mob (supporters since 2010) uses Thirsty First for pre-game, but it is a general sports bar. Yeoman's Cask & Lion is the closest to a Rowdies bar.
+
+**Image URL format lesson:** Existing convention stores image_url WITHOUT the `/images/` prefix (e.g., `bars/st-louis/file.jpg`). The `renderCard` component auto-prepends `/images/`. Corrected Tampa images to match this convention with city subdirectories (`bars/tampa/`, `bars/st-petersburg/`).
+
+---
+
+### San Jose Metro Expansion -- Silicon Valley's MLS Ecosystem
+
+San Jose has the San Jose Earthquakes (MLS since 1996) and Bay FC (NWSL since 2024, also at PayPal Park), making it one of the few US cities with both an MLS and NWSL team sharing a stadium. The soccer bar landscape reflects this dual identity.
+
+**Key insight -- The "Team 408" official bar network is thin but verified.** Unlike Charlotte FC or St. Louis CITY SC which have 10+ pub partners, the Earthquakes only officially recognize two watch party venues: O'Flaherty's Irish Pub and The Old Wagon Saloon & Grill, both on San Pedro Street in downtown. This actually makes them more valuable -- if the team picks only two, those two are the real deal. The Old Wagon opens at 5am for World Cup matches (earlier than any bar in our database) and O'Flaherty's opens at 7am for all Liverpool fixtures.
+
+**Jack's Bar & Lounge is the most soccer-connected bar we have added to date.** It holds four simultaneous soccer affiliations: Silicon Valley Gooners (Arsenal, official since 2014 per arsenal.com), San Jose Earthquakes Team 408, Bay FC Bridge Brigade watch parties, and an American Outlaws chapter. The Arsenal connection was verified directly on arsenal.com's official supporters club page, which names Jack's as the meeting venue and notes the owner is an Arsenal fan who will open at any time Arsenal plays. Opening at 6am on weekends for EPL is verified on Yelp and Fanzo.
+
+**Bay FC (NWSL) is a new data source for bar affiliations.** Bay FC's Bridge Brigade supporters organize watch parties at Jack's, JTown Pizza, and Taplands (Santa Clara). This is the second NWSL team affiliation in our database (after Boston Legacy FC at Drawdown Brewing). As more NWSL teams grow their supporter culture, bar partnerships will follow.
+
+**The Britannia Arms split creates a naming challenge.** Britannia Arms Downtown rebranded to "The Brit" but retains the Britannia Arms name on Yelp, Visit San Jose, and Foursquare. The Almaden location kept the "Britannia Arms" name. We used "The Brit" for downtown (matching their current website thebritsj.com) and "Britannia Arms Almaden" for the southern location (matching britanniaarms.com). Both are independent operations despite the shared heritage.
+
+**Silicon Valley suburbs are genuine soccer destinations, not filler.** Duke of Edinburgh (Cupertino, 1983) predates the modern American soccer bar trend by decades -- everything inside was literally shipped from England. St. Stephen's Green (Mountain View) is Irish-owned and bills itself as a "Premier All Sports Irish Bar." Double D's (Los Gatos) has won Mercury News Best Sports Bar every year since opening and is an Earthquakes watch party location on GameWatch.info. These aren't padding -- they serve real soccer communities in areas with no nearby alternatives.
+
+**Visit San Jose (sanjose.org) uses Simpleview CMS with reliable CDN images.** Same pattern as Visit Cincy (Cincinnati) -- relative URLs under `/sites/default/files/styles/listing_detail_image/public/` that resolve to full-size webp images. Covered 5 of 10 bars (O'Flaherty's, Jack's, Old Wagon, The Brit, Rookies Willow Glen). SF Station CDN covered Britannia Arms Almaden and Rookies Downtown. Duke of Edinburgh and St. Stephen's Green have their own Squarespace and Cloudflare Images CDNs respectively.
+
+**Excluded bars and why:**
+- Wicked Chicken (Santa Clara) -- permanently closed per Yelp (December 2025)
+- La Catalana -- tapas restaurant, not a soccer bar despite appearing on GoodRec list
+- The Plex / Penalty Box -- indoor soccer facility with a bar, not a soccer-watching bar
+- Zone 8 Sports Bar -- inside Casino M8trix, general sports bar with no soccer-specific identity
+- The Caravan Lounge -- live music venue, not sports-focused
+- Hapa's Brewing -- craft brewery on GameWatch.info but no evidence of soccer programming
+- Pancho's Sports Bar -- Latin sports bar, no soccer-specific sources beyond Yelp generic listing
+
+---
+
+### Pittsburgh Expansion -- USL City with Deep EPL Supporter Culture
+
+Pittsburgh is a mid-size market without an MLS team, but the Riverhounds SC (USL Championship) and an unusually organized EPL supporter ecosystem make it a strong soccer bar city. Key lessons:
+
+**Piper's Pub is Pittsburgh's soccer origin story.** The South Side pub opened in 1999 and became the city's first dedicated soccer bar. The Steel Army (Riverhounds supporters) held their founding meeting there in 2007. Even after closing during COVID and reopening with limited weekend-only hours, Piper's remains the spiritual home of Pittsburgh soccer. It's on the Premier League USA Bar Finder and hosts the official Pittsburgh Spurs (Tottenham). The Pitch on Butler was opened by a Piper's Pub veteran (Bryan Muha) on Boxing Day 2023 -- a direct lineage from Pittsburgh's original soccer bar.
+
+**Cork Harbour is the new epicenter.** Opened October 2022 in Lawrenceville, Cork Harbour rapidly became Pittsburgh's most loaded soccer schedule -- EPL, Bundesliga, Champions League, Eredivisie, Scottish Premiership. It hosts both the Steel City Gooners (Arsenal, an Arsenal America branch) and the Pittsburgh Celtic Supporters Club (est. 2020). CelticBars.com and Arsenal America both list it as the official home. This is a pattern we've seen in other cities -- a newer Irish pub displaces the old guard (Piper's) as the day-to-day soccer hub while the original retains cultural significance.
+
+**Pittsburgh's bar scene clusters in two corridors.** South Side (Carson Street) has Piper's Pub, Jack's Bar, and Hofbrauhaus -- the historic soccer bar strip. Lawrenceville (Butler Street + 43rd) has Cork Harbour, The Pitch on Butler, and Thunderbird Cafe -- the new soccer bar corridor. North Side has Mike's Beer Bar and Monterey Pub. Morningside's Bulldog Pub is the lone outlier in the East End. This two-corridor pattern is different from cities like St. Louis (stadium cluster + neighborhood hub) or Detroit (scattered by supporter group).
+
+**The Riverhounds-Mike's Beer Bar partnership model.** Mike's Beer Bar became the official Riverhounds watch party home in 2022 -- complete with a custom Riverhounds Amber Lager brewed by Straub Brewery, stadium signage, and a presenting partnership for Community Heroes Night. This is a lighter version of the MLS pub partner model (no 60+ bar lists like SDFC or Charlotte FC), but it gives us a verified team-bar connection.
+
+**Supporter groups are well-organized but small.** Pittsburgh Spurs (Tottenham) at Piper's Pub, Steel City Gooners (Arsenal) at Cork Harbour, Pittsburgh Celtic SC at Cork Harbour, Crystal Palace supporters at Thunderbird Cafe. The LFC Pittsburgh club (OLSC, class of 2014) meets at Industry Public House in North Fayette -- too far from the city center to include. No Chelsea, Manchester United, or Manchester City supporter clubs found in Pittsburgh.
+
+**FourDollarJacks + p2bars continue to be reliable image sources.** FourDollarJacks provided images for Bulldog Pub, Monterey Pub, and The Pitch on Butler. A new discovery: p2bars.com (same CDN pattern as FourDollarJacks, using img.p2bars.com) had Jack's Bar images. Pittsburgh Magazine's feature article on Cork Harbour had professional photos. Visit Pittsburgh's IDSS/Imgix CDN had Mike's Beer Bar. All 9 bars achieved 100% image coverage on first pass.
+
+**Excluded bars and reasoning:** Claddagh Irish Pub closed permanently in 2019. Oliver's Pourhouse is in Greensburg (30+ miles out). Carmella's Plates & Pints appeared on Yelp soccer bar lists but is really a cocktail/whiskey bar with 700+ whiskies -- no soccer-specific evidence. Mullaney's Harp & Fiddle is a genuine Irish pub in the Strip District but closed Sunday/Monday and no soccer sources confirmed it. Industry Public House (LFC Pittsburgh home) is in North Fayette Township, a suburb 15 miles from downtown.
+
+---
+
+### Salt Lake City Expansion -- MLS Pioneer Market with Strong Supporter Ecosystem
+
+Salt Lake City is one of the earliest MLS markets (Real Salt Lake since 2005) and has a mature but dispersed soccer bar scene. Unlike newer MLS expansion cities where the team creates the bar ecosystem (St. Louis, Charlotte), RSL's 20+ year history means soccer bars evolved organically alongside the club.
+
+**The supporter club network is the most valuable research layer.** Four verified EPL supporter groups have dedicated home bars: Utah Gooners (Arsenal) at Fiddler's, SLC Spurs (Tottenham) at Legends Pub & Grill, Salt Lake City Reds (Liverpool) at Crossroads Bar & Grill, and AO Salt Lake City (USMNT) at Beer Bar. The Soccer.Town directory also lists Manchester City and Everton supporters at Beer Bar. These verified team-bar affiliations are the strongest data points in the whole SLC dataset.
+
+**The Fiddler's Elbow closure/rebrand is a cautionary tale.** The bar closed in August 2024 after decades in Sugar House, then reopened mid-2025 under new ownership as simply "Fiddler's." Arsenal.com's fan page still lists "Fiddler's Elbow" as the Utah Gooners home. We listed it under the new name ("Fiddler's") since that is what is currently operating. This is a good example of why always verifying current operating status matters -- older sources can be dangerously stale.
+
+**RSL watch party venues are real but have weaker soccer credentials.** GameWatch.info lists 19 RSL watch party locations, but many are generic sports bars with no soccer-specific identity (A Bar Named Sue, Beer Bar, Twist, Bourbon House, etc.). We included only those with multiple corroborating sources confirming soccer as a primary identity: Piper Down (Irish pub, Irish Times competition entry), Poplar Street Pub (30 screens, 3 floors), Gracie's (35 screens, opens early). Excluded the more generic options that just happen to show RSL.
+
+**Dick N' Dixie's as a unique archetype.** The Salt Lake Tribune described it as a bar where "the game of choice is soccer" with "RSL paraphernalia on the walls" and "RSL players often stopping by after home games." This dive-bar-meets-soccer-shrine archetype is rare in our database -- most RSL bars are polished sports bars. It adds texture to the SLC collection.
+
+**Flanker Kitchen + Sporting Club is the most ambitious venue we have.** At 17,500 sqft with 60+ LED screens (including two 20-foot displays), it dwarfs every other bar in our database. It actively markets itself as a soccer destination with a dedicated landing page for "where to watch soccer games in Salt Lake City" that functions as its own mini guide. This self-positioning as the soccer authority in SLC is unusual for a sports bar.
+
+**Image sourcing strategy:** FourDollarJacks CDN continued to be the most reliable source (7 of 12 bars). Official websites worked for Flanker (WordPress), Crossroads (Webflow CDN), and The Bruce (Webflow CDN). Gastronomic SLC's reopening article provided a timely interior photo of the newly rebranded Fiddler's. Squarespace CDN served Beer Bar and Shades Brewing.
+
+**Excluded bars and why:**
+- Bout Time Pub & Grub, Rio Grande (CLOSED per Yelp Oct 2025, replaced by The Bruce)
+- Trolley Wing Co, 2148 S 900 E (CLOSED per Yelp Feb 2026)
+- Ice Haus (hockey-focused gastropub, weak soccer credentials)
+- Big Willies (Utah Hockey Club watch party venue, not soccer-specific)
+- Brickyard Bar ("Home of the Utes," college sports focus)
+- Calle (futsal court/event venue, not a traditional watch bar)
+- The Point After (Murray suburb, general sports bar despite 40 TVs)
+- Tailgate Tavern (neighborhood dive, no soccer-specific identity)
+- Bar 110 West / Paxton Pub / Neutral Ground / Duffy's (GoodRec filler picks with no soccer sourcing)
+
+---
+
+### Sacramento Expansion -- First California City, USL Market with MLS Aspirations
+
+Sacramento is an interesting case because it has a strong soccer culture driven by Sacramento Republic FC (USL Championship) despite not (yet) having an MLS team. The club's MLS bid was placed on hold in 2021 when investor Ron Burkle pulled out, but a new Railyards stadium was approved in 2025 and the club is pursuing MLS expansion with new tribal ownership (Wilton Rancheria).
+
+**Supporter clubs define the bar landscape.** Unlike MLS cities with official pub partner programs that hand us a ready-made list, Sacramento's soccer bar scene is built from the ground up by EPL supporter clubs and grassroots groups:
+- River City Red Devils (Manchester United, founded 2012) claimed the Zebra Club in 2013
+- Sacramento Spurs (Tottenham, 75+ members, founded 2014) joined at the same Zebra Club
+- Sacramento Gooners (Arsenal) operate from Henry's Lounge
+- LFC Sacramento (Official Liverpool Supporters Club) operate from Fieldhouse American Sports Pub
+- American Outlaws Sacramento (USMNT) also at Henry's Lounge
+
+The Zebra Club is the undisputed center of Sacramento soccer. A Yahoo News/Sacramento Bee feature article confirmed nearly 100 fans packed in for the Europa League final, making it the only bar in the market with documented large-scale soccer events.
+
+**Republic FC's Blood, Sweat & Beers Council is the closest thing to a pub partner program.** Rather than direct bar partnerships, Republic FC created a "brewing council" led by Jackrabbit Brewing Company. Member breweries host watch parties and feature their beers at matches. Sky River Casino's 32 Brews Street Gastropub is the official casino watch party venue, but it's inside a casino complex (less useful for our directory).
+
+**Sacramento's British pub heritage is strong for a non-MLS city.** Fox & Goose Public House (1975) is one of the oldest British pubs in California, named after the owner's hometown pub in Hebden Bridge, Yorkshire. Streets of London in West Sacramento is a proper British pub with Premier League and rugby on screens. These institutions predate the modern American soccer bar trend.
+
+**de Vere's Irish Pub closure is a significant loss.** de Vere's was THE Premier League bar in Sacramento, opening as early as 2:30 AM for matches. It closed in October 2021 due to pandemic losses. CBS Sacramento still lists it in their "best bars to watch Premier League" article (published before closure), which can cause confusion for researchers who don't verify current status.
+
+**West Sacramento as a separate city:** Like Covington KY (Cincinnati) and Hamtramck MI (Detroit), West Sacramento is technically a separate city across the Sacramento River. Created a separate city entry for Streets of London and Jackrabbit Brewing. Tower Bridge -- the actual bridge connecting Sacramento and West Sacramento -- is the namesake of the Tower Bridge Battalion supporter group.
+
+**Excluded and why:**
+- de Vere's Irish Pub (CLOSED October 2021)
+- Hot Italian (CLOSED, replaced by 5 Tacos & Beers)
+- Tapa the World (primarily a Spanish tapas restaurant, not a soccer bar)
+- Clubhouse 56 (general sports bar, no soccer identity)
+- Sean Finnegan's (Irish pub in Old Sacramento, no soccer-specific programming)
+- 32 Brews Street Gastropub (inside Sky River Casino, not a traditional bar)
+
+---
+
 ### St. Louis Expansion -- MLS Team Launch Creates Rich Ecosystem
 
 St. Louis is a fascinating case study in how an MLS expansion team (St. Louis CITY SC, 2023) creates an entire ecosystem of soccer bars where none existed before. The city had Amsterdam Tavern since 2008 as its sole dedicated soccer venue. Once CITY SC arrived, the landscape exploded:

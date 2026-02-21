@@ -6,6 +6,208 @@ What we shipped. Update after each feature.
 
 ## 2026-02-20
 
+### Tampa / St. Petersburg, Florida -- 10 Soccer Bars Added
+
+**Added:**
+- 10 soccer bars across Tampa (5) and St. Petersburg (5), Florida
+- Tampa and St. Petersburg added to cities table (first Florida cities)
+- Tampa Bay Rowdies added to teams table (USL Championship)
+- All 10 bars geocoded with coordinates from US Census Geocoding API
+- All 10 bars have images uploaded to R2 (100% image coverage)
+- 10 team affiliations: Arsenal FC, Newcastle United, Manchester United FC, Manchester City FC (MacDinton's), Liverpool FC (Maloney's + Horse & Jockey), Tottenham Hotspur (James Joyce), Tampa Bay Rowdies (Yeoman's), USMNT + Celtic FC (Mary Margaret's)
+- 27 league affiliations across Premier League, FA Cup, Champions League, La Liga, Serie A, Bundesliga, Europa League, MLS, FIFA World Cup
+
+**Tampa bars (5):**
+- MacDinton's Irish Pub (SoHo) -- THE soccer bar of Tampa, Gulf Coast Gooners (Arsenal), Toon Army (Newcastle), Man Utd/City
+- Maloney's Local Irish Pub (Downtown) -- Official OLSC Tampa Bay home (Liverpool FC, since 2008)
+- James Joyce Irish Pub & Eatery (Ybor City) -- Tampa Ybor Spurs official home (Tottenham)
+- Yeoman's Cask & Lion (Downtown) -- British pub since late 1980s, EPL brunch, Rowdies
+- Molly Malone's Irish Pub (Davis Islands) -- Dublin-owned, on Premier League USA Bar Finder
+
+**St. Petersburg bars (5):**
+- Mary Margaret's Olde Irish Tavern (Downtown) -- American Outlaws St. Pete chapter, multi-club hub
+- The Horse & Jockey (South Pasadena) -- Since 1987, Liverpool-owned, Pinellas County LFC Supporters
+- Dublin Drop (Downtown) -- Opened March 2025, largest dedicated soccer bar, shows 6 leagues
+- Green Turtle Brewery & Public House (Downtown) -- Only cask ales in St. Pete, opens for 7:30 AM EPL
+- Jack's London Grill (North St. Pete) -- British-owned since 2013, TripAdvisor #7 of 681
+
+**Migrations:** `031_tampa_bars.sql`, `032_tampa_geocode.sql`, `033_tampa_images.sql`
+
+---
+
+### San Jose Metro Area -- 10 Soccer Bars Added
+
+**Added:**
+- 10 soccer bars across 4 Silicon Valley cities: San Jose (7), Cupertino (1), Mountain View (1), Los Gatos (1)
+- 4 new cities added to cities table: San Jose, Cupertino, Mountain View, Los Gatos
+- 2 new teams: San Jose Earthquakes (MLS), Bay FC (NWSL)
+- All 10 bars geocoded with coordinates for map view
+- All 10 bars have images uploaded to R2 (100% image coverage)
+- 8 team affiliations: San Jose Earthquakes (5 bars), Liverpool FC, Arsenal FC, Bay FC
+- 24 league affiliations across Premier League, MLS, Champions League, NWSL, FIFA World Cup
+
+**Bars by tier:**
+- **Official Earthquakes watch party venues:** O'Flaherty's Irish Pub (San Pedro Square), The Old Wagon Saloon & Grill (San Pedro Square)
+- **Supporter group HQs:** O'Flaherty's (LFC Silicon Valley -- Liverpool), Jack's Bar & Lounge (Silicon Valley Gooners -- Arsenal, American Outlaws, Bay FC Bridge Brigade)
+- **British pubs with EPL:** The Brit (Britannia Arms Downtown, 25 TVs), Britannia Arms Almaden (Premier League USA Bar Finder), Duke of Edinburgh (Cupertino, since 1983), St. Stephen's Green (Mountain View, Irish)
+- **Sports bars:** Rookies Sports Lodge Willow Glen (Premier League USA Bar Finder, 22+ screens), Rookies Sports Lodge Downtown (35+ 4K TVs), Double D's Sports Grille (Los Gatos, Mercury News Best Sports Bar)
+
+**Image sources:**
+- Squarespace CDN (O'Flaherty's hero, Duke of Edinburgh bar interior)
+- Visit San Jose / Simpleview CMS (Jack's, Old Wagon Saloon, The Brit, Rookies Willow Glen)
+- SF Station CDN (Britannia Arms Almaden, Rookies Downtown)
+- Cloudflare Images / imagedelivery.net (St. Stephen's Green)
+- WordPress / doubleds.com (Double D's outdoor patio)
+
+**Data quality:**
+- All 10 bars have 3-6 verified sources
+- 5 bars open early for morning Premier League/Champions League (O'Flaherty's 7am, Jack's 6am, Old Wagon 5am, The Brit, Britannia Arms Almaden 9am weekends)
+- Jack's Bar is the most soccer-connected venue: Arsenal (Silicon Valley Gooners since 2014), SJ Earthquakes (Team 408), Bay FC (Bridge Brigade), American Outlaws
+
+**Total bar count:** 387 -> 397 (from this session)
+**San Jose metro coverage:** 10 bars, 10/10 images (100%), 10/10 geocoded
+
+**Migrations:** `025_san_jose_bars.sql`, `026_san_jose_geocode.sql`, `027_san_jose_images.sql`
+
+---
+
+### Pittsburgh, Pennsylvania -- 9 Soccer Bars Added
+
+**Added:**
+- 9 soccer bars in Pittsburgh, Pennsylvania (first bars in the state)
+- Pittsburgh added to cities table
+- Pittsburgh Riverhounds SC added to teams table (USL Championship)
+- All 9 bars geocoded with coordinates for map view
+- All 9 bars have images uploaded to R2 (100% image coverage)
+- 5 team affiliations: Tottenham Hotspur (Piper's Pub), Arsenal FC + Celtic FC (Cork Harbour), Pittsburgh Riverhounds SC (Mike's Beer Bar), Crystal Palace (Thunderbird Cafe)
+- 30 league affiliations across Premier League, Champions League, Europa League, FA Cup, Serie A, Bundesliga, Scottish Premiership, MLS, International, FIFA World Cup
+
+**Bars by neighborhood:**
+- **South Side (3):** Piper's Pub (THE soccer bar since 1999, Tottenham home), Jack's Bar (7 AM opens, dive bar), Hofbrauhaus Pittsburgh (German beer hall, World Cup)
+- **Lawrenceville (3):** Cork Harbour Pub (Steel City Gooners + Pittsburgh CSC home, most loaded schedule), The Pitch on Butler (purpose-built soccer bar by Piper's Pub vet), Thunderbird Cafe & Music Hall (Crystal Palace supporters)
+- **North Side (2):** Mike's Beer Bar (official Riverhounds watch party home, 80+ taps), Monterey Pub (Irish pub, EPL atmosphere)
+- **Morningside (1):** The Bulldog Pub (7 AM Saturday opens, #BulldogBrunchLeague)
+
+**Image sources:**
+- Pittsburgh Manifold/Independent (Piper's Pub reopening article)
+- Pittsburgh Magazine (Cork Harbour Pub St. Patrick's feature)
+- FourDollarJacks CDN (Bulldog Pub, Monterey Pub, The Pitch on Butler)
+- Visit Pittsburgh / IDSS Imgix (Mike's Beer Bar)
+- Hofbrauhaus Pittsburgh official WordPress (hero image)
+- p2bars CDN (Jack's Bar neon glass block exterior)
+- NextPittsburgh WordPress (Thunderbird Cafe building)
+
+**Research sources:**
+- Visit Pittsburgh top 6 soccer bars guide
+- CBS Pittsburgh Premier League bars list
+- Premier League USA Bar Finder (Piper's Pub, Thunderbird Cafe)
+- GameWatch.info Pittsburgh listings
+- Steel City Gooners / Arsenal America (Cork Harbour)
+- Pittsburgh Celtic Supporters Club / CelticBars.com (Cork Harbour)
+- Tottenham Hotspur official supporters clubs (Pittsburgh Spurs at Piper's)
+- Riverhounds SC official announcement (Mike's Beer Bar partnership)
+- American Scouser (LFC Pittsburgh OLSC spotlight)
+- WPXI (The Pitch on Butler opening)
+- Pittsburgh Magazine, TribLive, Yelp, FourSquare
+
+**Excluded bars and why:**
+- Claddagh Irish Pub (permanently closed since 2019)
+- Oliver's Pourhouse (Greensburg, 30+ miles from Pittsburgh)
+- Carmella's Plates & Pints (cocktail bar, weak soccer credentials)
+- Bigham Tavern (general sports bar, only World Cup mention)
+- Mullaney's Harp & Fiddle (no soccer evidence, closed Sun/Mon)
+- Industry Public House (North Fayette, far from city core)
+
+**Data quality:**
+- All 9 bars have 3-6 verified sources
+- 4 bars open early for morning Premier League (Piper's, Bulldog, Monterey, Jack's)
+- Bar count: 387 -> 437 (with other cities added in parallel)
+- Pittsburgh is the 2nd Pennsylvania city after Philadelphia
+
+**Migrations:** `034_pittsburgh_bars.sql`, `035_pittsburgh_geocode.sql`, `036_pittsburgh_images.sql`
+
+---
+
+### Salt Lake City & Taylorsville, Utah -- 12 Soccer Bars Added
+
+**Added:**
+- 12 soccer bars across Salt Lake City (11) and Taylorsville (1), Utah
+- Salt Lake City and Taylorsville added to cities table
+- Real Salt Lake added to teams table (MLS, joined 2005)
+- All 12 bars geocoded with coordinates from US Census Geocoder
+- All 12 bars have images uploaded to R2 (100% image coverage)
+- 10 team affiliations (Real Salt Lake x7, Arsenal FC, Tottenham Hotspur, Liverpool FC)
+- 26 league affiliations (Premier League, MLS, Champions League, FIFA World Cup)
+
+**Bars by type:**
+- **Supporter club HQs:** Fiddler's (Utah Gooners/Arsenal), Legends Pub & Grill (SLC Spurs/Tottenham), Beer Bar (AO Salt Lake City/USMNT), Crossroads Bar & Grill (Salt Lake City Reds/Liverpool)
+- **RSL-focused bars:** Dick N' Dixie's (RSL paraphernalia, player hangout), Shades Brewing (RSL watch parties)
+- **RSL watch party venues:** Piper Down Pub, Poplar Street Pub, Gracie's
+- **Major sports complexes:** Flanker Kitchen + Sporting Club (17,500 sqft, 60+ screens)
+- **British/Scottish pubs:** The Bruce Scottish Pub (Scottish fare, UEFA events), Piper Down Pub (Irish pub since 2003)
+- **Downtown icons:** The Green Pig Pub (World Cup hub, voted best sports bar)
+
+**Image sources:**
+- Gastronomic SLC (Fiddler's interior, 2025 reopening article)
+- Squarespace CDN (Beer Bar exterior, Shades Brewing taproom)
+- FourDollarJacks CDN (Legends, Dick N' Dixie's, Piper Down, Green Pig, Flanker, Poplar Street, Gracie's)
+- Flanker official website (venue interior, Canon 5D Mark III photo)
+- Crossroads official Webflow CDN (bar interior)
+- The Bruce official Webflow CDN (pub interior)
+
+**Research notes:**
+- Fiddler's Elbow closed August 2024, reopened mid-2025 as "Fiddler's" under new ownership -- listed under new name
+- Bout Time Pub (Rio Grande) CLOSED, replaced by The Bruce Scottish Pub -- excluded Bout Time, included The Bruce
+- Trolley Wing Co (2148 S 900 E) CLOSED -- excluded
+- Salt Lake City has 4 verified EPL supporter groups with dedicated bars (Arsenal, Tottenham, Liverpool, plus Man City/Everton at Beer Bar)
+
+**Total bar count:** 425 -> 437
+**Utah coverage:** 12 bars, 12/12 images (100%), 12/12 geocoded
+
+**Migrations:** `022_salt_lake_city_bars.sql`, `023_salt_lake_city_geocode.sql`, `024_salt_lake_city_images.sql`
+
+---
+
+### Sacramento & West Sacramento, California -- 9 Soccer Bars Added
+
+**Added:**
+- 9 soccer bars across Sacramento (7) and West Sacramento (2), California
+- Sacramento and West Sacramento added to cities table (first California cities)
+- Sacramento Republic FC added to teams table (USL Championship)
+- All 9 bars geocoded with coordinates for map view
+- All 9 bars have images uploaded to R2 (100% image coverage)
+- 7 team affiliations: Manchester United FC, Tottenham Hotspur FC (Zebra Club), Arsenal FC + USMNT (Henry's Lounge), Liverpool FC (Fieldhouse), Sacramento Republic FC (Tom's Watch Bar, Jackrabbit Brewing)
+- 20 league affiliations across Premier League, Champions League, Europa League, MLS, International, FIFA World Cup
+
+**Bars by tier:**
+- **THE soccer bar:** Zebra Club (Midtown) -- Official PL USA watch bar, River City Red Devils (Man United since 2013) + Sacramento Spurs (Tottenham, 75+ members since 2014), opens 6 AM, 6 sources
+- **Supporter group HQs:** Henry's Lounge (Sacramento Gooners + American Outlaws), Fieldhouse (LFC Sacramento)
+- **British/Irish pubs:** Fox & Goose Public House (est. 1975, named after Yorkshire pub), Streets of London (West Sacramento), Pitch and Fiddle (Irish pub named for the soccer pitch)
+- **Euro pub:** Bonn Lair (est. 1993, European atmosphere, UK/Euro beers)
+- **Sports bar:** Tom's Watch Bar (360-degree screens, Republic FC watch parties, DOCO downtown)
+- **Brewery partner:** Jackrabbit Brewing Company (Republic FC Blood, Sweat & Beers Council)
+
+**Excluded bars and why:**
+- de Vere's Irish Pub (CLOSED October 2021, pandemic casualty)
+- Hot Italian (CLOSED, replaced by 5 Tacos & Beers)
+- Tapa the World (Spanish tapas restaurant, not a soccer bar)
+- Clubhouse 56 (general sports bar, no soccer-specific identity)
+- Sean Finnegan's (Irish pub in Old Sacramento, no soccer credentials)
+
+**Image sources:**
+- FourDollarJacks CDN (Zebra Club, Henry's Lounge, Tom's Watch Bar)
+- Scoundrel's Field Guide WordPress (Bonn Lair exterior)
+- California Through My Lens WordPress (Fox & Goose)
+- Squarespace CDN (Fieldhouse interior/TVs, Pitch and Fiddle, Jackrabbit Brewing events)
+- Streets of London WordPress (British pub storefront)
+
+**Total bar count:** 387 -> 396 (plus bars added by parallel agents)
+**Sacramento coverage:** 9 bars, 9/9 images (100%), 9/9 geocoded
+
+**Migrations:** `028_sacramento_bars.sql`, `029_sacramento_geocode.sql`, `030_sacramento_images.sql`
+
+---
+
 ### St. Louis, Missouri -- 10 Soccer Bars Added
 
 **Added:**
