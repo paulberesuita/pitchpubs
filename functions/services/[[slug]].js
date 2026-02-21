@@ -286,7 +286,7 @@ async function renderServiceDetail(context, baseUrl, slug) {
       "name": service.name,
       "description": service.description,
       "url": `${PROD_BASE}/services/${slug}`,
-      ...(service.image_url && { "image": service.image_url }),
+      ...(service.image_url && { "image": service.image_url.startsWith('http') ? service.image_url : `${PROD_BASE}/images/${service.image_url}` }),
       ...(service.price_range && { "priceRange": service.price_range }),
       ...(service.booking_url && { "url": service.booking_url }),
       ...((service.city || service.state) && {

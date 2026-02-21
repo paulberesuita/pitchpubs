@@ -283,7 +283,7 @@ async function renderDetailPage(context, baseUrl, slug) {
       "name": item.name,
       "description": item.description,
       "url": `${PROD_BASE}/${ITEMS_PATH}/${slug}`,
-      ...(item.image_url && { "image": item.image_url }),
+      ...(item.image_url && { "image": item.image_url.startsWith('http') ? item.image_url : `${PROD_BASE}/images/${item.image_url}` }),
       ...(item.updated_at && { "dateModified": item.updated_at }),
       ...(item.created_at && { "datePublished": item.created_at }),
       ...(item.latitude && item.longitude && {
