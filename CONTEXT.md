@@ -6,6 +6,156 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ## 2026-02-20
 
+### Tier 2 Expansion — 5 Cities in Parallel, Pre-Assigned Migration Numbers
+
+Ran 5 content agents in parallel for Phoenix, New Orleans, Milwaukee, Baltimore, and Indianapolis. Pre-assigned migration numbers (037-051) eliminated the collision problem from Tier 1. All agents respected their assigned numbers — zero conflicts.
+
+**Tier 2 markets are trickier than Tier 1.** More closures to filter (Phoenix lost 4 bars — Rosie McCaffrey's demolished 2022, Walter Station, Tilted Kilt, Jersey D's). Fewer established soccer bars overall, but the ones that exist tend to have deeper supporter club roots. Baltimore's 6 EPL clubs each with a dedicated bar is remarkable for a non-MLS city.
+
+**Session total: 341 → 482 bars across 61 cities in 31 states.** Growth came from: content quality sweep (profiles/images/affiliations), then 4 Tier 1 cities (+46), then 5 Tier 1 cities (+50), then 5 Tier 2 cities (+45).
+
+---
+
+### Indianapolis Metro Expansion -- USL City with Deep Supporter Club Ecosystem
+
+Indianapolis is a mid-size market without an MLS team, but Indy Eleven (USL Championship since 2014) and a remarkably well-organized EPL supporter club ecosystem make it a strong soccer bar city. The Brickyard Battalion (Indy Eleven's supporter group, founded 2011) predates the team itself.
+
+**Union Jack Pub is the gravitational center of Indianapolis soccer.** Operating since 1979 in Broad Ripple, Union Jack is the longest-running soccer bar we have added (45+ years). It hosts three distinct supporter groups: LFC Indy (Official Liverpool Supporters Club), American Outlaws Indianapolis (USMNT/USWNT), and the Brickyard Battalion (Indy Eleven away games). Over 100 Brickyard Battalion members packed the pub for away games. No other bar in our database hosts both a Premier League OLSC, an American Outlaws chapter, AND a USL supporters group simultaneously.
+
+**Chatham Tap is the rare bar that self-identifies as a "Soccer Pub" in its branding.** Most bars we add are Irish pubs or sports bars that happen to show soccer -- Chatham Tap literally uses "Soccer Pub" as its tagline on chathamtap.com. Founded September 2007 on Mass Ave, it spawned the Indy Gooners (Arsenal, 2005), MUFC Indy (Manchester United, 2021), and runs a dedicated "Soccer Breakfast" program. Three locations (Mass Ave, Fishers, Butler University) make it the most distributed soccer pub brand in any city we cover.
+
+**Supporter club migration pattern.** The Indy Gooners originally met at Chatham Tap Mass Ave but now gather at Chatham Tap Fishers. MUFC Indy was born at Chatham Tap but moved to Brew Link Brewpub Downtown. The Indy Spurs (300+ members, since 2013) chose Centerpoint Brewing over traditional pubs. This migration from established soccer bars to breweries mirrors what we saw in Pittsburgh (Cork Harbour displacing Piper's) and Sacramento (Zebra Club retaining two clubs while newer venues emerged).
+
+**Mass Ave is Indianapolis's soccer corridor.** Chatham Tap and Ralston's Drafthouse are both on Massachusetts Avenue, creating a two-block stretch where Arsenal, Man United, and Bayern Munich all have designated viewing spots. This corridor concentration is similar to Pittsburgh's South Side (Carson Street) or St. Louis's Downtown West stadium cluster.
+
+**Bayern Munich in Indianapolis is a unique find.** Ralston's Drafthouse hosting FC Bayern watch parties at 9:30 AM for Bundesliga is one of the few Bundesliga-specific supporter meetups in our database (alongside Mia San STL at Llywelyn's in St. Louis). Most American cities default to EPL-only supporter culture.
+
+**Image sourcing lesson: Cloudflare challenge pages block image extraction.** Union Jack Pub's website (unionjackpub.co) returns a Cloudflare "Just a moment..." challenge page that blocks all scraping. Had to source the image from an IBJ (Indianapolis Business Journal) article about the pub's relocation instead. Wix-hosted sites (Chatham Tap, Centerpoint, Ralston's) and SpotApps-hosted sites (Brew Link) both yielded extractable image URLs from their page source.
+
+**Excluded bars and reasoning:**
+- Fox and Hound (CLOSED per Yelp Nov 2025)
+- Brugge Brasserie (CLOSED 2020, pandemic casualty)
+- Claddagh Irish Pub (CLOSED, both downtown and Plainfield locations)
+- Union Jack Pub Speedway (CLOSED July 2022 after 41 years, labor shortage)
+- Chatham Tap Butler (on university campus, less soccer-specific atmosphere)
+- The Hangar (between stadiums, general sports bar)
+- District Tap (generic sports bar despite 60 taps)
+- Twin Peaks, Yard House (chain sports bars, no soccer identity)
+- Havana Sports Lounge, All Stars Sports Lounge (general sports bars from GoodRec with no soccer evidence)
+
+---
+
+### Milwaukee Metro Expansion -- German Heritage Meets English Pub Culture
+
+Milwaukee is a unique soccer bar market because its German heritage gives it a genuine Bundesliga/beer hall identity alongside the typical British pub scene. The city has five organized EPL supporter clubs plus a Bayern Munich fan group, making it one of the most supporter-dense non-MLS cities in the database.
+
+**The Highbury Pub is Milwaukee's soccer origin story.** Named after Arsenal's legendary Highbury Stadium, owner Joe Katz opened the Bay View bar in 2004. The Brew City Gunners (Arsenal supporters, founded 2013) and American Outlaws Milwaukee both call it home. The bar opens at 6:30 AM on Saturdays and fills seats before noon. Soccer.Town rates it 83/100 with a soccer immersion score of 46 -- the highest in Milwaukee. It is the closest thing Milwaukee has to a dedicated soccer bar in the Pittsburgh "Piper's Pub" mold.
+
+**Red Lion Pub and Three Lions Pub are a sister bar network covering two supporter clubs.** Both are under the same ownership and show identical league slates (10+ competitions). Red Lion (Lower East Side, since 2011) hosts the Milwaukee Spurs (Tottenham, founded 2006, officially registered 2014 -- the largest supporter group in Wisconsin). Three Lions (Shorewood) hosts LFC MKE (Liverpool). They run a "supporter group partnership program" offering membership cards, discounts, and merch to attract more clubs. This is the first bar pair in our database that explicitly recruits supporter groups through an incentive program.
+
+**Nomad World Pub is the World Cup bar, not the EPL bar.** Unlike other cities where one bar dominates both weekly EPL and tournament viewing, Milwaukee splits them. The Highbury and Red Lion/Three Lions own weekly EPL. Nomad World Pub owns the tournaments -- its 2014 World Cup watch party drew 15,000+ fans and forced Brady Street to close. Owner Mike Eitel has hosted World Cup parties since 1998. The Nomad Coffee Bar (added 2021) opens at 6:30 AM daily for morning soccer fans, making it a legitimate 6:30 AM EPL venue too.
+
+**Old German Beer Hall is a genuine Bundesliga home, not just a gimmick.** Mia San Milwaukee, the official Bayern Munich fan club, meets there for every match, and wearing Bayern kit earns half-price liters. This is only the second Bundesliga-first bar in our database (after Hofbrauhaus Pittsburgh). Milwaukee's German heritage (Old World Third Street, Usinger's Sausage, Lakefront Brewery) makes a Bayern Munich bar feel natural here in a way it wouldn't in most US cities.
+
+**SportClub and Nomad are brother bars under the same ownership.** SportClub (2018, downtown) is the upscale version of Nomad (1997, Brady Street). This is the first confirmed sibling-bar pair in Milwaukee soccer where both venues prioritize soccer. The shared DNA means they coordinate on major tournament coverage.
+
+**Leeds United Americas confirmed Brass Boar's Den as the Wisconsin home.** This is the first Leeds United affiliation in our database. Leeds Americas (luamericas.com) maintains a state-by-state bar directory, which is a new source for English second-tier club affiliations. Worth checking for other EFL Championship clubs with American bar networks.
+
+**West Allis and South Milwaukee as Milwaukee metro.** West Allis (Brass Boar's Den) is technically a separate city but sits within Milwaukee's urban core at National Avenue. Listed under "Milwaukee" city with "West Allis" as neighborhood, same pattern as South Pasadena under St. Petersburg. South Milwaukee (Moran's Pub) is 10 miles from downtown and got its own city entry.
+
+**Image sourcing notes:** FourDollarJacks covered 7 of 10 bars. For Red Lion, the best image came from The Rooftop Guide (therooftopguide.com), a bar-specific site with direct image URLs. For SportClub, Urban Milwaukee's WordPress hosted an exterior photo. Three Lions Pub used a Squarespace-hosted image from North Shore Family Adventures blog showing Liverpool fans at the pub. No bars required fallback to generic sources.
+
+**Excluded bars and why:**
+- House of Guinness (Waukesha -- 20+ miles from Milwaukee, separate exurban city)
+- Jack's American Pub (general sports bar, AO Milwaukee confirmed at Highbury not here)
+- County Clare Irish Inn (closed permanently 2020)
+- Kegel's Inn (German restaurant, no soccer evidence beyond general sports)
+- Who's On Third (Packers/Brewers bar, no soccer identity)
+
+---
+
+### New Orleans Expansion -- Single-Bar Epicenter Model with Deep Cultural Roots
+
+New Orleans is a unique soccer bar market. Unlike cities with MLS teams that generate pub partner networks, or cities with multiple strong EPL pubs competing for fans, New Orleans has one overwhelmingly dominant soccer bar -- Finn McCool's Irish Pub -- with everything else being secondary viewing options.
+
+**Finn McCool's is the most culturally significant soccer bar in our entire database.** A 2009 memoir ("Finn McCool's Football Club" by Stephen Rea) documented the pub's soccer community and its survival through Hurricane Katrina. WWNO (New Orleans public radio) featured the pub during the 2022 World Cup as "a melting pot of cultures." The bar hosts at least four supporter groups: Krewe of Arsenal (founded 2010, verified on arsenal.com), New Orleans Celtic Supporters Club (verified on celticbars.com), New Orleans Spurs (official Tottenham Hotspur OSC), and USMNT fans. Owner Sean Kennedy, from Galway, has owned the pub since 2016 and previously coached soccer in New Orleans for 25+ years.
+
+**The American Outlaws chapter is at Rendezvous Tavern, not Finn McCool's.** This is unusual -- in most cities, the AO chapter meets at the same bar as EPL supporter groups. In New Orleans, AO NOLA is at the Rendezvous Tavern on Magazine Street in the Irish Channel, while the EPL clubs are all at Finn McCool's in Mid-City. AO NOLA's chapter page notes it is "currently rebuilding and seeking new leadership," which explains the separation.
+
+**The Premier League USA Bar Finder listed three New Orleans bars:** Finn McCool's, The Bell, and The Prytania Bar. The Bell is a proper British gastropub on Esplanade Avenue that opened recently and focuses more on food (raw bar, oysters, British pub fare) than sports, but it does have two TVs and was featured in Garden & Gun magazine. The Prytania Bar is a laid-back neighborhood bar in the Garden District with 7 TVs. Neither has the soccer culture of Finn McCool's, but the PL Bar Finder listing gives them credibility as legitimate EPL viewing spots.
+
+**The Rusty Nail surprised as the second-strongest soccer bar.** SportsBars.com ranked it as the top soccer viewing venue in New Orleans (above Finn McCool's), noting its "British pub, Soccer, Cocktails" identity and 25 screens in a 180-person space. However, The Rusty Nail's actual hours (4 PM weekdays, 11 AM weekends) don't match the "opens early for Premier League" claim from GoodRec. This is a data quality concern -- the bar may open early for specific big matches only.
+
+**New Orleans's bar scene is geographically dispersed.** Unlike Pittsburgh (two corridors), Tampa (concentrated in SoHo/Ybor/Downtown), or St. Louis (stadium cluster), New Orleans's 8 bars span 7 different neighborhoods across the city -- Mid-City, Lower Garden District, Bywater, Faubourg St. John, Garden District, Riverbend, Irish Channel, and French Quarter. No two bars are in the same neighborhood. This reflects New Orleans's neighborhood-centric culture.
+
+**Excluded the American Sports Saloon (1200 Decatur).** This was once a dedicated soccer bar with a soccer events page, but it closed per Yelp (November 2025). A new "Vieux Sports Saloon" operates at 541 Decatur -- it mentions soccer but appears to be a general French Quarter sports bar.
+
+**Image sourcing diversified across many platforms.** WWNO/NPR's Brightspot CDN provided the Finn McCool's photo (World Cup crowd shot). Garden & Gun's WordPress hosted The Bell interior. Scoundrel's Field Guide (a dive bar review blog) had J&J's. NolPlaces (a NOLA neighborhood guide) had Cooter Brown's. The Rendezvous Tavern's own WordPress and ryansirishpubinc.shop completed the set. 100% coverage on first pass.
+
+---
+
+### Phoenix Metro Expansion -- Six EPL Supporter Clubs Mapped to Home Bars
+
+Phoenix is unique in our database because it has the most organized EPL supporter club ecosystem mapped to specific home bars. Six of the "Big Six" supporter groups have dedicated Phoenix-area homes: Manchester United at George & Dragon, Liverpool at Crown Public House, Manchester City at The Kettle Black, Arsenal at Yucca Tap Room, Tottenham at Fibber Magees, and Chelsea at O'Kelley's. This is the first city where we have all six mapped.
+
+**The Cronkite News (ASU journalism) article was the single most valuable source.** A September 2023 feature by Cronkite News mapped the entire EPL supporter landscape in Phoenix, naming specific bars for Man Utd (George & Dragon), Man City (The Kettle Black), Arsenal (Yucca Tap Room), Tottenham (Fibber Magees), Chelsea (Jersey D's -- now closed, moved to O'Kelley's), and Liverpool (Crown Public House). This one article provided the research backbone that we cross-referenced against official team supporter club pages.
+
+**Phoenix's bar closures are brutal.** Five previously documented soccer bars are permanently closed: Rosie McCaffrey's (demolished 2024 for a BMW dealership), Tilted Kilt (the entire chain collapsed), Walter Station Brewery (closed taproom to focus on distribution), Jersey D's Tavern (Chelsea's old home), and Rula Bula (Tempe's beloved Irish pub, closed 2021). This is the highest closure rate of any city we've researched. Arizona's extreme heat, post-COVID lease renegotiations, and construction boom (Rosie McCaffrey's was literally bulldozed for a car lot) are all factors.
+
+**Phoenix Rising FC's bar partnership model is thin but verified.** Unlike MLS teams with formal pub partner lists (SDFC, Charlotte FC, STL CITY SC), Phoenix Rising (USL) partnered with the Cold Beers & Cheeseburgers chain for away watch parties and Four Peaks for World Cup events. The chain partnership is too generic for our directory (no soccer identity), but Four Peaks hosting the Rising head coach for a Mexico-Poland World Cup watch party is a strong enough connection.
+
+**The Kettle Black's owner is the story.** Jimmy Culleton from Dublin is a lifelong Man City fan who opens the pub at any hour for City matches -- including 4:30 AM Arizona time. This is the pattern we see in the strongest soccer bars: an owner who IS a fan, not just a business operator who shows games. Same as David Wimberley (Man Utd since 1968) at George & Dragon and Seamus McCaffrey (Celtic) at his namesake pub.
+
+**Yucca Tap Room is the most impressive venue setup for a supporter group.** The Arizona Gooners (200+ members) have their own dedicated room at the Yucca Tap Room with 5 TVs, a projector screen, a dedicated sound system, a room-specific bar, pool table, and private bathrooms. This is more infrastructure than most official MLS pub partners provide. The bar opens at 6 AM every day specifically for Arsenal matches.
+
+**The Rose and Crown to Crown Public House transition is a good case study.** The Rose and Crown was the original Liverpool bar at Heritage Square. When the city reclaimed the Heritage Square location, the pub merged with Coach's Corner (a sports bar) to become Crown Public House at 333 E Jefferson. The Liverpool OLSC Phoenix followed the pub to its new location. The Premier League USA Bar Finder still lists it under the old "Rose and Crown" name, which can confuse researchers.
+
+**Metro-wide coverage was the right approach for Phoenix.** Unlike cities like Pittsburgh or Sacramento where bars cluster downtown, Phoenix metro bars are spread across 6 cities spanning 30+ miles. Including Scottsdale (K O'Donnell's), Glendale (Tim Finnegan's), Chandler (Fibber Magees), Mesa (O'Kelley's), and Tempe (Yucca Tap Room, Four Peaks) alongside Phoenix proper gives a more accurate picture of the soccer bar landscape. This is the most geographically dispersed metro we've covered.
+
+**Excluded bars and reasoning:**
+- Rosie McCaffrey's -- demolished 2024, building bulldozed for Chapman BMW display lot
+- Tilted Kilt Pub & Eatery -- permanently closed (both Phoenix and Tempe), chain collapsed nationwide
+- Walter Station Brewery -- closed taproom April 2025 to focus on beer distribution
+- Jersey D's Tavern (Chandler) -- permanently closed December 2025 (Chelsea supporters moved to O'Kelley's)
+- Rula Bula Irish Pub (Tempe) -- closed 2021, pop-up events at ASU stadium only
+- The Harp Pub (Mesa) -- permanently closed per Yelp
+- Pub Rock Live (Scottsdale) -- primarily a live music venue, soccer only on Phoenix Rising game days
+- Cold Beers & Cheeseburgers -- chain with no soccer identity beyond Phoenix Rising away watch parties
+- Twin Peaks, STADIUM, CAPS Sports Grill, Boulders on Broadway -- general sports bars, no soccer-specific identity
+
+---
+
+### Baltimore Expansion -- EPL Supporter Ecosystem Distinct from DC
+
+Baltimore has a genuinely independent soccer bar scene from Washington DC (40 miles south). While DC has 17 bars anchored by The Queen Vic and Lucky Bar, Baltimore's scene is built around five organized EPL supporter clubs that each claimed a home bar, creating a remarkably well-mapped supporter-to-bar ecosystem for a non-MLS city.
+
+**The supporter club density is unusual for a non-MLS market.** Six verified supporter groups have dedicated home bars: LFC Baltimore (Liverpool, OLSC since 2006) at Smaltimore, Charm City Reds (Man Utd, since 2010) at Todd Conner's, Charm City Gooners (Arsenal, since 2009, 250+ members) at Liv's Tavern, Baltimore Spurs (Tottenham, since 2012, 87 members) at Lighthouse Tavern, Baltimore Blaugrana (Barcelona penya) at Max's Taphouse, and Chelsea supporters at Slainte. This level of organized supporter culture rivals some MLS cities.
+
+**The Charm City Gooners venue migration is instructive.** Founded 2009, the Gooners watched at Abbey Burger Bistro Federal Hill for over a decade (the owner painted one wall red with the Gooners crab-and-cannon logo). When Abbey Federal Hill closed in late 2024, the Gooners moved to The Perch (1110 S Charles) and then Liv's Tavern (1113 S Charles) -- literally next door to each other on Charles Street. Arsenal.com still lists Abbey as the official pub (stale data), but the Instagram account confirms Liv's Tavern. This venue migration pattern is common when a supporter club's home bar closes.
+
+**The Baltimore Spurs also migrated.** Baltimore Magazine's 2022 sports bar guide lists Ryleigh's Oyster (Timonium, 15 miles north) as the Spurs home. By 2024-2025, the Tottenham official website lists Lighthouse Tavern (Canton) as their clubhouse. The move makes sense -- Timonium is suburban, while Canton is in the heart of Baltimore's bar district.
+
+**Fells Point and Canton form a two-neighborhood soccer corridor.** 7 of 9 bars are in Fells Point (4) or Canton (3), with only Liv's Tavern (Federal Hill) and Captain Larry's (Riverside) outside this cluster. The Fells Point waterfront (Thames St / Broadway) has Slainte, Todd Conner's, Abbey Burger, and Max's within a 3-block walk. Canton's O'Donnell Square area has Claddagh and Smaltimore within a block of each other.
+
+**Slainte is the clear epicenter.** Every source names Slainte Irish Pub as Baltimore's number one soccer bar -- Baltimore Sun, CBS Baltimore, Baltimore Magazine, GoodRec, Yelp all agree. It has 18 HDTVs, carries every soccer channel available, opens at 7 AM daily, and was featured on Diners, Drive-Ins & Dives. Chelsea supporters claim it as their home, but it welcomes all clubs.
+
+**Claddagh Pub has the deepest soccer roots.** "Baltimore's Original Irish & Soccer Pub" since 1995, it's a continuation of a family-owned Irish pub from Chase Street in downtown Baltimore dating to the 1970s. It brands itself explicitly as a soccer pub in its website title -- unusual for a bar to lead with soccer identity over Irish identity.
+
+**Max's Taphouse is the most unexpected soccer bar.** Known nationally as one of America's great beer bars (114 drafts, 1000+ bottles), Max's became a soccer destination through the Baltimore Blaugrana, a Barcelona supporters club (penya). This is the only Barcelona-affiliated bar in our database -- most bars align with EPL clubs.
+
+**Image sourcing notes:** FourDollarJacks CDN provided images for 4 of 9 bars (Slainte, Smaltimore, Claddagh, Lighthouse). FellsPoint.com's WordPress served Todd Conner's and Abbey Burger. Visit Baltimore (baltimore.org) had Max's Taphouse. The Baltimore Banner had a professional Liv's Tavern interior shot. SouthBMore.com directory CloudFront CDN had Captain Larry's. 100% image coverage achieved on first pass.
+
+**Excluded and why:**
+- Abbey Burger Federal Hill (closed Jan 2025, original Charm City Gooners home)
+- The Life of Reilly (closed, Butchers Hill)
+- The Perch (limited hours, Gooners interim location before Liv's)
+- Ryleigh's Oyster (Timonium suburb, Spurs moved to Lighthouse)
+- Union Jack's Columbia (30 miles out, not Baltimore proper)
+- Sean Bolan's, Bel Air (not Baltimore)
+- Mick O'Shea's (no soccer-specific confirmation despite being an Irish pub)
+
+---
+
 ### Tampa / St. Petersburg Expansion -- Two-City Metro with Distinct Soccer Identities
 
 Tampa and St. Petersburg are 25 miles apart across Tampa Bay but have distinct soccer bar cultures. Tampa's scene is dominated by Irish pubs that double as supporter club homes, while St. Pete has more British-owned pubs focused on the EPL viewing experience.

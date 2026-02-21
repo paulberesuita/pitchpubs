@@ -6,6 +6,296 @@ What we shipped. Update after each feature.
 
 ## 2026-02-20
 
+### Session: Tier 2 City Expansion (5 parallel agents)
+
+Expanded to 5 Tier 2 soccer markets in parallel:
+
+1. **Phoenix metro** — 10 bars across 6 cities (George & Dragon since 1995, all Big Six EPL teams mapped). Migrations 037-039.
+2. **New Orleans** — 8 bars (Finn McCool's is THE epicenter — 4 supporter groups, 8 sources). Migrations 040-042.
+3. **Milwaukee** — 10 bars (Highbury Pub/Arsenal, Nomad since 1997, Old German Beer Hall/Bayern — unique EPL+Bundesliga identity). Migrations 043-045.
+4. **Baltimore** — 9 bars (6 EPL supporter groups each with dedicated home bar, Fells Point/Canton clusters). Migrations 046-048.
+5. **Indianapolis** — 8 bars (Union Jack Pub since 1979 — oldest soccer bar in DB, Chatham Tap brands itself "Soccer Pub"). Migrations 049-051.
+
+**45 new bars. Database total: 482 bars across 61 cities in 31 states.**
+
+---
+
+### Indianapolis Metro, Indiana -- 8 Soccer Bars Added
+
+**Added:**
+- 8 soccer bars across Indianapolis (6), Carmel (1), and Fishers (1), Indiana
+- Indianapolis, Carmel, and Fishers added to cities table (first Indiana cities)
+- Indy Eleven added to teams table (USL Championship)
+- All 8 bars geocoded with coordinates from US Census Geocoding API
+- All 8 bars have images uploaded to R2 (100% image coverage)
+- 9 team affiliations: Liverpool FC + USMNT + Indy Eleven (Union Jack Pub), Arsenal FC + Manchester United FC (Chatham Tap), Tottenham Hotspur (Centerpoint Brewing), Manchester United FC (Brew Link), FC Bayern Munich (Ralston's), Arsenal FC (Chatham Tap Fishers)
+- 25 league affiliations across Premier League, Champions League, Bundesliga, La Liga, Serie A, FA Cup, MLS, FIFA World Cup, International
+
+**Indianapolis bars (6):**
+- Union Jack Pub (Broad Ripple) -- THE soccer bar of Indy since 1979, LFC Indy, American Outlaws, Brickyard Battalion (Indy Eleven)
+- Chatham Tap (Mass Ave) -- Self-branded "Soccer Pub," Indy Gooners (Arsenal) origin, MUFC Indy (Man Utd) origin, Soccer Breakfast
+- Centerpoint Brewing (Near-Eastside) -- Indy Spurs official home (Tottenham, 300+ members, since 2013)
+- Brew Link Brewpub Downtown -- Current MUFC Indy home (Manchester United, founded 2021), veteran-owned
+- Ralston's Drafthouse (Mass Ave) -- FC Bayern Munich watch parties, Bundesliga breakfast at 9:30 AM ET
+- Tom's Watch Bar (Downtown) -- 10,000 sqft, 135 screens, EPL/La Liga/Bundesliga/Serie A/MLS
+
+**Suburban bars (2):**
+- Brockway Pub (Carmel) -- Dublin-inspired Irish pub, Best Guinness in North America, EPL on Live Soccer TV
+- Chatham Tap Fishers -- Current Indy Gooners (Arsenal) official home, Arsenal America affiliate
+
+**Image sources:**
+- IBJ / Indianapolis Business Journal CDN (Union Jack Pub)
+- Wix Static CDN / chathamtap.com (Chatham Tap Mass Ave, Chatham Tap Fishers)
+- Wix Static CDN / centerpointbrewing.com (Centerpoint Brewing bar interior)
+- SpotApps CDN / brewlinkbrewing.com (Brew Link Brewpub social image)
+- Wix Static CDN / ralstonsdraft.house (Ralston's Drafthouse interior)
+- WordPress CDN / tomswatchbar.com (Tom's Watch Bar Indianapolis location)
+- Visit Hamilton County / Simpleview CDN (Brockway Pub)
+
+**Data quality:**
+- All 8 bars have 4-8 verified sources
+- 4 bars open early for morning EPL/Champions League (Union Jack, Chatham Tap, Centerpoint, Chatham Tap Fishers, Ralston's)
+- Union Jack Pub has the most team affiliations (3): Liverpool, USMNT, Indy Eleven
+- First Indiana city in the database
+
+**Excluded bars and why:**
+- Fox and Hound (CLOSED per Yelp)
+- Brugge Brasserie (CLOSED 2020)
+- Claddagh Irish Pub (CLOSED, both downtown and Plainfield)
+- Union Jack Pub Speedway (CLOSED July 2022)
+- Chatham Tap Butler (university campus, less soccer-specific)
+- The Hangar, District Tap, Twin Peaks, Yard House (general sports bars, no soccer identity)
+- Havana Sports Lounge, All Stars Sports Lounge (general sports bars)
+- The Avg Pub, Dugout Bar, Kip's Pub (GoodRec filler, no soccer evidence)
+
+**Migrations:** `049_indianapolis_bars.sql`, `050_indianapolis_geocode.sql`, `051_indianapolis_images.sql`
+
+---
+
+### Milwaukee Metro, Wisconsin -- 10 Soccer Bars Added
+
+**Added:**
+- 10 soccer bars across Milwaukee (8), Shorewood (1), and South Milwaukee (1) -- first bars in Wisconsin
+- Milwaukee, Shorewood, and South Milwaukee added to cities table
+- Leeds United FC added to teams table (EFL Championship)
+- All 10 bars geocoded with coordinates from US Census Geocoding API
+- All 10 bars have images uploaded to R2 (100% image coverage)
+- 7 team affiliations: Arsenal FC + USMNT (The Highbury), Tottenham Hotspur (Red Lion), Liverpool FC (Three Lions), Bayern Munich (Old German Beer Hall), Manchester City FC (Puddler's Hall), Leeds United FC (Brass Boar's Den)
+- 38 league affiliations across Premier League, Champions League, Europa League, FA Cup, Bundesliga, La Liga, EFL Championship, International, FIFA World Cup
+
+**Milwaukee bars (8):**
+- The Highbury Pub (Bay View) -- Milwaukee's soccer shrine since 2004, Brew City Gunners (Arsenal), AO Milwaukee (USMNT), opens 6:30 AM
+- Red Lion Pub (Lower East Side) -- British pub since 2011, Milwaukee Spurs (Tottenham), Union Jack ceiling, rooftop patio
+- Nomad World Pub (Brady Street) -- Legendary World Cup bar since 1997, 15,000+ for 2014 USA match, opens 6:30 AM for EPL
+- Old German Beer Hall (Westown) -- Hofbrauhaus replica since 2005, Mia San Milwaukee (Bayern Munich), half-price liters in kit
+- SportClub (East Town) -- Upscale brother bar to Nomad, opened 2018, champagne happy hours, World Cup destination
+- Puddler's Hall (Bay View) -- Milwaukee's second-oldest tavern (1873), Manchester City supporters
+- Bremen Cafe (Riverwest) -- Dive bar, Saturday morning EPL, liter steins, free live music
+- Brass Boar's Den Pub (West Allis) -- Leeds United Wisconsin home per Leeds Americas
+
+**Shorewood (1):**
+- Three Lions Pub -- Sister bar to Red Lion, LFC MKE (Liverpool), World Cup/Euro street festivals for 10+ years
+
+**South Milwaukee (1):**
+- Moran's Pub -- Family-owned Irish pub since 1995, owner from Birmingham, named Best Bar to Watch Soccer
+
+**Image sources:**
+- FourDollarJacks CDN (Highbury, Nomad, Old German, Puddler's, Bremen, Brass Boar's, Moran's -- 7 bars)
+- The Rooftop Guide (Red Lion Pub rooftop)
+- Urban Milwaukee WordPress (SportClub exterior)
+- Squarespace CDN via North Shore Family Adventures (Three Lions Pub Liverpool fans)
+
+**Data quality:**
+- All 10 bars have 3-6 verified sources
+- 4 bars open early for morning Premier League (Highbury 6:30 AM, Red Lion 9 AM Sat, Nomad 6:30 AM, Three Lions early EPL)
+- Milwaukee is the first Wisconsin city in the database
+
+**Migrations:** `043_milwaukee_bars.sql`, `044_milwaukee_geocode.sql`, `045_milwaukee_images.sql`
+
+---
+
+### New Orleans, Louisiana -- 8 Soccer Bars Added
+
+**Added:**
+- 8 soccer bars in New Orleans, Louisiana (first bars in the state)
+- New Orleans added to cities table
+- All 8 bars geocoded with coordinates from US Census Geocoding API
+- All 8 bars have images uploaded to R2 (100% image coverage)
+- 5 team affiliations: Arsenal FC, Celtic FC, Tottenham Hotspur, USMNT x2 (Finn McCool's + Rendezvous Tavern)
+- 18 league affiliations across Premier League, Scottish Premiership, Champions League, MLS, FIFA World Cup
+
+**Bars by neighborhood:**
+- **Mid-City (1):** Finn McCool's Irish Pub -- THE soccer bar of New Orleans, home to Krewe of Arsenal, New Orleans CSC (Celtic), New Orleans Spurs (Tottenham), 8 sources, subject of a 2009 memoir
+- **Lower Garden District (1):** The Rusty Nail -- 25 screens, 180 capacity, opens early for EPL/UCL, 275+ whiskeys
+- **Bywater (1):** J&J's Sports Lounge -- European Soccer HQ, World Cup Madness, opens 9 AM daily
+- **Faubourg St. John (1):** The Bell -- British pub in historic house, on Premier League USA Bar Finder
+- **Garden District (1):** The Prytania Bar -- On Premier League USA Bar Finder, 7 TVs with sound system
+- **Riverbend (1):** Cooter Brown's Tavern & Oyster Bar -- Since 1977, 400+ beers, 30 screens, 200 capacity
+- **Irish Channel (1):** Rendezvous Tavern -- American Outlaws New Orleans chapter home bar
+- **French Quarter (1):** Ryan's Irish Pub -- Decatur Street Irish pub, TripAdvisor-recommended for EPL
+
+**Image sources:**
+- WWNO/NPR Brightspot CDN (Finn McCool's World Cup crowd photo)
+- SpotApps CDN (The Rusty Nail social share hero)
+- Scoundrel's Field Guide WordPress (J&J's interior)
+- Garden & Gun WordPress (The Bell interior by DBS photography)
+- FourDollarJacks CDN (The Prytania Bar)
+- NolPlaces WordPress (Cooter Brown's exterior)
+- Rendezvous Tavern WordPress (interior)
+- ryansirishpubinc.shop (Ryan's Irish Pub interior)
+
+**Research sources:**
+- WWNO (Finn McCool's World Cup 2022 feature)
+- nola.com/Times-Picayune (The Bell review, Finn McCool's ownership)
+- Arsenal.com (Krewe of Arsenal -- official supporters club page)
+- CelticBars.com (New Orleans CSC at Finn McCool's)
+- Tottenham Hotspur official (New Orleans Spurs OSC)
+- American Outlaws (New Orleans chapter at Rendezvous Tavern)
+- Premier League USA Bar Finder (Finn McCool's, The Bell, The Prytania Bar)
+- GoodRec (top 10 soccer bars New Orleans)
+- SportsBars.com (definitive guide 2025)
+- Foursquare, TripAdvisor forums, GameWatch.info, Yelp
+
+**Excluded bars and why:**
+- Sovereign Pub (British pub but weak soccer-specific evidence, no supporter groups)
+- Mid-City Yacht Club (general sports bar, no soccer identity)
+- High Grace NOLA (upscale dive bar, soccer secondary to cocktails)
+- Vieux Sports Saloon (French Quarter general sports bar, vague soccer mention)
+- Manning's (casino sports bar, no soccer-specific programming)
+- Pat O'Brien's (famous for Hurricanes, not a soccer destination)
+- Erin Rose (French Quarter dive, no real soccer identity)
+- Finnegan's Easy (Irish pub, no soccer-specific sources)
+- LINK Sports Bar (general sports bar, only GoodRec listing)
+
+**Data quality:**
+- All 8 bars have 3-8 verified sources
+- 5 bars open early for morning EPL/UCL matches
+- Finn McCool's has the most sources (8) of any bar in this batch
+- 3 bars on the official Premier League USA Bar Finder
+
+**Migrations:** `040_new_orleans_bars.sql`, `041_new_orleans_geocode.sql`, `042_new_orleans_images.sql`
+
+---
+
+### Phoenix Metro Area, Arizona -- 10 Soccer Bars Added
+
+**Added:**
+- 10 soccer bars across 6 Arizona cities: Phoenix (4), Tempe (2), Scottsdale (1), Glendale (1), Chandler (1), Mesa (1)
+- 6 new cities added to cities table: Phoenix, Tempe, Scottsdale, Glendale, Chandler, Mesa (first Arizona cities)
+- Phoenix Rising FC added to teams table (USL Championship)
+- All 10 bars geocoded with coordinates from US Census Geocoding API
+- All 10 bars have images uploaded to R2 (100% image coverage)
+- 8 team affiliations: Manchester United (George & Dragon), Liverpool FC (Crown Public House), Manchester City (Kettle Black), Celtic FC (Seamus McCaffrey's), Arsenal FC (Yucca Tap Room), Phoenix Rising FC (Four Peaks), Tottenham Hotspur (Fibber Magees), Chelsea FC (O'Kelley's)
+- 28 league affiliations across Premier League, Champions League, FA Cup, La Liga, Serie A, Ligue 1, Scottish Premiership, MLS, FIFA World Cup
+
+**Phoenix bars (4):**
+- George & Dragon English Pub (Uptown) -- THE soccer pub since 1995, Phoenix Red Devils (Man Utd) home, voted Best Pub by Phoenix New Times
+- Crown Public House (Downtown) -- OLSC Phoenix (Liverpool FC, founded 2013), formerly Rose & Crown, Best British Pub 2022
+- The Kettle Black Kitchen & Pub (Downtown) -- Phoenix Desert Blues (Man City, founded 2014), Irish-owned, on PL USA Bar Finder
+- Seamus McCaffrey's Irish Pub (Downtown) -- Co-founded Bobby Murdoch Phoenix Celtic Supporters Club, 30+ year institution
+
+**Tempe bars (2):**
+- Yucca Tap Room -- Arizona Gooners (Arsenal, est. 2011, 200+ members), dedicated room with 5 TVs + projector, opens 6 AM daily
+- Four Peaks Brewing Company -- Official Phoenix Rising FC watch party venue, iconic 100-year-old former creamery
+
+**Scottsdale (1):**
+- K O'Donnell's Sports Bar & Grill -- 75+ TVs, beIN Sports (EPL, La Liga, Serie A, Ligue 1, Champions League), family-owned since 2005
+
+**Glendale (1):**
+- Tim Finnegan's Irish Restaurant and Pub -- "Only official US soccer bar in Arizona," on PL USA Bar Finder, Buzzfeed World Cup pick
+
+**Chandler (1):**
+- Fibber Magees -- Arizona Spurs (Tottenham, est. 2014, 150+ members), authentic Irish pub, KJZZ Champions League coverage
+
+**Mesa (1):**
+- O'Kelley's Sports Bar & Grill -- Phoenix Blues (Chelsea, via Chelsea in America), 50+ TVs, opens 6 AM Mon-Sat
+
+**Image sources:**
+- p2bars.com CDN (George & Dragon, Yucca Tap Room, Fibber Magees)
+- FourDollarJacks CDN (Crown Public House, Kettle Black, Seamus McCaffrey's)
+- Four Peaks official / builder.io CDN (Four Peaks hero image)
+- K O'Donnell's WordPress (daily specials food/drink photo)
+- Tim Finnegan's SpotApps CDN (restaurant interior)
+- O'Kelley's SpotApps CDN (storefront exterior)
+
+**Data quality:**
+- All 10 bars have 4-6 verified sources
+- 5 bars open early for morning matches (Crown Public House, Kettle Black, Yucca Tap Room, Four Peaks, O'Kelley's)
+- 6 verified EPL supporter groups mapped to home bars: Man Utd, Liverpool, Man City, Arsenal, Tottenham, Chelsea
+- Phoenix metro is now the most comprehensively mapped supporter-to-bar ecosystem in the database
+
+**Excluded bars and why:**
+- Rosie McCaffrey's (demolished 2024, building razed for BMW dealership)
+- Tilted Kilt Pub & Eatery (permanently closed, both Phoenix and Tempe locations)
+- Walter Station Brewery (closed taproom April 2025)
+- Jersey D's Tavern (permanently closed December 2025)
+- Rula Bula Irish Pub (closed 2021)
+- The Harp Pub Mesa (permanently closed)
+- Pub Rock Live (primarily music venue, soccer ancillary to Phoenix Rising game days)
+- Cold Beers & Cheeseburgers (chain sports bar, no soccer identity beyond Rising partnership)
+- Twin Peaks / STADIUM / CAPS Sports Grill (chain/general sports bars, no soccer-specific identity)
+
+**Migrations:** `037_phoenix_bars.sql`, `038_phoenix_geocode.sql`, `039_phoenix_images.sql`
+
+---
+
+### Baltimore, Maryland -- 9 Soccer Bars Added
+
+**Added:**
+- 9 soccer bars in Baltimore, Maryland (first bars in the state)
+- Baltimore added to cities table
+- All 9 bars geocoded with coordinates (US Census Geocoder + OpenStreetMap Nominatim)
+- All 9 bars have images uploaded to R2 (100% image coverage)
+- 7 team affiliations: Chelsea FC (Slainte), Liverpool FC (Smaltimore/LFC Baltimore), Manchester United FC (Todd Conner's/Charm City Reds), West Ham United (Abbey Burger Fells Point), Tottenham Hotspur (Lighthouse Tavern/Baltimore Spurs), Arsenal FC (Liv's Tavern/Charm City Gooners), FC Barcelona (Max's Taphouse/Baltimore Blaugrana)
+- 20 league affiliations across Premier League, Champions League, FA Cup, La Liga, MLS, FIFA World Cup
+
+**Bars by neighborhood:**
+- **Fells Point (4):** Slainte Irish Pub (THE soccer bar, 18 HDTVs, opens 7 AM, Chelsea home), Todd Conner's (Charm City Reds/Man Utd since 2010), Abbey Burger Bistro (West Ham fans), Max's Taphouse (Baltimore Blaugrana/Barcelona, 114 draft lines)
+- **Canton (3):** Smaltimore (LFC Baltimore OLSC since 2006, free shots on Liverpool goals), Claddagh Pub (original Irish & Soccer Pub since 1995), Lighthouse Tavern (Baltimore Spurs/Tottenham, 87 members)
+- **Federal Hill (1):** Liv's Tavern (Charm City Gooners/Arsenal, 18'x8' screen, 250+ members)
+- **Riverside (1):** Captain Larry's (neighborhood soccer pub, Latvian-American flair)
+
+**Image sources:**
+- FourDollarJacks CDN (Slainte, Smaltimore, Claddagh, Lighthouse Tavern)
+- FellsPoint.com WordPress (Todd Conner's, Abbey Burger)
+- Visit Baltimore / baltimore.org (Max's Taphouse)
+- Baltimore Banner (Liv's Tavern interior)
+- SouthBMore directory CloudFront (Captain Larry's)
+
+**Research sources:**
+- Baltimore Sun "5 Baltimore-area pubs to celebrate Premier League soccer"
+- CBS Baltimore "Best Bars To Watch Premier League Soccer In Baltimore"
+- Baltimore Magazine "Ultimate Baltimore Sports Bar Guide"
+- GoodRec "Where to Watch Soccer in Baltimore"
+- GameWatch.info Baltimore listings
+- LFC Baltimore official website (OLSC since 2006)
+- Arsenal.com (Charm City Gooners, 250+ members)
+- Tottenham Hotspur official (Baltimore Spurs, 87 members)
+- First Touch Online (Man Utd supporters, Tottenham supporters)
+- Baltimore Blaugrana website (FC Barcelona penya)
+- Baltimore Banner, Baltimore Fishbowl, Yelp, TripAdvisor, Foursquare
+
+**Excluded bars and why:**
+- Abbey Burger Bistro Federal Hill (CLOSED per Yelp Jan 2025, was original Charm City Gooners home)
+- The Life of Reilly (CLOSED per Yelp, was in Butchers Hill)
+- The Perch (Federal Hill, limited hours closed Mon-Wed, Gooners moved to Liv's Tavern)
+- Ryleigh's Oyster (Timonium, Baltimore Spurs moved to Lighthouse Tavern)
+- Union Jack's (Columbia, MD -- 30+ miles from Baltimore city center)
+- Sean Bolan's Irish Pub (Bel Air -- not in Baltimore)
+- Mick O'Shea's (Irish pub but no confirmed soccer-specific programming)
+- Benders, City Limits, Fielder's Tavern (general sports bars, no soccer identity)
+- Mt Royal Tavern, Delia Foley's, Wiley Gunters (Yelp soccer bar results but no soccer-specific evidence)
+
+**Data quality:**
+- All 9 bars have 3-6 verified sources
+- 4 bars open early for morning EPL (Slainte 7 AM, Smaltimore 10 AM weekends, Claddagh 9 AM weekends, Liv's Tavern)
+- Bar count: 437 -> 446 (Baltimore adds 9; total now 482 with parallel city additions)
+- Baltimore is the first Maryland city
+
+**Migrations:** `046_baltimore_bars.sql`, `047_baltimore_geocode.sql`, `048_baltimore_images.sql`
+
+---
+
 ### Tampa / St. Petersburg, Florida -- 10 Soccer Bars Added
 
 **Added:**
