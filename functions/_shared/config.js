@@ -1,11 +1,11 @@
 /**
- * Site configuration — SoccerBars
+ * Site configuration — PitchPubs
  */
 
 export const CONFIGURED = true;
 
-export const SITE_NAME = 'SoccerBars';
-export const DOMAIN = 'soccerbars.fyi';
+export const SITE_NAME = 'PitchPubs';
+export const DOMAIN = 'pitchpubs.com';
 export const PROD_BASE = DOMAIN.startsWith('http') ? DOMAIN : `https://${DOMAIN}`;
 export const TABLE_NAME = 'bars';
 export const ITEMS_PATH = 'bars';

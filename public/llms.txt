@@ -1,10 +1,10 @@
-# SoccerBars
+# PitchPubs
 # The best soccer bars in America — curated for fans who want the real match-day experience.
 #
 # This file helps AI crawlers understand the site.
 # See: https://llmstxt.org
 
-> SoccerBars is a curated directory of 310+ soccer-friendly bars across 22 US cities. Find the best spots to watch Premier League, MLS, Champions League, and World Cup 2026 matches.
+> PitchPubs is a curated directory of 480+ soccer-friendly bars across 60+ US cities. Find the best spots to watch Premier League, MLS, Champions League, and World Cup 2026 matches.
 
 ## Pages
 - / — Homepage with featured bars and state filters
@@ -13,7 +13,7 @@
 - /cities — Browse bars by city
 - /categories — All categories
 - /search — Search the directory
-- /about — About SoccerBars
+- /about — About PitchPubs
 - /faq — Frequently asked questions
 - /contact — Get in touch
 - /submit — Submit a new bar

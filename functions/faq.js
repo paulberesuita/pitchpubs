@@ -11,7 +11,7 @@ import {
 
 const FAQ_ITEMS = [
   {
-    question: 'What is SoccerBars?',
+    question: 'What is PitchPubs?',
     answer: `${SITE_NAME} is a curated directory of soccer-friendly bars across America. We help fans find the best spots to watch Premier League, Champions League, MLS, La Liga, and World Cup matches — bars where football is the main event, not background noise.`
   },
   {
@@ -27,7 +27,7 @@ const FAQ_ITEMS = [
     answer: 'Bars marked "opens early" will open before their normal hours for morning soccer matches — typically for 7:30 AM ET Premier League kickoffs or Champions League games. This is a big deal for fans on the West Coast where matches start at 4:30 AM.'
   },
   {
-    question: 'Is SoccerBars free?',
+    question: 'Is PitchPubs free?',
     answer: 'Completely free. Browse bars, search by city or team, and find your next match-day spot without paying anything. No account required.'
   },
   {
