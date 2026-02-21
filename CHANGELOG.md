@@ -6,6 +6,137 @@ What we shipped. Update after each feature.
 
 ## 2026-02-20
 
+### St. Louis, Missouri -- 10 Soccer Bars Added
+
+**Added:**
+- 10 soccer bars in St. Louis and Webster Groves, Missouri
+- St. Louis added to cities table
+- St. Louis CITY SC added to teams table (MLS, joined 2023)
+- All 10 bars geocoded with coordinates for map view
+- All 10 bars have images uploaded to R2
+- 12 team affiliations (9 bars affiliated with St. Louis CITY SC, 1 with Arsenal FC, 1 with Bayern Munich)
+- 27 league affiliations (Premier League, MLS, Champions League, La Liga, Serie A, Bundesliga, FIFA World Cup)
+
+**Bars by tier:**
+- **Dedicated soccer bars:** Amsterdam Tavern (Tower Grove South), The Pitch Athletic Club & Tavern (Union Station), International Tap House (Soulard), Llywelyn's Pub (Webster Groves)
+- **Supporter group HQs:** Schlafly Tap Room (St. Louligans pre-match party), 2nd Shift Brewing (Brewligans IPA), Llywelyn's (Gateway Gooners + Mia San STL)
+- **CITY on Tap partners:** Maggie O'Brien's, Beffa's Bar & Restaurant, Sports & Social STL
+- **English pub:** Fox & Hounds Tavern (Cheshire Inn)
+
+**Image sources:**
+- Amsterdam Tavern official website (storefront exterior)
+- Explore St. Louis (The Pitch interior, Schlafly Tap Room)
+- Cheshire Inn / Galaxy CDN (Fox & Hounds fireplace interior)
+- Squarespace CDN (2nd Shift Brewing patio sunset)
+- SpotOn CDN (Llywelyn's Pub interior)
+- FourDollarJacks CDN (International Tap House beer tap fountain, Beffa's CITY SC match day)
+- eVisitorGuide (Maggie O'Brien's food/Guinness)
+- Sitecore/Cordish CDN (Sports & Social bar interior)
+
+**Total bar count:** 341 -> 375 (with other cities added in parallel)
+**St. Louis coverage:** 10 bars, 10/10 images (100%), 10/10 geocoded
+
+**Migrations:** `011_st_louis_bars.sql`, `012_geocode_st_louis.sql`, `013_st_louis_images.sql`
+
+---
+
+### Detroit Metro Area -- 12 Soccer Bars Added
+
+**Added:**
+- 12 soccer bars across 5 Michigan cities: Detroit (7), Hamtramck (2), Royal Oak (1), Warren (1), Plymouth (1)
+- 5 new cities added to cities table: Detroit, Hamtramck, Royal Oak, Warren, Plymouth
+- 1 new team: Detroit City FC (USL Championship)
+- 10 team affiliations: Liverpool FC, Arsenal FC, Chelsea FC, Manchester City FC, Tottenham Hotspur, Detroit City FC (3 bars), West Ham United, Celtic FC
+- 19 league affiliations across Premier League, Champions League, MLS, Scottish Premiership, FIFA World Cup
+- All 12 bars geocoded with coordinates from US Census Geocoding API
+- All 12 bars have images (100% coverage) uploaded to R2
+
+**Notable Detroit bars:**
+- Thomas Magee's Sporting House Whiskey Bar (Eastern Market) -- THE Detroit soccer bar, official LFC Detroit home (500+ members), best EPL bar in Michigan
+- Detroit City Clubhouse (Lafayette Park) -- DCFC's own bar inside the Fieldhouse, Premier League brunch, West Ham supporters
+- McShane's Irish Pub (Corktown) -- Arsenal Detroit home, 21 screens, exterior painted Arsenal red
+- Royal Oak Brewery (Royal Oak) -- Shared home of Motor City Blues (Chelsea) and Metro Detroit Blues (Man City)
+- Fowling Warehouse (Hamtramck) -- Official DCFC pre-match bar, March to the Match starting point
+- New Dodge Lounge (Hamtramck) -- Northern Guard Supporters pre-match bar
+- The Commonwealth Club (Warren) -- English expat social club since 1962, British soccer viewing
+- Collect Beer Bar (East Village) -- Detroit Celtic Supporters Club home
+
+**Research sources:**
+- Detroit News soccer bar features (2018, 2019), CBS Detroit, GoodRec top 10
+- Premier League USA Bar Finder, Fanzo/MatchPint
+- Official supporter club websites: LFC Detroit (OLSC), Arsenal.com, Chelsea in America, Man City official, Tottenham official, Detroit Celtic SC, Northern Guard Supporters
+- Detroit City FC official (detcityfc.com), Visit Detroit soccer guide
+- MI Football Social network
+
+**Image sources:**
+- Vox CDN (Thomas Magee's), Google Maps Place Photos (Detroit City Clubhouse), Wanderlog CDN (McShane's, Old Shillelagh), OnTheGrid S3 (Mercury Burger Bar, Fowling Warehouse), FourDollarJacks (Nemo's Bar), PartySlate (New Dodge Lounge), SpotApps/SpotHopper (Royal Oak Brewery), Macomb Daily WordPress (Commonwealth Club), Plymouth Chamber CDN (Sean O'Callaghan's), ArcPublishing/ClickOnDetroit (Collect Beer Bar)
+
+**Data quality:**
+- All 12 bars have 3-6 verified sources confirming soccer credentials
+- 3 bars open early for morning Premier League matches (Thomas Magee's, Detroit City Clubhouse, McShane's)
+- Bar count: 375 -> 387
+
+**Migrations:** `013_detroit_bars.sql`, `014_geocode_detroit.sql`
+
+---
+
+### Cincinnati & Covington City Expansion -- 12 Soccer Bars Added
+
+**Added:**
+- 12 soccer bars across Cincinnati, OH (10) and Covington, KY (2)
+- Cincinnati and Covington added to the cities table
+- FC Cincinnati added to the teams table
+- All 12 bars geocoded with coordinates for map view
+- All 12 bars have images uploaded to R2 (100% image coverage)
+- 14 team affiliations (FC Cincinnati across 7 bars, Liverpool/Arsenal/Aston Villa/West Ham at Rhinehaus, Arsenal at The Pitch)
+- 40 league affiliations (Premier League, MLS, Champions League, Bundesliga, World Cup, GAA)
+
+**Notable bars:**
+- Rhinehaus (OTR) -- THE soccer bar of Cincinnati, 14 4K TVs, home to 6 supporter groups (LFC Cincinnati, Ohio Blues, Cincy Gooners, Cincy Villains, Cincy Hammers)
+- The Pitch Cincy (West End) -- Purpose-built soccer bar across from TQL Stadium, 50 TVs + 2-story video wall, Cincy Gooners (Arsenal) home, 600 capacity
+- Molly Malone's (Covington) -- The original Cincy soccer bar since 2007, Irish-owned, EPL at 7am, organized trips to Old Trafford and Anfield
+- Hap's Irish Pub (Hyde Park) -- True soccer pub, 40+ years, opens 7:45am for big EPL matches, cash only
+- Northern Row Brewery (OTR) -- The Pride (FC Cincinnati first supporters group) home base, The March to TQL departs here
+
+**Data quality:**
+- All bars have 3-4 verified sources (GoodRec, Cincinnati Refined, Visit Cincy, CityBeat, FC Cincinnati pub partners, supporter club sites)
+- Excluded 8+ candidates that were closed or had weak soccer credentials (Fifty West, Lachey's, Cock & Bull Hyde Park/Glendale, Knockback Nats, Murphy's, Arnold's, Fowling Warehouse)
+- Total bar count increased by 12
+- 2 new cities: Cincinnati (OH), Covington (KY)
+
+**Migrations:** `012_cincinnati_bars.sql`, `013_geocode_cincinnati.sql`, `014_cincinnati_images.sql`
+
+---
+
+### Las Vegas City Expansion -- 12 Soccer Bars Added
+
+**Added:**
+- 12 soccer bars in Las Vegas, Nevada (new city, first bars in the state)
+- Las Vegas added to cities table as a FIFA World Cup 2026 host city (Allegiant Stadium)
+- Las Vegas Lights FC added to teams table (USL Championship)
+- 12 images uploaded to R2 and linked (100% image coverage)
+- All 12 bars geocoded with coordinates for map view
+- 6 team affiliations: Liverpool FC, Crystal Palace, Everton, Arsenal FC, Bayern Munich, USMNT
+- 57 league affiliations across Premier League, Champions League, World Cup, MLS, Bundesliga, La Liga, Serie A, and more
+- 8 of 12 bars confirmed to open early for morning Premier League matches
+
+**Notable bars:**
+- McMullan's Irish Pub (Spring Valley) -- Official Liverpool FC Supporters Club of Las Vegas, 6 sources
+- Crown & Anchor Pub (Chinatown) -- "Las Vegas's home for soccer," Premier League USA Bar Finder, US Soccer Federation sponsor
+- Ri Ra Irish Pub (The Strip) -- EPL Breakfast Club with 6 AM PT kickoffs, authentic Irish pub shipped from Ireland
+- Hofbrauhaus Las Vegas (Paradise) -- German beer hall with FIFA World Cup and Bayern Munich viewing parties
+- Hennessey's Tavern (Downtown) -- American Outlaws Las Vegas home bar since 2011 (65th chapter)
+- Jackpot Bar & Grill (Spring Valley) -- Official Arsenal America branch location
+
+**Data quality:**
+- All bars have 3-6 verified sources (Premier League Bar Finder, Review-Journal, GoodRec, Neighborhoods.com, Fanzo, official club sites)
+- Total bar count: 341 -> 353
+- Total cities: now includes Las Vegas, NV (1st Nevada city)
+
+**Migrations:** `014_las_vegas_bars.sql`, `015_geocode_las_vegas.sql`, `016_las_vegas_images.sql`
+
+---
+
 ### Session: Content Quality Sweep (3 parallel workstreams)
 
 Ran a full content audit and executed three priorities in parallel:

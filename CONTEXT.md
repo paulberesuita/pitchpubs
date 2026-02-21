@@ -6,6 +6,96 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ## 2026-02-20
 
+### St. Louis Expansion -- MLS Team Launch Creates Rich Ecosystem
+
+St. Louis is a fascinating case study in how an MLS expansion team (St. Louis CITY SC, 2023) creates an entire ecosystem of soccer bars where none existed before. The city had Amsterdam Tavern since 2008 as its sole dedicated soccer venue. Once CITY SC arrived, the landscape exploded:
+
+**The CITY on Tap network is the best single source.** St. Louis CITY SC's "CITY on Tap presented by Michelob ULTRA" program officially partners with bars citywide. St. Louis Magazine's playoff watch party guide + KSDK's season watch party list provided the complete roster of partner venues. This is the same pattern seen with Charlotte FC's bar network and San Diego FC's pub partners -- MLS teams create verified bar lists for us.
+
+**Supporter groups are deeply organized.** The St. Louligans (founded 2010) are the anchor -- they have a branded beer (Brewligans IPA at 2nd Shift Brewing), an official pre-match street party at Schlafly Tap Room, and a longtime home bar at International Tap House Soulard. Beyond the Louligans, EPL supporter groups (Gateway Gooners for Arsenal, Mia San STL for Bayern Munich) have established Llywelyn's Pub in Webster Groves as the European football hub. STL Santos (Hispanic supporters) gather at Beffa's and The Marquee.
+
+**Stadium proximity creates a bar cluster.** Energizer Park (formerly CITYPARK) at Market & 20th spawned The Pitch Athletic Club across the street, and elevated existing bars like Maggie O'Brien's and Schlafly Tap Room into de facto soccer bars. This is different from cities where soccer bars are scattered -- in St. Louis, there is a clear Downtown West cluster around the stadium plus a neighborhood hub in Tower Grove South (Amsterdam Tavern).
+
+**FourDollarJacks.com as a new image source.** Discovered this bar directory that hosts Google-sourced images on their own CDN (img.fourdollarjacks.com). Every bar listing has 8-10 photos in webp format that are directly fetchable. Useful for bars with Wix sites (like International Tap House) or those behind paywalls. Found excellent images for both iTap (outdoor beer tap fountain) and Beffa's (CITY SC fans on match day).
+
+**Excluded bars and why:**
+- DB Cooper's Safe House (temporarily closed as of June 2025)
+- Armory STL (permanently closed per Yelp Feb 2026)
+- Hattrick's Irish Sports Pub (O'Fallon -- too far from city core)
+- 9 Mile Garden (Affton food truck garden, not a traditional bar)
+- McGurk's Irish Pub (primarily Irish music/garden, weak soccer credentials)
+- Pat Connolly Tavern (historic Irish pub, no soccer-specific connection despite being CITY on Tap)
+
+---
+
+### Detroit City Expansion -- Soccer Culture Drives Bar Discovery
+
+Detroit has a uniquely strong soccer culture for a city without an MLS team. Detroit City FC (USL Championship) and its Northern Guard Supporters have built a grassroots soccer community that rivals many MLS cities. This meant the research approach was different from typical city expansions.
+
+**Key insight -- Supporter clubs are the backbone:** Detroit's soccer bar scene is defined by EPL supporter clubs that each claimed their own pub. A 2019 Detroit News article described how multi-club Soccer Saturdays at the now-closed Red Fox English Pub splintered as groups grew -- Liverpool to Thomas Magee's, Arsenal to McShane's, Chelsea/Man City to Royal Oak Brewery, Tottenham to Mercury Burger Bar. This fragmentation is actually a sign of a healthy soccer community.
+
+**MI Football Social as a research source:** The MI Football Social app/network connects Michigan soccer fans with pubs showing matches. It confirmed supporter club home bars that other sources only hinted at, including Celtic supporters at Collect Beer Bar and West Ham at Detroit City Clubhouse.
+
+**DCFC pre-match bars are legitimate soccer bars:** Fowling Warehouse and New Dodge Lounge are not traditional soccer-watching bars (no EPL brunch, no big screens). But they are essential to Detroit's soccer culture as the March to the Match staging grounds. Including them captures what makes Detroit's soccer scene distinctive -- the matchday experience starts at the bar, not the stadium.
+
+**Hamtramck vs Detroit distinction matters:** Fowling Warehouse, New Dodge Lounge, and Motor City Sports Bar are technically in Hamtramck (an independent city surrounded by Detroit). Created a separate Hamtramck city entry to keep data accurate, similar to how Arlington was separated from Washington DC.
+
+**Suburban bars expand the metro picture:** Royal Oak Brewery (Royal Oak), Commonwealth Club (Warren), and Sean O'Callaghan's (Plymouth) are 15-30 minutes from downtown Detroit. Including them shows the full metro soccer ecosystem. The Commonwealth Club is especially unique -- an English expat social club since 1962 that predates the modern American soccer bar trend by decades.
+
+**OnTheGrid.city is an excellent image source for Detroit bars.** Their S3-hosted photos of Mercury Burger Bar and Fowling Warehouse are high-quality professional shots, directly downloadable, and cover many independent Detroit venues that don't have accessible images on their own sites.
+
+---
+
+### Adding Cincinnati -- FC Cincinnati's MLS Ecosystem Is a Research Gold Mine
+
+Researched Cincinnati soccer bars from scratch. Cincinnati's FC Cincinnati (MLS) has created a strong organized soccer ecosystem that makes research easier than most cities.
+
+**What makes Cincinnati unique as a research target:**
+
+1. **The Incline Collective** -- FC Cincinnati's supporter groups are organized under a single umbrella body (inclinecincy.com/groups). This single page lists all groups (Die Innenstadt, The Pride, The Briogaid, 5th Line, etc.) and their meeting locations. This is unusual -- most cities require hunting across 10+ separate supporter club websites.
+
+2. **FC Cincinnati Pub Partners (60+)** -- FCC publishes an official pub partner list (fccincinnati.com/matchday/pub-partners/). While the actual list is behind an Apple Maps guide (not scrapeable), the annual announcement articles name key partners. Cross-referencing the pub partner program with soccer bar lists from other sources creates high-confidence matches.
+
+3. **The March** -- FC Cincinnati's pregame ritual (all supporter groups walk from Northern Row Brewery to TQL Stadium) creates a natural geographic anchor. Bars near the march route and TQL Stadium are reliable soccer bars.
+
+4. **EPL supporter groups at Rhinehaus** -- The Rhinehaus bar page explicitly lists all the supporter groups that meet there: LFC Cincinnati, Ohio Blues, Cincy Gooners, Cincy Villains, Cincy Hammers. This level of self-identification is rare and gives us verified team affiliations without needing to cross-reference external sources.
+
+**Covington KY as a Cincinnati suburb:** Two of the best soccer bars (Molly Malone's and Cock & Bull) are technically in Covington, Kentucky, across the Ohio River. Created a separate city entry for Covington rather than mislabeling them as Cincinnati. Same approach used for Arlington VA with DC.
+
+**Closed bar pattern continues:** Fifty West Brewing (Yelp says CLOSED), Lachey's (closed 2018), Cock & Bull Hyde Park (closed), Cock & Bull Glendale (closed). Four of ~16 candidates were closed. This ~25% closure rate matches what we saw in DC (Across the Pond, Fado). Lesson: always verify current status before adding.
+
+**Image sourcing for Cincinnati was unusually easy.** Visit Cincy (visitcincy.com) uses Simpleview CMS with directly accessible CDN URLs for most bars. Cincinnati Refined (cincinnatirefined.com) has accessible images for all their articles. Cincinnati Design Awards had professional Phil Armstrong photos of The Pitch Cincy interior. OpenTable worked for Nicholson's. Only Hap's Irish Pub required going to a third-party aggregator (fourdollarjacks.com) since the official site is Wix.
+
+---
+
+### Las Vegas City Expansion -- Research Methodology for a World Cup Host City
+
+Las Vegas is distinctive from previous city expansions (like DC) because it is a tourism/hospitality city rather than a residential one. This changes the bar landscape significantly:
+
+**Strip vs. Locals divide:** Las Vegas soccer bars split cleanly into two categories: (1) Strip resort bars inside casino properties (Ri Ra at Mandalay Bay, Flanker at Mandalay Bay, Blondies at Planet Hollywood, Nine Fine Irishmen at NYNY) and (2) locals bars in residential neighborhoods (McMullan's in Spring Valley, Crown & Anchor in Chinatown, Four Kegs off Jones Blvd, Jackpot Bar on Jones). The Strip bars cater to tourists and visiting fans; the locals bars are where the supporter clubs actually meet. Both matter for different reasons -- a visiting fan checking SoccerBars during a Vegas trip needs the Strip options, while a local Arsenal or Liverpool supporter needs the neighborhood pubs.
+
+**24/7 bars change the "opens early" calculus:** In most cities, "opens early for morning Premier League" is a meaningful differentiator. In Las Vegas, 8 of 12 bars are open 24/7 by default. McMullan's, Crown & Anchor, Four Kegs, Kickers, and Jackpot never close. The question becomes not "do they open early" but "do they actually show soccer at 4:30 AM PT for a 12:30 PM GMT kickoff?" McMullan's website explicitly lists every match; most 24/7 bars do not guarantee soccer will be on the screens.
+
+**Supporter clubs are fewer but verified:** Found only 3 specific team affiliations with dedicated supporter presence: Liverpool FC at McMullan's (official LFC supporters club), Arsenal FC at Jackpot Bar (official Arsenal America branch), and USMNT at Hennessey's (American Outlaws since 2011). Crystal Palace and Everton historically at Crown & Anchor's now-closed Tropicana location -- unclear if these groups moved to the Spring Mountain location. Most Vegas bars are general sports bars that show soccer rather than dedicated team bars.
+
+**Crown & Anchor closure complication:** The original Crown & Anchor on Tropicana (opened 1995) closed suddenly in July 2024. The "Little Crown & Anchor" at 4755 Spring Mountain is the surviving location. The Premier League USA Bar Finder still lists the old Tropicana address. We included the Spring Mountain location, which is open and operating, but it is a smaller venue than the original.
+
+**Hofbrauhaus as a soccer bar archetype:** This is our first German beer hall in the database. It represents a distinct archetype from the Irish/British pub model -- it primarily shows Bundesliga and German national team matches, plus World Cup, rather than Premier League. This is valuable diversity for a directory that is heavily EPL-weighted.
+
+**Best research sources for Las Vegas (ranked):**
+1. Las Vegas Review-Journal (reviewjournal.com/neon) -- Best local journalism, World Cup coverage, Crown & Anchor closure photos
+2. GoodRec top-10 list (goodrec.com) -- Comprehensive soccer bar ranking with ratings
+3. Neighborhoods.com soccer pub list -- 5 curated picks with good detail
+4. Upbeat Vegas footy guide -- British-authored, understands soccer bar culture
+5. Premier League USA Bar Finder -- Crown & Anchor listed
+6. Official websites (mcmullansirishpub.com/sports, rira.com, flankerlv.com) -- Sports schedules and match listings
+7. American Outlaws / Arsenal America / Liverpool FC -- Supporter club directories for verified affiliations
+8. Fanzo/MatchPint CDN -- Images for 2 bars (Kickers, The Front Yard)
+
+**Image sourcing notes:** The Las Vegas Review-Journal (neon.reviewjournal.com) was the single best image source -- provided photos for both Crown & Anchor and Hofbrauhaus from feature articles. WordPress blog articles (The Gate for Ri Ra) and official websites (McMullan's Webflow CDN, Flanker WordPress, Jackpot WordPress, Blondies direct, Kickers Squarespace) covered most others. Las Vegas Magazine provided Nine Fine Irishmen. MatchPint/Fanzo CDN worked for Kickers and The Front Yard. All 12 bars got images -- 100% coverage on first pass.
+
+---
+
 ### Running 3 Content Agents in Parallel
 
 Ran a content audit that surfaced four priorities. Tackled the top three simultaneously using parallel agents: profiles, images, and team affiliations. Each agent worked independently — no conflicts except both the profiles and affiliations agents chose migration number `009`, which was fixed by renaming the affiliations migration to `010`.
