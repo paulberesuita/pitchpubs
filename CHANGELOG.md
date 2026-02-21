@@ -6,6 +6,41 @@ What we shipped. Update after each feature.
 
 ## 2026-02-20
 
+### Georgia/Atlanta Deep Quality Pass -- 22 Bars, EPL Supporter Mapping, Images Fixed
+
+Full quality enrichment of Georgia/Atlanta, the site's most important city (World Cup 2026 host).
+
+**Added:**
+- 7 new bars: Manny's Grant Park (Tottenham Spurs home), El Tesoro (7000sqft patio taqueria), Chiringa (Beltline surfside), Moondog Pub & Grub (Chamblee), SweetWater Brewery (official ATL United craft beer partner), Willie B's (Silverbacks Park field-side), The Tavern at Roswell Junction
+- Chamblee and Roswell added to cities table (first Georgia suburbs)
+- 6 EPL supporter club team affiliations: Arsenal FC (Brewhouse), Liverpool FC (Fado Buckhead), Manchester United FC (Fado Midtown), Chelsea FC (Fado Midtown), Manchester City FC (Brewhouse), Tottenham Hotspur (Manny's), US Men's National Team (Fado Midtown)
+- 41 new league affiliations across Premier League, Champions League, Bundesliga, La Liga, Serie A, International, FIFA World Cup
+- 6 rich content profiles: Brewhouse Cafe (existing), Fado Midtown (EPL supporter hub), Fado Buckhead (Liverpool OLSC), Der Biergarten (World Cup ground zero), The Midway Pub (Footie Mob HQ), Manny's Grant Park (Spurs home)
+
+**Fixed:**
+- ALL 15 original Georgia bar images were broken (referenced R2 paths that did not exist) -- uploaded 19 verified images to R2, achieving 86% image coverage (19 of 22 bars)
+- State normalized from "GA" to "Georgia" for consistency with all newer city expansions
+- Source counts updated with newly verified sources (Brewhouse from 5 to 8, Fado Midtown from 4 to 6, etc.)
+
+**Changed:**
+- Rewrote 10 bar descriptions with verified details (added EPL supporter club info, World Cup 2026 relevance, specific menu items, neighborhood context)
+- Expanded league affiliations: most bars went from MLS-only to MLS + Premier League + Champions League
+
+**Data quality:**
+- 22 bars across 3 cities (Atlanta, Chamblee, Roswell) in Georgia
+- 19 of 22 bars have verified R2 images (86%)
+- 6 of 22 bars have rich content profiles (27%)
+- 26 team affiliations (7 unique teams: Atlanta United, Arsenal, Liverpool, Man Utd, Chelsea, Man City, Tottenham, USMNT)
+- 61 league affiliations
+- All 22 bars have 3-8 verified sources
+- Database total: 489 bars
+
+**Missing images (3):** SweetWater Brewery (site blocks scraping), Chiringa (site returns minimal assets), The Tavern at Battery (Live! CDN restricted)
+
+**Migrations:** `052_georgia_quality_enrichment.sql`, `053_georgia_new_bars.sql`, `054_georgia_content_profiles.sql`
+
+---
+
 ### Session: Tier 2 City Expansion (5 parallel agents)
 
 Expanded to 5 Tier 2 soccer markets in parallel:

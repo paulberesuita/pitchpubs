@@ -6,7 +6,27 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ## 2026-02-20
 
-### Tier 2 Expansion — 5 Cities in Parallel, Pre-Assigned Migration Numbers
+### Georgia/Atlanta Deep Quality Pass -- EPL Supporter Ecosystem Mapped
+
+Atlanta is a World Cup 2026 host city, and the original 15 bars in the database had significant quality gaps: all 15 images were broken (referenced R2 paths with no actual files), zero EPL supporter club affiliations despite Atlanta having one of the strongest supporter ecosystems in the Southeast, and only 1 bar had a content profile.
+
+**The Fado Midtown/Buckhead split is the most important find.** Unlike most cities where EPL supporter clubs scatter across different bars, Atlanta concentrates three supporter groups at Fado Midtown (Man Utd, Chelsea, American Outlaws) and one at Fado Buckhead (Liverpool). This mirrors the Baltimore model (each club has a dedicated bar) but with two Fado locations as the anchor rather than five separate pubs. Arsenal and Man City both chose Brewhouse Cafe, the "America's Best Soccer Bar" per Men in Blazers, creating a two-hub system: Fado for Big Six EPL clubs + USMNT, Brewhouse for Arsenal + Man City + general soccer culture.
+
+**Manny's Grant Park as the Tottenham bar is a genuine find.** The Atlanta Spurs (est. 2012) meet at this cozy neighborhood pub in Grant Park, creating the only dedicated Spurs bar in our Georgia coverage. The pub is not on any of the standard "best soccer bars" lists (Discover Atlanta, Matador, etc.) -- it was only findable through the official Tottenham Hotspur supporters club directory. This reinforces that official club supporter directories (arsenal.com, liverpoolfc.com, tottenhamhotspur.com, chelseafc.com, manutd.com, mancity.com) are the most reliable source for EPL bar mappings, ahead of general soccer bar lists.
+
+**The Atlanta United Pub Partner program is the largest in our database.** The 2025 list includes 15 official partners spanning Atlanta proper, Buckhead, Chamblee, Roswell, and Decatur. This is more than any other MLS team we've researched (Charlotte FC had 8, STL CITY SC had 6). The breadth reflects Atlanta United's massive fan base (highest average MLS attendance, 70,000+ at Mercedes-Benz Stadium). Several partners are non-traditional soccer venues: El Tesoro (Mexican taqueria), Chiringa (surfside cuisine), SweetWater (brewery), Willie B's (at a soccer complex).
+
+**Elsewhere Brewing closed, disrupting the Man City ecosystem.** Elsewhere Greenhouse in West Midtown was the ATL Cityzens' original home for Manchester City watch parties. After Elsewhere closed both locations (pandemic/economic challenges), the ATL Cityzens moved to Brewhouse Cafe. This is the same pattern we've seen in other cities (Baltimore's Charm City Gooners moving from closed Abbey Burger to Liv's Tavern, Indianapolis's MUFC Indy moving from Chatham Tap to Brew Link). Bar closures force supporter clubs to migrate, and the migration typically goes toward the strongest remaining soccer bar rather than a new venue.
+
+**Hudson FC is Atlanta's cautionary tale.** A purpose-built soccer bar opened in 2017 in Brookhaven at 4058 Peachtree Rd, it was specifically designed for soccer fans with screens everywhere and international sports focus. It closed in October 2019 -- the owner said the location was not ideal for a soccer bar despite being successful. The Chelsea supporters (Atlanta Blues CFC) used it before moving to Fado Midtown. This echoes the broader pattern: dedicated soccer bars struggle to sustain themselves on soccer alone; the most durable soccer bars are pubs and restaurants that add soccer culture to an already strong base business.
+
+**Image sourcing was the biggest challenge.** Atlanta bar websites are heavily behind Cloudflare, Wix, Squarespace, and SpotApps CDNs that block or limit scraping. Fado's official site returned 403. The best image sources were: brewhousecafe.com (Squarespace, direct URLs), fourdollarjacks.com (webp format, reliable CDN), atlantaeats.com (WordPress, direct JPG URLs), partyslate.com (event venue photos), and irishpubcompany.com (Fado construction photos). SweetWater Brewing uses Incapsula WAF that blocks all automated access. Three bars (SweetWater, Chiringa, The Tavern at Battery) remain without R2 images.
+
+**State normalization lesson.** The original Atlanta data used "GA" as the state code, while all newer expansions use full state names ("Georgia", "Indiana", "Wisconsin", etc.). The migration normalizes to "Georgia" in both the bars and cities tables. This inconsistency should be caught during initial data entry going forward.
+
+---
+
+### Tier 2 Expansion -- 5 Cities in Parallel, Pre-Assigned Migration Numbers
 
 Ran 5 content agents in parallel for Phoenix, New Orleans, Milwaukee, Baltimore, and Indianapolis. Pre-assigned migration numbers (037-051) eliminated the collision problem from Tier 1. All agents respected their assigned numbers — zero conflicts.
 
