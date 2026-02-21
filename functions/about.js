@@ -4,7 +4,7 @@
  */
 
 import {
-  SITE_NAME,
+  SITE_NAME, PROD_BASE,
   renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderPage, htmlResponse
 } from './_shared.js';
@@ -18,11 +18,11 @@ export async function onRequestGet(context) {
     "@context": "https://schema.org",
     "@type": "AboutPage",
     "name": `About ${SITE_NAME}`,
-    "url": `${baseUrl}/about`,
+    "url": `${PROD_BASE}/about`,
     "mainEntity": {
       "@type": "Organization",
       "name": SITE_NAME,
-      "url": baseUrl
+      "url": PROD_BASE
     }
   };
 

@@ -4,7 +4,7 @@
  */
 
 import {
-  SITE_NAME, TABLE_NAME, CATEGORY_FIELD,
+  SITE_NAME, TABLE_NAME, CATEGORY_FIELD, PROD_BASE,
   escapeHtml, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderEmptyState, renderPage, htmlResponse
 } from './_shared.js';
@@ -29,7 +29,7 @@ export async function onRequestGet(context) {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": `Categories | ${SITE_NAME}`,
-      "url": `${baseUrl}/categories`,
+      "url": `${PROD_BASE}/categories`,
       "numberOfItems": categories.length
     };
 

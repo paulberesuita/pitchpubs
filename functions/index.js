@@ -6,13 +6,14 @@
  */
 
 import {
-  SITE_NAME, TABLE_NAME, ITEMS_PATH, EXPERTISE_AREAS,
+  SITE_NAME, TABLE_NAME, ITEMS_PATH, EXPERTISE_AREAS, PROD_BASE,
   escapeHtml, slugify, renderHead, renderNav, renderFooter,
   renderCard, renderEmptyState, renderPage, htmlResponse
 } from './_shared.js';
 
 const ITEMS_PER_PAGE = 24;
 
+// State abbreviation → full name lookup (legacy support for any remaining abbreviations)
 const STATE_NAMES = {
   AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',
   CT:'Connecticut',DE:'Delaware',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',
@@ -90,10 +91,10 @@ export async function onRequestGet(context) {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": SITE_NAME,
-        "url": baseUrl,
+        "url": PROD_BASE,
         "potentialAction": {
           "@type": "SearchAction",
-          "target": `${baseUrl}/search?q={search_term_string}`,
+          "target": `${PROD_BASE}/search?q={search_term_string}`,
           "query-input": "required name=search_term_string"
         }
       },
@@ -101,8 +102,8 @@ export async function onRequestGet(context) {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": SITE_NAME,
-        "url": baseUrl,
-        "logo": `${baseUrl}/favicon.svg`,
+        "url": PROD_BASE,
+        "logo": `${PROD_BASE}/favicon.svg`,
         "sameAs": [],
         "knowsAbout": EXPERTISE_AREAS
       }
@@ -114,7 +115,7 @@ export async function onRequestGet(context) {
         : state
           ? `Soccer Bars in ${state} - ${SITE_NAME}`
           : `${overallCount} Soccer Bars in America - Find Where to Watch`,
-      description: `${SITE_NAME} is a curated directory of ${overallCount} soccer-friendly bars across 22 US cities. Find the best spots to watch Premier League, MLS, Champions League, and World Cup 2026 matches.`,
+      description: `${SITE_NAME} is a curated directory of ${overallCount} soccer-friendly bars across ${cities.length} US cities. Find the best spots to watch Premier League, MLS, Champions League, and World Cup 2026 matches.`,
       url: baseUrl,
       jsonLd
     });

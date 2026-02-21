@@ -4,7 +4,7 @@
  */
 
 import {
-  SITE_NAME, TABLE_NAME, ITEMS_PATH,
+  SITE_NAME, TABLE_NAME, ITEMS_PATH, PROD_BASE,
   escapeHtml, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderCard, renderEmptyState, renderPagination,
   renderPage, htmlResponse
@@ -26,7 +26,8 @@ export async function onRequestGet(context) {
     const head = renderHead({
       title: 'Search',
       description: `Search ${SITE_NAME} to find what you're looking for.`,
-      url: `${baseUrl}/search`
+      url: `${baseUrl}/search`,
+      noindex: true
     });
 
     const body = `
@@ -82,7 +83,7 @@ export async function onRequestGet(context) {
       "@context": "https://schema.org",
       "@type": "SearchResultsPage",
       "name": `Search results for "${query}"`,
-      "url": `${baseUrl}/search?q=${encodeURIComponent(query)}`
+      "url": `${PROD_BASE}/search?q=${encodeURIComponent(query)}`
     };
 
     const head = renderHead({

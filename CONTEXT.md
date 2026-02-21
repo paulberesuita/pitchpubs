@@ -4,6 +4,18 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ---
 
+## 2026-02-21
+
+### SEO Fixes — Structured Data Must Always Use Production Domain
+
+The core issue: every page constructed `baseUrl` from `url.protocol + '//' + url.host`, which works for rendering links but leaks preview domains (e.g., `1a23cb5b.soccerbars-v2.pages.dev`) into JSON-LD structured data and OG meta tags. Search engines crawling preview URLs would index non-canonical domains in structured data.
+
+**Pattern established:** `PROD_BASE` (from config.js) is the single source of truth for all SEO-facing URLs. `baseUrl` (from request) is only for rendering page links. Every JSON-LD block, OG image, robots.txt sitemap, and BreadcrumbList now uses `PROD_BASE`.
+
+**State normalization was overdue.** The DB had a mix of abbreviations (CA, TX, NY) and full names (Georgia, Arizona, Indiana) — newer city expansions used full names, older ones used abbreviations. This caused duplicate state pages (`/states/ca` and `/states/california`). Migration 055 normalized everything to full names. The `STATE_NAMES` lookup map in index.js handles both formats as a fallback.
+
+---
+
 ## 2026-02-20
 
 ### Georgia/Atlanta Deep Quality Pass -- EPL Supporter Ecosystem Mapped

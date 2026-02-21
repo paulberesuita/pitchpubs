@@ -6,19 +6,15 @@
  * Replaces static public/robots.txt.
  */
 
-import { DOMAIN } from './_shared.js';
+import { PROD_BASE } from './_shared.js';
 
 export async function onRequestGet(context) {
-  const { request } = context;
-  const url = new URL(request.url);
-  const baseUrl = `${url.protocol}//${url.host}`;
-
   const robots = `User-agent: *
 Allow: /
 Disallow: /api/
 
 # Sitemap
-Sitemap: ${baseUrl}/sitemap.xml
+Sitemap: ${PROD_BASE}/sitemap.xml
 
 # LLM crawlers
 User-agent: GPTBot

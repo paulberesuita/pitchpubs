@@ -7,7 +7,7 @@
  */
 
 import {
-  SITE_NAME, EXPERTISE_AREAS,
+  SITE_NAME, EXPERTISE_AREAS, PROD_BASE,
   escapeHtml, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderPage, htmlResponse
 } from './_shared.js';
@@ -47,11 +47,11 @@ export async function onRequestGet(context) {
     "@context": "https://schema.org",
     "@type": "AboutPage",
     "name": `The Crew | ${SITE_NAME}`,
-    "url": `${baseUrl}/crew`,
+    "url": `${PROD_BASE}/crew`,
     "mainEntity": {
       "@type": "Organization",
       "name": SITE_NAME,
-      "url": baseUrl,
+      "url": PROD_BASE,
       "knowsAbout": EXPERTISE_AREAS,
       "member": CREW.map(m => ({
         "@type": "Person",

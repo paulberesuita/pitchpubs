@@ -27,7 +27,7 @@ export async function onRequestGet(context) {
       { loc: '/cities', priority: '0.8', changefreq: 'weekly' },
       { loc: '/categories', priority: '0.8', changefreq: 'weekly' },
       { loc: '/best', priority: '0.8', changefreq: 'weekly' },
-      { loc: '/search', priority: '0.5', changefreq: 'monthly' },
+      // /search excluded — noindex page
       { loc: '/about', priority: '0.4', changefreq: 'monthly' },
       { loc: '/faq', priority: '0.4', changefreq: 'monthly' },
       { loc: '/contact', priority: '0.3', changefreq: 'monthly' },

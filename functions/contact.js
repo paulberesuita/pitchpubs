@@ -5,7 +5,7 @@
  */
 
 import {
-  SITE_NAME, DOMAIN,
+  SITE_NAME, DOMAIN, PROD_BASE,
   escapeHtml, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderPage, htmlResponse
 } from './_shared.js';
@@ -20,7 +20,7 @@ export async function onRequestGet(context) {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     "name": `Contact ${SITE_NAME}`,
-    "url": `${baseUrl}/contact`
+    "url": `${PROD_BASE}/contact`
   };
 
   const head = renderHead({

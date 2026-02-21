@@ -13,7 +13,7 @@ export function renderHead({ title, description, url, image, type = 'website', j
   const safeDescription = escapeHtml(description);
   // Canonical always points to production domain, never preview URLs
   const safeUrl = escapeHtml(url.replace(/^https?:\/\/[^/]+/, PROD_BASE));
-  const safeImage = image ? escapeHtml(image) : '';
+  const safeImage = image ? escapeHtml(image.startsWith('http') ? image : `${PROD_BASE}/images/${image}`) : '';
 
   return `
   <meta charset="UTF-8">
@@ -181,7 +181,7 @@ export function renderNav(currentPath = '') {
       <nav class="hidden md:flex items-center gap-8 text-sm">
         ${navLink(`/${ITEMS_PATH}`, 'Browse')}
         ${navLink('/cities', 'Cities')}
-        ${navLink('/leagues', 'Leagues')}
+        ${navLink('/states', 'States')}
         ${navLink('/about', 'About')}
         <a href="/submit" class="bg-primary hover:bg-primary-hover text-white font-medium px-5 py-2 rounded-xl transition-colors">
           Submit
@@ -201,7 +201,7 @@ export function renderNav(currentPath = '') {
       <nav class="flex flex-col px-6 py-4 gap-1 text-sm">
         ${mobileLink(`/${ITEMS_PATH}`, 'Browse')}
         ${mobileLink('/cities', 'Cities')}
-        ${mobileLink('/leagues', 'Leagues')}
+        ${mobileLink('/states', 'States')}
         ${mobileLink('/about', 'About')}
         <a href="/submit" class="bg-primary hover:bg-primary-hover text-white font-medium px-5 py-3 rounded-xl transition-colors text-center mt-3">
           Submit
@@ -322,7 +322,7 @@ export function renderBreadcrumbs(items, baseUrl = '') {
     `;
   }).join('\n');
 
-  // BreadcrumbList JSON-LD (only if baseUrl provided)
+  // BreadcrumbList JSON-LD — always use production domain
   const jsonLd = baseUrl ? JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -330,7 +330,7 @@ export function renderBreadcrumbs(items, baseUrl = '') {
       "@type": "ListItem",
       "position": i + 1,
       "name": item.label,
-      "item": `${baseUrl}${item.href}`
+      "item": `${PROD_BASE}${item.href}`
     }))
   }) : '';
 

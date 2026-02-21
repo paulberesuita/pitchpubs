@@ -4,6 +4,25 @@ What we shipped. Update after each feature.
 
 ---
 
+## 2026-02-21
+
+### SEO Fixes — OG Images, JSON-LD, State Normalization, Nav, Best-of Titles
+
+**Fixed:**
+- OG/Twitter image URLs now always produce absolute production URLs (`https://pitchpubs.com/images/...`) instead of relative paths
+- JSON-LD structured data across all 12 page types now uses `PROD_BASE` instead of request domain — preview deploys no longer leak non-production URLs into structured data
+- robots.txt sitemap URL hardcoded to `https://pitchpubs.com/sitemap.xml` instead of deriving from request
+- BreadcrumbList JSON-LD also uses `PROD_BASE`
+- `/leagues` dead nav link replaced with `/states` (desktop + mobile)
+- Best-of page titles changed from generic "Best {city} in 2026" to "Best Soccer Bars in {city} 2026" with improved meta descriptions
+- Homepage meta description now uses dynamic city count (63) instead of hardcoded "22"
+- Empty `/search` page now has `noindex` meta tag; removed `/search` from sitemap
+
+**Changed:**
+- Normalized all state abbreviations to full names via migration 055 (CA→California, TX→Texas, etc.) — eliminates duplicate state pages in sitemap and navigation (361 rows updated)
+
+---
+
 ## 2026-02-20
 
 ### Georgia/Atlanta Deep Quality Pass -- 22 Bars, EPL Supporter Mapping, Images Fixed

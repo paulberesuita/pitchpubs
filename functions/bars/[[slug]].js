@@ -8,7 +8,7 @@
  */
 
 import {
-  SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD, SCHEMA_TYPE,
+  SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD, SCHEMA_TYPE, PROD_BASE,
   escapeHtml, slugify, capitalize, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderCard, renderEmptyState, renderPagination, renderMapToggle, renderMap,
   renderPage, htmlResponse
@@ -91,7 +91,7 @@ async function renderBrowsePage(context, baseUrl) {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": category ? `${category} ${capitalize(ITEMS_PATH)}` : `Browse ${capitalize(ITEMS_PATH)}`,
-      "url": `${baseUrl}/${ITEMS_PATH}`,
+      "url": `${PROD_BASE}/${ITEMS_PATH}`,
       "numberOfItems": totalCount
     };
 
@@ -282,7 +282,7 @@ async function renderDetailPage(context, baseUrl, slug) {
       "@type": SCHEMA_TYPE,
       "name": item.name,
       "description": item.description,
-      "url": `${baseUrl}/${ITEMS_PATH}/${slug}`,
+      "url": `${PROD_BASE}/${ITEMS_PATH}/${slug}`,
       ...(item.image_url && { "image": item.image_url }),
       ...(item.updated_at && { "dateModified": item.updated_at }),
       ...(item.created_at && { "datePublished": item.created_at }),

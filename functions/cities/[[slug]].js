@@ -5,7 +5,7 @@
  */
 
 import {
-  SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD,
+  SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD, PROD_BASE,
   escapeHtml, slugify, capitalize, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderCard, renderEmptyState, renderMapToggle, renderMap,
   renderPage, htmlResponse
@@ -46,12 +46,12 @@ async function renderCitiesIndex(context, baseUrl) {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": `Browse by City | ${SITE_NAME}`,
-      "url": `${baseUrl}/cities`,
+      "url": `${PROD_BASE}/cities`,
       "numberOfItems": cities.length,
       "hasPart": cities.slice(0, 30).map(c => ({
         "@type": "ItemList",
         "name": `${c.city}, ${c.state}`,
-        "url": `${baseUrl}/cities/${slugify(c.city + '-' + c.state)}`,
+        "url": `${PROD_BASE}/cities/${slugify(c.city + '-' + c.state)}`,
         "numberOfItems": c.count
       }))
     };
@@ -221,7 +221,7 @@ async function renderCityDetail(context, baseUrl, slug) {
       "@context": "https://schema.org",
       "@type": "ItemList",
       "name": `${SITE_NAME} in ${cityName}, ${stateName}`,
-      "url": `${baseUrl}/cities/${slug}`,
+      "url": `${PROD_BASE}/cities/${slug}`,
       "numberOfItems": items.length,
       "itemListElement": items.map((item, i) => ({
         "@type": "ListItem",
@@ -229,7 +229,7 @@ async function renderCityDetail(context, baseUrl, slug) {
         "item": {
           "@type": "Thing",
           "name": item.name,
-          "url": `${baseUrl}/${ITEMS_PATH}/${item.slug}`
+          "url": `${PROD_BASE}/${ITEMS_PATH}/${item.slug}`
         }
       }))
     };

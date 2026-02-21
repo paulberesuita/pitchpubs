@@ -5,7 +5,7 @@
  */
 
 import {
-  SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD,
+  SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD, PROD_BASE,
   escapeHtml, slugify, capitalize, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderCard, renderEmptyState, renderMapToggle, renderMap,
   renderPage, htmlResponse
@@ -46,12 +46,12 @@ async function renderStatesIndex(context, baseUrl) {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": `Browse by State | ${SITE_NAME}`,
-      "url": `${baseUrl}/states`,
+      "url": `${PROD_BASE}/states`,
       "numberOfItems": states.length,
       "hasPart": states.slice(0, 20).map(s => ({
         "@type": "ItemList",
         "name": s.state,
-        "url": `${baseUrl}/states/${slugify(s.state)}`,
+        "url": `${PROD_BASE}/states/${slugify(s.state)}`,
         "numberOfItems": s.count
       }))
     };
@@ -216,7 +216,7 @@ async function renderStateDetail(context, baseUrl, slug) {
       "@context": "https://schema.org",
       "@type": "ItemList",
       "name": `${SITE_NAME} in ${stateName}`,
-      "url": `${baseUrl}/states/${slug}`,
+      "url": `${PROD_BASE}/states/${slug}`,
       "numberOfItems": items.length,
       "itemListElement": items.slice(0, 50).map((item, i) => ({
         "@type": "ListItem",
@@ -224,7 +224,7 @@ async function renderStateDetail(context, baseUrl, slug) {
         "item": {
           "@type": "Thing",
           "name": item.name,
-          "url": `${baseUrl}/${ITEMS_PATH}/${item.slug}`
+          "url": `${PROD_BASE}/${ITEMS_PATH}/${item.slug}`
         }
       }))
     };

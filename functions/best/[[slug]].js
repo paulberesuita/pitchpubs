@@ -5,7 +5,7 @@
  */
 
 import {
-  SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD,
+  SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD, PROD_BASE,
   escapeHtml, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderCard, renderEmptyState,
   renderPage, htmlResponse
@@ -49,12 +49,12 @@ async function renderBestOfIndex(context, baseUrl) {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": `Best Of | ${SITE_NAME}`,
-      "url": `${baseUrl}/best`,
+      "url": `${PROD_BASE}/best`,
       "numberOfItems": categories.length,
       "hasPart": categories.map(c => ({
         "@type": "ItemList",
         "name": `Best ${c.category}`,
-        "url": `${baseUrl}/best/${c.category.toLowerCase().replace(/\s+/g, '-')}`
+        "url": `${PROD_BASE}/best/${c.category.toLowerCase().replace(/\s+/g, '-')}`
       }))
     };
 
@@ -197,7 +197,7 @@ async function renderBestOfPage(context, baseUrl, topic) {
       "@context": "https://schema.org",
       "@type": "ItemList",
       "name": `Best ${categoryName}`,
-      "url": `${baseUrl}/best/${topic}`,
+      "url": `${PROD_BASE}/best/${topic}`,
       "numberOfItems": items.length,
       "itemListElement": items.map((item, index) => ({
         "@type": "ListItem",
@@ -205,7 +205,7 @@ async function renderBestOfPage(context, baseUrl, topic) {
         "item": {
           "@type": "Thing",
           "name": item.name,
-          "url": `${baseUrl}/${ITEMS_PATH}/${item.slug}`
+          "url": `${PROD_BASE}/${ITEMS_PATH}/${item.slug}`
         }
       }))
     };
@@ -213,8 +213,8 @@ async function renderBestOfPage(context, baseUrl, topic) {
     const year = new Date().getFullYear();
 
     const head = renderHead({
-      title: `Best ${categoryName} in ${year}`,
-      description: `Top ${items.length} ${categoryName.toLowerCase()} picks. Our curated list of the best options.`,
+      title: `Best Soccer Bars in ${categoryName} ${year}`,
+      description: `The top ${items.length} soccer bars in ${categoryName.toLowerCase()}, ranked by fan atmosphere, match coverage, and supporter culture.`,
       url: `${baseUrl}/best/${topic}`,
       jsonLd
     });
@@ -273,7 +273,7 @@ async function renderBestOfPage(context, baseUrl, topic) {
     <section class="bg-surface border-b border-border">
       <div class="relative z-10 max-w-4xl mx-auto px-6 py-14 text-center">
         <span class="text-5xl mb-5 block animate-fade-in">&#127942;</span>
-        <h1 class="font-display text-3xl md:text-5xl font-bold tracking-tight mb-3 animate-fade-in-up stagger-2">Best ${escapeHtml(categoryName)} in ${year}</h1>
+        <h1 class="font-display text-3xl md:text-5xl font-bold tracking-tight mb-3 animate-fade-in-up stagger-2">Best Soccer Bars in ${escapeHtml(categoryName)} ${year}</h1>
         <p class="text-lg text-muted animate-fade-in-up stagger-3">Our top ${items.length} picks, curated for you.</p>
       </div>
     </section>

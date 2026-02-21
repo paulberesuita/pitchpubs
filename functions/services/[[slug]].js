@@ -10,7 +10,7 @@
  */
 
 import {
-  SITE_NAME, TABLE_NAME, ITEMS_PATH,
+  SITE_NAME, TABLE_NAME, ITEMS_PATH, PROD_BASE,
   escapeHtml, slugify, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderCard, renderEmptyState,
   renderPage, htmlResponse
@@ -84,7 +84,7 @@ async function renderServicesIndex(context, baseUrl) {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": `Services | ${SITE_NAME}`,
-      "url": `${baseUrl}/services`,
+      "url": `${PROD_BASE}/services`,
       "numberOfItems": services.length
     };
 
@@ -285,7 +285,7 @@ async function renderServiceDetail(context, baseUrl, slug) {
       "@type": "LocalBusiness",
       "name": service.name,
       "description": service.description,
-      "url": `${baseUrl}/services/${slug}`,
+      "url": `${PROD_BASE}/services/${slug}`,
       ...(service.image_url && { "image": service.image_url }),
       ...(service.price_range && { "priceRange": service.price_range }),
       ...(service.booking_url && { "url": service.booking_url }),

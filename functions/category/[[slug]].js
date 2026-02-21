@@ -4,7 +4,7 @@
  */
 
 import {
-  SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD,
+  SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD, PROD_BASE,
   escapeHtml, slugify, capitalize, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderCard, renderEmptyState, renderPagination,
   renderPage, htmlResponse
@@ -91,12 +91,12 @@ export async function onRequestGet(context) {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
       "name": `${categoryName} | ${SITE_NAME}`,
-      "url": `${baseUrl}/category/${slug}`,
+      "url": `${PROD_BASE}/category/${slug}`,
       "numberOfItems": totalCount,
       "hasPart": items.slice(0, 10).map(item => ({
         "@type": "Thing",
         "name": item.name,
-        "url": `${baseUrl}/${ITEMS_PATH}/${item.slug}`
+        "url": `${PROD_BASE}/${ITEMS_PATH}/${item.slug}`
       }))
     };
 
