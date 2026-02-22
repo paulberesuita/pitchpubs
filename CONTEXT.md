@@ -12,6 +12,10 @@ The core issue: every page constructed `baseUrl` from `url.protocol + '//' + url
 
 **Pattern established:** `PROD_BASE` (from config.js) is the single source of truth for all SEO-facing URLs. `baseUrl` (from request) is only for rendering page links. Every JSON-LD block, OG image, robots.txt sitemap, and BreadcrumbList now uses `PROD_BASE`.
 
+**JSON-LD image field was a separate bug.** The OG image fix in `renderHead()` handled meta tags, but JSON-LD objects in `bars/[[slug]].js` and `services/[[slug]].js` spread `item.image_url` directly from the DB (relative paths like `bars/atlanta/foo.jpg`). Fixed by applying the same `startsWith('http')` check inline.
+
+**Google Search Console submitted.** Site had 0 indexed pages (brand new `pitchpubs.com` domain after rebrand). Sitemap submitted with 637 URLs. SEO audit confirmed: valid XML, all URLs use production domain, `/search` excluded, robots.txt correctly references sitemap. Expect indexing to begin within days to weeks.
+
 **State normalization was overdue.** The DB had a mix of abbreviations (CA, TX, NY) and full names (Georgia, Arizona, Indiana) — newer city expansions used full names, older ones used abbreviations. This caused duplicate state pages (`/states/ca` and `/states/california`). Migration 055 normalized everything to full names. The `STATE_NAMES` lookup map in index.js handles both formats as a fallback.
 
 ---

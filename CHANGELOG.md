@@ -10,6 +10,7 @@ What we shipped. Update after each feature.
 
 **Fixed:**
 - OG/Twitter image URLs now always produce absolute production URLs (`https://pitchpubs.com/images/...`) instead of relative paths
+- JSON-LD `image` field on bar and service detail pages now produces absolute URLs instead of raw DB paths
 - JSON-LD structured data across all 12 page types now uses `PROD_BASE` instead of request domain — preview deploys no longer leak non-production URLs into structured data
 - robots.txt sitemap URL hardcoded to `https://pitchpubs.com/sitemap.xml` instead of deriving from request
 - BreadcrumbList JSON-LD also uses `PROD_BASE`
@@ -17,6 +18,9 @@ What we shipped. Update after each feature.
 - Best-of page titles changed from generic "Best {city} in 2026" to "Best Soccer Bars in {city} 2026" with improved meta descriptions
 - Homepage meta description now uses dynamic city count (63) instead of hardcoded "22"
 - Empty `/search` page now has `noindex` meta tag; removed `/search` from sitemap
+
+**Added:**
+- Submitted sitemap (`https://pitchpubs.com/sitemap.xml`, 637 URLs) to Google Search Console
 
 **Changed:**
 - Normalized all state abbreviations to full names via migration 055 (CA→California, TX→Texas, etc.) — eliminates duplicate state pages in sitemap and navigation (361 rows updated)
