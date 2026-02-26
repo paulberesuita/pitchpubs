@@ -31,12 +31,16 @@ async function handleList(env, request) {
     const state = url.searchParams.get('state');
     const city = url.searchParams.get('city');
     const query = url.searchParams.get('q');
+    const featured = url.searchParams.get('featured');
     const limit = Math.min(100, Math.max(1, parseInt(url.searchParams.get('limit')) || 50));
     const offset = Math.max(0, parseInt(url.searchParams.get('offset')) || 0);
 
     const conditions = [];
     const bindings = [];
 
+    if (featured === '1') {
+      conditions.push(`featured = 1`);
+    }
     if (category) {
       conditions.push(`${CATEGORY_FIELD} = ?`);
       bindings.push(category);

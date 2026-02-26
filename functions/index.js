@@ -7,7 +7,7 @@
 
 import {
   SITE_NAME, TABLE_NAME, ITEMS_PATH, EXPERTISE_AREAS, PROD_BASE, HOMEPAGE_FAQ,
-  escapeHtml, slugify, stateFullName, renderHead, renderNav, renderFooter,
+  escapeHtml, stateFullName, renderHead, renderNav, renderFooter,
   renderCard, renderEmptyState, renderPage, htmlResponse
 } from './_shared.js';
 
@@ -19,29 +19,23 @@ export async function onRequestGet(context) {
   const baseUrl = `${url.protocol}//${url.host}`;
 
   const state = url.searchParams.get('state') || '';
-  const city = url.searchParams.get('city') || '';
-  const sort = url.searchParams.get('sort') || '';
+  const view = url.searchParams.get('view') || '';
 
   try {
-    // Build directory query with optional state/city filter
+    // Build directory query with optional state/view filter
     let whereClause = '';
     const bindings = [];
-    if (city) {
-      whereClause = 'WHERE city = ?';
-      bindings.push(city);
+    if (view === 'featured') {
+      whereClause = 'WHERE featured = 1';
     } else if (state) {
       whereClause = 'WHERE state = ?';
       bindings.push(state);
     }
 
-    // Sort options
-    const sortOptions = {
-      'latest': 'created_at DESC',
-      'az': 'name ASC',
-      'za': 'name DESC',
-      '': 'featured DESC, CASE WHEN image_url IS NOT NULL AND image_url != \'\' THEN 0 ELSE 1 END, name ASC'
-    };
-    const orderBy = sortOptions[sort] || sortOptions[''];
+    // Sort: "latest" view sorts by newest, default sorts featured+images first
+    const orderBy = view === 'latest'
+      ? 'created_at DESC'
+      : 'featured DESC, CASE WHEN image_url IS NOT NULL AND image_url != \'\' THEN 0 ELSE 1 END, name ASC';
 
     // Get paginated items
     const { results: items } = await env.DB.prepare(
@@ -55,15 +49,15 @@ export async function onRequestGet(context) {
     const totalCount = countResult?.count || 0;
 
     // Get overall count (unfiltered) for hero
-    const overallCount = (state || city)
+    const overallCount = (state || view)
       ? (await env.DB.prepare(`SELECT COUNT(*) as count FROM ${TABLE_NAME}`).first())?.count || 0
       : totalCount;
 
-    // Get all cities for dropdown
-    const { results: cities } = await env.DB.prepare(
-      `SELECT city, state, city_slug, COUNT(*) as count FROM ${TABLE_NAME}
-       GROUP BY city, state ORDER BY city ASC`
-    ).all();
+    // Get featured count for pill
+    const featuredResult = await env.DB.prepare(
+      `SELECT COUNT(*) as count FROM ${TABLE_NAME} WHERE featured = 1`
+    ).first();
+    const featuredCount = featuredResult?.count || 0;
 
     // Get states for filter pills
     const { results: states } = await env.DB.prepare(
@@ -109,12 +103,10 @@ export async function onRequestGet(context) {
     ];
 
     const head = renderHead({
-      title: city
-        ? `Soccer Bars in ${city} - ${SITE_NAME}`
-        : state
-          ? `Soccer Bars in ${state} - ${SITE_NAME}`
-          : `${overallCount} Soccer Bars in America - Find Where to Watch`,
-      description: `${SITE_NAME} is a curated directory of ${overallCount} soccer-friendly bars across ${cities.length} US cities. Find the best spots to watch Premier League, MLS, Champions League, and World Cup 2026 matches.`,
+      title: state
+        ? `Soccer Bars in ${stateFullName(state)} - ${SITE_NAME}`
+        : `${overallCount} Soccer Bars in America - Find Where to Watch`,
+      description: `${SITE_NAME} is a curated directory of ${overallCount} soccer-friendly bars across America. Find the best spots to watch Premier League, MLS, Champions League, and World Cup 2026 matches.`,
       url: baseUrl,
       jsonLd
     });
@@ -137,7 +129,7 @@ export async function onRequestGet(context) {
       : renderEmptyState({
           emoji: '&#9917;',
           title: 'No bars found',
-          message: city ? `No bars in ${city} yet.` : state ? `No bars in ${state} yet.` : 'Be the first to add a soccer bar.',
+          message: state ? `No bars in ${stateFullName(state)} yet.` : 'Be the first to add a soccer bar.',
           action: { href: '/submit', label: 'Submit a Bar' }
         });
 
@@ -157,48 +149,20 @@ export async function onRequestGet(context) {
     <section class="max-w-7xl mx-auto px-6 py-8">
 
       <!-- Filters -->
-      <div class="flex items-center gap-3 mb-8">
-        <!-- Scrollable pills -->
-        <div id="pills-scroll" class="relative flex items-center gap-2 overflow-x-auto scrollbar-hide min-w-0" style="-webkit-overflow-scrolling:touch;scrollbar-width:none;mask-image:linear-gradient(to right,black 85%,transparent 100%);-webkit-mask-image:linear-gradient(to right,black 85%,transparent 100%)">
-          <a href="/"
-             class="text-sm px-4 py-1.5 rounded-full border transition-all shrink-0 ${!state
-               ? 'bg-accent text-white border-accent font-medium'
-               : 'text-muted border-border hover:text-primary hover:bg-surface'}">All</a>
-          ${statePillsHtml}
-        </div>
-
-        <!-- Pinned: dropdowns + count -->
-        <div class="flex items-center gap-2 shrink-0">
-          <div class="relative" data-dropdown="city">
-            <button class="flex items-center gap-1.5 bg-white border border-border rounded-full pl-5 pr-3.5 py-2 text-sm ${city ? 'text-primary font-medium' : 'text-muted'} hover:text-primary hover:border-primary/30 transition-all cursor-pointer">
-              <span>${city ? escapeHtml(city) : 'All Cities'}</span>
-              <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-            <div class="hidden absolute right-0 top-full mt-1.5 bg-white border border-border rounded-xl shadow-lg shadow-black/5 py-1.5 z-50 max-h-64 overflow-y-auto min-w-[200px]" data-panel>
-              <div data-value="" class="dropdown-option px-4 py-2 text-sm cursor-pointer transition-colors ${!city ? 'text-primary font-medium bg-surface' : 'text-muted hover:text-primary hover:bg-surface/50'}">All Cities</div>
-              ${cities.map(c =>
-                `<div data-value="${escapeHtml(c.city)}" class="dropdown-option px-4 py-2 text-sm cursor-pointer transition-colors ${city === c.city ? 'text-primary font-medium bg-surface' : 'text-stone-700 hover:text-primary hover:bg-surface/50'}">${escapeHtml(c.city)} <span class="text-muted text-xs">${c.count}</span></div>`
-              ).join('\n')}
-            </div>
-          </div>
-          <div class="relative" data-dropdown="sort">
-            <button class="flex items-center gap-1.5 bg-white border border-border rounded-full pl-5 pr-3.5 py-2 text-sm ${sort ? 'text-primary font-medium' : 'text-muted'} hover:text-primary hover:border-primary/30 transition-all cursor-pointer">
-              <span>${sort === 'latest' ? 'Latest' : sort === 'az' ? 'A to Z' : sort === 'za' ? 'Z to A' : 'Order by'}</span>
-              <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-            <div class="hidden absolute right-0 top-full mt-1.5 bg-white border border-border rounded-xl shadow-lg shadow-black/5 py-1.5 z-50 min-w-[160px]" data-panel>
-              <div data-value="" class="dropdown-option px-4 py-2 text-sm cursor-pointer transition-colors ${!sort ? 'text-primary font-medium bg-surface' : 'text-stone-700 hover:text-primary hover:bg-surface/50'}">Default</div>
-              <div data-value="latest" class="dropdown-option px-4 py-2 text-sm cursor-pointer transition-colors ${sort === 'latest' ? 'text-primary font-medium bg-surface' : 'text-stone-700 hover:text-primary hover:bg-surface/50'}">Latest</div>
-              <div data-value="az" class="dropdown-option px-4 py-2 text-sm cursor-pointer transition-colors ${sort === 'az' ? 'text-primary font-medium bg-surface' : 'text-stone-700 hover:text-primary hover:bg-surface/50'}">Name (A to Z)</div>
-              <div data-value="za" class="dropdown-option px-4 py-2 text-sm cursor-pointer transition-colors ${sort === 'za' ? 'text-primary font-medium bg-surface' : 'text-stone-700 hover:text-primary hover:bg-surface/50'}">Name (Z to A)</div>
-            </div>
-          </div>
-          <span class="text-sm text-muted shrink-0">${totalCount} bars</span>
-        </div>
+      <div class="flex items-center gap-2 overflow-x-auto mb-8 scrollbar-hide" style="-webkit-overflow-scrolling:touch;scrollbar-width:none">
+        <a href="/"
+           class="text-sm px-4 py-1.5 rounded-full border transition-all shrink-0 ${!state && !view
+             ? 'bg-accent text-white border-accent font-medium'
+             : 'text-muted border-border hover:text-primary hover:bg-surface'}">All (${overallCount})</a>
+        ${featuredCount > 0 ? `<a href="/?view=featured"
+           class="text-sm px-4 py-1.5 rounded-full border transition-all whitespace-nowrap shrink-0 ${view === 'featured'
+             ? 'bg-accent text-white border-accent font-medium'
+             : 'text-muted border-border hover:text-primary hover:bg-surface'}">Featured (${featuredCount})</a>` : ''}
+        <a href="/?view=latest"
+           class="text-sm px-4 py-1.5 rounded-full border transition-all shrink-0 ${view === 'latest'
+             ? 'bg-accent text-white border-accent font-medium'
+             : 'text-muted border-border hover:text-primary hover:bg-surface'}">Latest</a>
+        ${statePillsHtml}
       </div>
 
       <!-- Grid -->
@@ -214,41 +178,6 @@ export async function onRequestGet(context) {
       <!-- Scripts -->
       <script>
       (function() {
-        // Pills scroll fade
-        var pills = document.getElementById('pills-scroll');
-        if (pills) {
-          pills.addEventListener('scroll', function() {
-            var atEnd = pills.scrollLeft + pills.clientWidth >= pills.scrollWidth - 5;
-            pills.style.maskImage = atEnd ? 'none' : 'linear-gradient(to right,black 85%,transparent 100%)';
-            pills.style.webkitMaskImage = atEnd ? 'none' : 'linear-gradient(to right,black 85%,transparent 100%)';
-          });
-        }
-
-        // Custom dropdowns
-        function applyFilter(key, val) {
-          var u = new URL(window.location);
-          if (val) { u.searchParams.set(key, val); } else { u.searchParams.delete(key); }
-          u.searchParams.delete('page');
-          window.location = u.toString();
-        }
-        document.querySelectorAll('[data-dropdown]').forEach(function(dd) {
-          var btn = dd.querySelector('button');
-          var panel = dd.querySelector('[data-panel]');
-          var key = dd.dataset.dropdown === 'city' ? 'city' : 'sort';
-          btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            var wasOpen = !panel.classList.contains('hidden');
-            document.querySelectorAll('[data-panel]').forEach(function(p) { p.classList.add('hidden'); });
-            if (!wasOpen) panel.classList.remove('hidden');
-          });
-          panel.querySelectorAll('.dropdown-option').forEach(function(opt) {
-            opt.addEventListener('click', function() { applyFilter(key, this.dataset.value); });
-          });
-        });
-        document.addEventListener('click', function() {
-          document.querySelectorAll('[data-panel]').forEach(function(p) { p.classList.add('hidden'); });
-        });
-
         // Infinite scroll
         var grid = document.getElementById('directory-grid');
         var spinner = document.getElementById('load-more');
@@ -260,11 +189,10 @@ export async function onRequestGet(context) {
         function buildUrl() {
           var params = new URLSearchParams();
           var state = '${state}';
-          var city = '${city}';
-          var sort = '${sort}';
-          if (city) params.set('city', city);
+          var view = '${view}';
+          if (view === 'featured') params.set('featured', '1');
           else if (state) params.set('state', state);
-          if (sort) params.set('sort', sort);
+          if (view === 'latest') params.set('sort', 'latest');
           params.set('limit', '${ITEMS_PER_PAGE}');
           params.set('offset', offset);
           return '/api/items?' + params.toString();
