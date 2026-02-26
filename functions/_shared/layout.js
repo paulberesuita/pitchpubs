@@ -3,7 +3,7 @@
  */
 
 import { SITE_NAME, DOMAIN, ITEMS_PATH, PROD_BASE, EFFECTS } from './config.js';
-import { escapeHtml } from './utils.js';
+import { escapeHtml, capitalize } from './utils.js';
 
 /**
  * Render the <head> section with all SEO essentials
@@ -11,8 +11,9 @@ import { escapeHtml } from './utils.js';
 export function renderHead({ title, description, url, image, type = 'website', jsonLd = null, noindex = false, pagination = null, mapEnabled = false }) {
   const fullTitle = `${escapeHtml(title)} | ${SITE_NAME}`;
   const safeDescription = escapeHtml(description);
-  // Canonical always points to production domain, never preview URLs
-  const safeUrl = escapeHtml(url.replace(/^https?:\/\/[^/]+/, PROD_BASE));
+  // Rewrite all URLs to production domain, never preview URLs
+  const toProd = (u) => u ? escapeHtml(u.replace(/^https?:\/\/[^/]+/, PROD_BASE)) : '';
+  const safeUrl = toProd(url);
   const safeImage = image ? escapeHtml(image.startsWith('http') ? image : `${PROD_BASE}/images/${image}`) : '';
 
   return `
@@ -22,8 +23,8 @@ export function renderHead({ title, description, url, image, type = 'website', j
   <meta name="description" content="${safeDescription}">
   <link rel="canonical" href="${safeUrl}">
   ${noindex ? '<meta name="robots" content="noindex, follow">' : ''}
-  ${pagination?.prev ? `<link rel="prev" href="${escapeHtml(pagination.prev)}">` : ''}
-  ${pagination?.next ? `<link rel="next" href="${escapeHtml(pagination.next)}">` : ''}
+  ${pagination?.prev ? `<link rel="prev" href="${toProd(pagination.prev)}">` : ''}
+  ${pagination?.next ? `<link rel="next" href="${toProd(pagination.next)}">` : ''}
 
   <!-- RSS Feed Discovery -->
   <link rel="alternate" type="application/rss+xml" title="${SITE_NAME}" href="${PROD_BASE}/feed.xml">
@@ -153,7 +154,16 @@ export function renderHead({ title, description, url, image, type = 'website', j
     ` : ''}
 
   </style>
-  ${jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : ''}
+  ${(() => {
+    if (!jsonLd) return '';
+    // Rewrite request-origin URLs to production domain in JSON-LD
+    const requestBase = url.match(/^https?:\/\/[^/]+/)?.[0] || '';
+    let str = JSON.stringify(jsonLd);
+    if (requestBase && requestBase !== PROD_BASE) {
+      str = str.split(requestBase).join(PROD_BASE);
+    }
+    return `<script type="application/ld+json">${str}</script>`;
+  })()}
   `;
 }
 
@@ -234,23 +244,83 @@ export function renderNav(currentPath = '') {
  */
 export function renderFooter() {
   const year = new Date().getFullYear();
+  const itemsLabel = capitalize(ITEMS_PATH);
+  const footerLink = (href, label) =>
+    `<li><a href="${href}" class="text-sm text-muted hover:text-primary transition-colors duration-200">${label}</a></li>`;
+
   return `
   <footer class="border-t border-border mt-24">
     <div class="max-w-7xl mx-auto px-6 py-16">
-      <div class="flex flex-col md:flex-row items-start justify-between gap-10">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
+
+        <!-- Brand -->
+        <div class="col-span-2 md:col-span-1">
+          <a href="/" class="font-display text-xl font-bold hover:text-muted transition-colors">${SITE_NAME}</a>
+          <p class="text-sm text-muted mt-3 max-w-xs leading-relaxed">The best soccer bars in America. Curated for fans who want the real match-day experience.</p>
+          <a href="/feed.xml" class="inline-flex items-center gap-1.5 text-xs text-muted hover:text-primary transition-colors mt-4">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>
+            </svg>
+            RSS Feed
+          </a>
+        </div>
+
+        <!-- Browse -->
         <div>
-          <p class="font-display text-lg font-bold text-primary mb-2">${SITE_NAME}</p>
-          <p class="text-sm text-muted max-w-xs">The best soccer bars in America.</p>
+          <p class="font-semibold text-sm text-primary mb-4">Browse</p>
+          <ul class="space-y-2.5">
+            ${footerLink(`/${ITEMS_PATH}`, `All ${itemsLabel}`)}
+            ${footerLink('/categories', 'Categories')}
+            ${footerLink('/best', 'Best Of')}
+            ${footerLink('/states', 'States')}
+            ${footerLink('/cities', 'Cities')}
+          </ul>
         </div>
-        <div class="flex flex-wrap gap-x-10 gap-y-3">
-          <a href="/about" class="text-sm text-muted hover:text-primary transition-colors duration-200">About</a>
-          <a href="/about#how-we-research" class="text-sm text-muted hover:text-primary transition-colors duration-200">How We Research</a>
-          <a href="/faq" class="text-sm text-muted hover:text-primary transition-colors duration-200">FAQ</a>
-          <a href="/contact" class="text-sm text-muted hover:text-primary transition-colors duration-200">Contact</a>
+
+        <!-- Company -->
+        <div>
+          <p class="font-semibold text-sm text-primary mb-4">Company</p>
+          <ul class="space-y-2.5">
+            ${footerLink('/about', 'About')}
+            ${footerLink('/crew', 'The Crew')}
+            ${footerLink('/about#how-we-research', 'How We Research')}
+            ${footerLink('/faq', 'FAQ')}
+            ${footerLink('/contact', 'Contact')}
+            ${footerLink('/submit', 'Submit')}
+          </ul>
         </div>
+
+        <!-- Newsletter -->
+        <div>
+          <p class="font-semibold text-sm text-primary mb-4">Stay Updated</p>
+          <p class="text-sm text-muted mb-4 leading-relaxed">Get notified when we add new ${ITEMS_PATH}.</p>
+          <form class="flex gap-2" onsubmit="event.preventDefault();this.querySelector('button').textContent='Subscribed!';this.querySelector('input').disabled=true;">
+            <input
+              type="email"
+              placeholder="you@email.com"
+              required
+              class="flex-1 min-w-0 text-sm border border-border rounded-lg px-3 py-2 focus:outline-none focus:border-primary/30 transition-all"
+            >
+            <button
+              type="submit"
+              class="bg-primary hover:bg-primary-hover text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shrink-0"
+            >
+              Join
+            </button>
+          </form>
+          <p class="text-xs text-muted mt-2">No spam. Unsubscribe anytime.</p>
+        </div>
+
       </div>
-      <div class="border-t border-border mt-10 pt-10 text-center">
+
+      <!-- Bottom bar -->
+      <div class="border-t border-border mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p class="text-sm text-muted">&copy; ${year} ${SITE_NAME}. All rights reserved.</p>
+        <div class="flex items-center gap-6">
+          <a href="/about#how-we-research" class="text-xs text-muted hover:text-primary transition-colors">How We Research</a>
+          <a href="/contact" class="text-xs text-muted hover:text-primary transition-colors">Contact</a>
+          <a href="/llms.txt" class="text-xs text-muted hover:text-primary transition-colors">LLMs.txt</a>
+        </div>
       </div>
     </div>
   </footer>

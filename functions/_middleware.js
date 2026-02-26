@@ -6,6 +6,7 @@
  */
 
 import { DOMAIN, SHORT_PATHS } from './_shared/config.js';
+import { onRequestGet as render404 } from './404.js';
 
 export async function onRequest(context) {
   const { request } = context;
@@ -27,7 +28,12 @@ export async function onRequest(context) {
     return Response.redirect(`${url.origin}/category/${slug}`, 301);
   }
 
-  const response = await context.next();
+  let response = await context.next();
+
+  // Serve custom 404 page for unmatched routes
+  if (response.status === 404) {
+    response = await render404(context);
+  }
 
   // Block non-production domains from indexing
   const host = url.hostname;

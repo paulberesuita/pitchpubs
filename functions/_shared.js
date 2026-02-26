@@ -12,8 +12,8 @@
  *   _shared/response.js   — Response helpers (renderPage, htmlResponse, jsonResponse, errorResponse)
  */
 
-export { SITE_NAME, DOMAIN, PROD_BASE, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD, SCHEMA_TYPE, EXPERTISE_AREAS, SHORT_PATHS, HOMEPAGE_FILTER } from './_shared/config.js';
-export { escapeHtml, slugify, truncate, capitalize } from './_shared/utils.js';
+export { SITE_NAME, DOMAIN, PROD_BASE, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD, SCHEMA_TYPE, EXPERTISE_AREAS, SHORT_PATHS, HOMEPAGE_FILTER, HOMEPAGE_FAQ } from './_shared/config.js';
+export { escapeHtml, slugify, truncate, capitalize, stateFullName } from './_shared/utils.js';
 export { renderHead, renderNav, renderFooter, renderBreadcrumbs } from './_shared/layout.js';
 export { renderCard, renderEmptyState, renderPagination } from './_shared/components.js';
 export { renderMapToggle, renderMap } from './_shared/map.js';

@@ -227,7 +227,8 @@ async function renderDetailPage(context, baseUrl, slug) {
       const head = renderHead({
         title: 'Not Found',
         description: 'The requested item could not be found.',
-        url: `${baseUrl}/${ITEMS_PATH}/${slug}`
+        url: `${baseUrl}/${ITEMS_PATH}/${slug}`,
+        noindex: true
       });
 
       const body = `
@@ -412,7 +413,7 @@ async function renderDetailPage(context, baseUrl, slug) {
             </div>
             ${item.source_url ? `
             <div class="flex flex-col gap-3 md:min-w-[180px]">
-              <a href="${escapeHtml(item.source_url)}" target="_blank" rel="noopener noreferrer"
+              <a href="${escapeHtml(item.source_url)}" target="_blank" rel="nofollow noopener noreferrer"
                  class="bg-primary hover:bg-primary-hover text-white font-medium px-6 py-3.5 rounded-xl transition-all duration-200 text-center">
                 Visit Website &rarr;
               </a>
@@ -486,7 +487,7 @@ async function renderDetailPage(context, baseUrl, slug) {
             <ul class="space-y-3">
               ${sources.map((s, i) => `
               <li class="text-sm">
-                <a href="${escapeHtml(s)}" target="_blank" rel="noopener noreferrer"
+                <a href="${escapeHtml(s)}" target="_blank" rel="nofollow noopener noreferrer"
                    class="text-primary hover:text-primary-hover transition-colors duration-200 break-all">
                   ${escapeHtml(s.replace(/^https?:\/\/(www\.)?/, '').split('/')[0])}
                 </a>
@@ -529,7 +530,7 @@ async function renderDetailPage(context, baseUrl, slug) {
               <div class="border-t border-border pt-5">
                 <dt class="text-sm text-muted mb-1">Website</dt>
                 <dd>
-                  <a href="${escapeHtml(item.source_url)}" target="_blank" rel="noopener noreferrer"
+                  <a href="${escapeHtml(item.source_url)}" target="_blank" rel="nofollow noopener noreferrer"
                      class="text-primary hover:text-primary-hover transition-colors duration-200">
                     Visit &rarr;
                   </a>

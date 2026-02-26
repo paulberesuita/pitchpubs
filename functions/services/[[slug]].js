@@ -227,7 +227,8 @@ async function renderServiceDetail(context, baseUrl, slug) {
       const head = renderHead({
         title: 'Not Found',
         description: 'The requested service could not be found.',
-        url: `${baseUrl}/services/${slug}`
+        url: `${baseUrl}/services/${slug}`,
+        noindex: true
       });
 
       const body = `
@@ -344,12 +345,12 @@ async function renderServiceDetail(context, baseUrl, slug) {
             </div>
             ${service.booking_url ? `
             <div class="flex flex-col gap-3 md:min-w-[180px]">
-              <a href="${escapeHtml(service.booking_url)}" target="_blank" rel="noopener noreferrer"
+              <a href="${escapeHtml(service.booking_url)}" target="_blank" rel="nofollow noopener noreferrer"
                  class="bg-primary hover:bg-primary-hover text-white font-medium px-6 py-3.5 rounded-xl transition-all duration-200 text-center">
                 Book Now &rarr;
               </a>
               ${service.website_url ? `
-              <a href="${escapeHtml(service.website_url)}" target="_blank" rel="noopener noreferrer"
+              <a href="${escapeHtml(service.website_url)}" target="_blank" rel="nofollow noopener noreferrer"
                  class="text-sm text-muted hover:text-primary text-center transition-colors">
                 Visit Website
               </a>
@@ -357,7 +358,7 @@ async function renderServiceDetail(context, baseUrl, slug) {
             </div>
             ` : service.website_url ? `
             <div class="flex flex-col gap-3 md:min-w-[180px]">
-              <a href="${escapeHtml(service.website_url)}" target="_blank" rel="noopener noreferrer"
+              <a href="${escapeHtml(service.website_url)}" target="_blank" rel="nofollow noopener noreferrer"
                  class="bg-primary hover:bg-primary-hover text-white font-medium px-6 py-3.5 rounded-xl transition-all duration-200 text-center">
                 Visit Website &rarr;
               </a>

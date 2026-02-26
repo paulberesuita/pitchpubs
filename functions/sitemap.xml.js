@@ -31,7 +31,8 @@ export async function onRequestGet(context) {
       { loc: '/about', priority: '0.4', changefreq: 'monthly' },
       { loc: '/faq', priority: '0.4', changefreq: 'monthly' },
       { loc: '/contact', priority: '0.3', changefreq: 'monthly' },
-      { loc: '/submit', priority: '0.3', changefreq: 'monthly' }
+      { loc: '/submit', priority: '0.3', changefreq: 'monthly' },
+      { loc: '/crew', priority: '0.3', changefreq: 'monthly' }
     ];
 
     // Get all items

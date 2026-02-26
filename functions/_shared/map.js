@@ -48,7 +48,7 @@ export function renderMap(items, { basePath = ITEMS_PATH } = {}) {
   }));
 
   return `
-  <div id="map-container" class="hidden rounded-2xl border border-border overflow-hidden relative z-0" style="height: 500px;"></div>
+  <div id="map-container" class="hidden rounded-2xl border border-border overflow-hidden relative z-0 h-[350px] sm:h-[500px]"></div>
   <script type="application/json" id="map-data">${JSON.stringify(mapData)}</script>
   <script>
   (function() {

@@ -17,7 +17,8 @@ export async function onRequestGet(context) {
   const head = renderHead({
     title: 'Page Not Found',
     description: 'The page you\'re looking for doesn\'t exist.',
-    url: url.href
+    url: `${baseUrl}/`,
+    noindex: true
   });
 
   const body = `

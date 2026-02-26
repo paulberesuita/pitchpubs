@@ -25,7 +25,7 @@ export function htmlResponse(html, status = 200) {
     status,
     headers: {
       'Content-Type': 'text/html; charset=utf-8',
-      'Cache-Control': 'public, max-age=300'
+      'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400'
     }
   });
 }

@@ -163,7 +163,8 @@ async function renderBestOfPage(context, baseUrl, topic) {
       const head = renderHead({
         title: 'Not Found',
         description: 'The requested best-of list could not be found.',
-        url: `${baseUrl}/best/${topic}`
+        url: `${baseUrl}/best/${topic}`,
+        noindex: true
       });
 
       const body = `

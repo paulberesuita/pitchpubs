@@ -6,25 +6,12 @@
  */
 
 import {
-  SITE_NAME, TABLE_NAME, ITEMS_PATH, EXPERTISE_AREAS, PROD_BASE,
-  escapeHtml, slugify, renderHead, renderNav, renderFooter,
+  SITE_NAME, TABLE_NAME, ITEMS_PATH, EXPERTISE_AREAS, PROD_BASE, HOMEPAGE_FAQ,
+  escapeHtml, slugify, stateFullName, renderHead, renderNav, renderFooter,
   renderCard, renderEmptyState, renderPage, htmlResponse
 } from './_shared.js';
 
 const ITEMS_PER_PAGE = 24;
-
-// State abbreviation → full name lookup (legacy support for any remaining abbreviations)
-const STATE_NAMES = {
-  AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',
-  CT:'Connecticut',DE:'Delaware',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',
-  IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',
-  ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',
-  MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',
-  NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',
-  OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',
-  TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',
-  WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming',DC:'Washington DC'
-};
 
 export async function onRequestGet(context) {
   const { env, request } = context;
@@ -106,7 +93,19 @@ export async function onRequestGet(context) {
         "logo": `${PROD_BASE}/favicon.svg`,
         "sameAs": [],
         "knowsAbout": EXPERTISE_AREAS
-      }
+      },
+      ...(HOMEPAGE_FAQ?.length ? [{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": HOMEPAGE_FAQ.map(item => ({
+          "@type": "Question",
+          "name": item.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.answer
+          }
+        }))
+      }] : [])
     ];
 
     const head = renderHead({
@@ -123,7 +122,7 @@ export async function onRequestGet(context) {
     // State filter pills
     const statePillsHtml = states.map(s => {
       const isActive = state === s.state;
-      const fullName = STATE_NAMES[s.state] || s.state;
+      const fullName = stateFullName(s.state);
       return `<a href="/?state=${encodeURIComponent(s.state)}"
                  class="text-sm px-4 py-1.5 rounded-full border transition-all whitespace-nowrap shrink-0 ${isActive
                    ? 'bg-accent text-white border-accent font-medium'
@@ -320,6 +319,28 @@ export async function onRequestGet(context) {
       })();
       </script>
     </section>
+
+    ${HOMEPAGE_FAQ?.length ? `
+    <!-- FAQ -->
+    <section class="max-w-3xl mx-auto px-6 py-16">
+      <h2 class="font-display text-2xl font-bold tracking-tight mb-8 text-center">Frequently Asked Questions</h2>
+      <div class="space-y-3">
+        ${HOMEPAGE_FAQ.map(item => `
+        <details class="group bg-surface rounded-xl border border-border overflow-hidden">
+          <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-surface-hover transition-colors">
+            <h3 class="font-semibold pr-4">${escapeHtml(item.question)}</h3>
+            <svg class="w-5 h-5 text-muted shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <div class="px-5 pb-5 text-muted leading-relaxed">
+            ${escapeHtml(item.answer)}
+          </div>
+        </details>
+        `).join('\n')}
+      </div>
+    </section>
+    ` : ''}
 
     ${renderFooter()}
     `;
