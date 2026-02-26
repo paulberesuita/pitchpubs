@@ -12,11 +12,15 @@
 - /states — Browse bars by state
 - /cities — Browse bars by city
 - /categories — All categories
+- /best — Best-of ranking lists by category
 - /search — Search the directory
 - /about — About PitchPubs
 - /faq — Frequently asked questions
+- /crew — Meet the team behind PitchPubs
+- /services — Related services for soccer fans
 - /contact — Get in touch
 - /submit — Submit a new bar
+- /feed.xml — RSS feed of latest additions
 
 ## API
 - /api/items — List bars (supports ?category, ?state, ?city, ?q, ?limit, ?offset)

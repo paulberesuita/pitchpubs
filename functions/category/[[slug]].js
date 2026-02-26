@@ -5,7 +5,7 @@
 
 import {
   SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD, PROD_BASE,
-  escapeHtml, slugify, capitalize, renderHead, renderNav, renderFooter, renderBreadcrumbs,
+  escapeHtml, slugify, capitalize, stateFullName, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderCard, renderEmptyState, renderPagination,
   renderPage, htmlResponse
 } from '../_shared.js';
@@ -23,7 +23,7 @@ export async function onRequestGet(context) {
 
   // If no slug, redirect to categories index
   if (!slug) {
-    return Response.redirect(`${baseUrl}/categories`, 302);
+    return Response.redirect(`${baseUrl}/categories`, 301);
   }
 
   try {
@@ -40,7 +40,8 @@ export async function onRequestGet(context) {
       const head = renderHead({
         title: 'Category Not Found',
         description: 'The requested category could not be found.',
-        url: `${baseUrl}/category/${slug}`
+        url: `${baseUrl}/category/${slug}`,
+        noindex: true
       });
 
       const body = `
@@ -144,7 +145,7 @@ export async function onRequestGet(context) {
         <select id="state-filter"
                 class="text-sm bg-surface border border-border rounded-xl px-4 py-2.5 focus:outline-none focus:border-primary transition-all">
           <option value="">All States (${totalCount})</option>
-          ${states.map(s => `<option value="${escapeHtml(s.state)}">${escapeHtml(s.state)} (${s.count})</option>`).join('\n')}
+          ${states.map(s => `<option value="${escapeHtml(s.state)}">${escapeHtml(stateFullName(s.state))} (${s.count})</option>`).join('\n')}
         </select>
         <span class="text-sm text-muted" id="filter-status"></span>
       </div>

@@ -6,7 +6,7 @@
 
 import {
   SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD, PROD_BASE,
-  escapeHtml, slugify, capitalize, renderHead, renderNav, renderFooter, renderBreadcrumbs,
+  escapeHtml, slugify, capitalize, stateFullName, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderCard, renderEmptyState, renderMapToggle, renderMap,
   renderPage, htmlResponse
 } from '../_shared.js';
@@ -70,7 +70,7 @@ async function renderStatesIndex(context, baseUrl) {
       <a href="/states/${escapeHtml(stateSlug)}" class="group block bg-surface rounded-2xl border border-border card-hover p-7 reveal" style="transition-delay: ${Math.min(i, 12) * 60}ms">
         <div class="flex items-center justify-between">
           <div>
-            <h2 class="font-display text-lg font-bold group-hover:text-primary transition-colors duration-200">${escapeHtml(s.state)}</h2>
+            <h2 class="font-display text-lg font-bold group-hover:text-primary transition-colors duration-200">${escapeHtml(stateFullName(s.state))}</h2>
             <p class="text-sm text-muted mt-1.5">${s.count} item${s.count === 1 ? '' : 's'}</p>
           </div>
           <svg class="w-5 h-5 text-muted group-hover:text-primary transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,7 +165,8 @@ async function renderStateDetail(context, baseUrl, slug) {
       const head = renderHead({
         title: 'State Not Found',
         description: 'The requested state could not be found.',
-        url: `${baseUrl}/states/${slug}`
+        url: `${baseUrl}/states/${slug}`,
+        noindex: true
       });
 
       const body = `
@@ -230,11 +231,12 @@ async function renderStateDetail(context, baseUrl, slug) {
     };
 
     // Sample names for richer meta description
+    const displayName = stateFullName(stateName);
     const sampleNames = items.slice(0, 3).map(i => i.name).join(', ');
     const hasMappable = items.some(i => i.latitude && i.longitude);
     const head = renderHead({
-      title: `${capitalize(ITEMS_PATH)} in ${stateName} - ${items.length} Locations`,
-      description: `Discover ${items.length} ${ITEMS_PATH} in ${stateName} across ${cities.length} cit${cities.length === 1 ? 'y' : 'ies'}.${sampleNames ? ` Including ${sampleNames}.` : ''}`,
+      title: `${capitalize(ITEMS_PATH)} in ${displayName} - ${items.length} Locations`,
+      description: `Discover ${items.length} ${ITEMS_PATH} in ${displayName} across ${cities.length} cit${cities.length === 1 ? 'y' : 'ies'}.${sampleNames ? ` Including ${sampleNames}.` : ''}`,
       url: `${baseUrl}/states/${slug}`,
       jsonLd,
       mapEnabled: hasMappable

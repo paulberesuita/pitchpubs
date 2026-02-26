@@ -6,7 +6,7 @@
 
 import {
   SITE_NAME, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD, PROD_BASE,
-  escapeHtml, slugify, capitalize, renderHead, renderNav, renderFooter, renderBreadcrumbs,
+  escapeHtml, slugify, capitalize, stateFullName, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderCard, renderEmptyState, renderMapToggle, renderMap,
   renderPage, htmlResponse
 } from '../_shared.js';
@@ -71,7 +71,7 @@ async function renderCitiesIndex(context, baseUrl) {
         <div class="flex items-center justify-between">
           <div>
             <h2 class="font-display text-lg font-bold group-hover:text-primary transition-colors duration-200">${escapeHtml(c.city)}</h2>
-            <p class="text-sm text-muted mt-1.5">${escapeHtml(c.state)} &middot; ${c.count} item${c.count === 1 ? '' : 's'}</p>
+            <p class="text-sm text-muted mt-1.5">${escapeHtml(stateFullName(c.state))} &middot; ${c.count} item${c.count === 1 ? '' : 's'}</p>
           </div>
           <svg class="w-5 h-5 text-muted group-hover:text-primary transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -169,7 +169,8 @@ async function renderCityDetail(context, baseUrl, slug) {
       const head = renderHead({
         title: 'City Not Found',
         description: 'The requested city could not be found.',
-        url: `${baseUrl}/cities/${slug}`
+        url: `${baseUrl}/cities/${slug}`,
+        noindex: true
       });
 
       const body = `

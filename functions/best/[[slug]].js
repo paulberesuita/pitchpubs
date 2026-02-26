@@ -231,25 +231,27 @@ async function renderBestOfPage(context, baseUrl, topic) {
 
       return `
       <a href="/${ITEMS_PATH}/${escapeHtml(item.slug)}"
-         class="group flex gap-6 bg-surface rounded-2xl border border-border card-hover p-5 reveal" style="transition-delay: ${index * 80}ms">
-        <!-- Rank -->
-        <div class="flex items-center justify-center w-12 h-12 bg-surface rounded-xl text-xl font-display font-bold text-primary shrink-0">
-          ${index + 1}
-        </div>
+         class="group flex flex-col sm:flex-row gap-4 sm:gap-6 bg-surface rounded-2xl border border-border card-hover p-5 reveal" style="transition-delay: ${index * 80}ms">
+        <div class="flex items-center gap-4 sm:gap-6 sm:flex-1 min-w-0">
+          <!-- Rank -->
+          <div class="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-surface rounded-xl text-lg sm:text-xl font-display font-bold text-primary shrink-0">
+            ${index + 1}
+          </div>
 
-        <!-- Image -->
-        <div class="w-24 h-24 rounded-xl overflow-hidden bg-surface shrink-0">
-          ${imageHtml}
-        </div>
+          <!-- Image -->
+          <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-surface shrink-0">
+            ${imageHtml}
+          </div>
 
-        <!-- Content -->
-        <div class="flex-1 min-w-0">
-          <h3 class="font-display font-bold text-lg group-hover:text-primary transition-colors duration-200">${escapeHtml(item.name)}</h3>
-          <p class="text-sm text-muted mt-1.5 line-clamp-2 leading-relaxed">${escapeHtml(item.description || '')}</p>
+          <!-- Content -->
+          <div class="flex-1 min-w-0">
+            <h3 class="font-display font-bold text-base sm:text-lg group-hover:text-primary transition-colors duration-200">${escapeHtml(item.name)}</h3>
+            <p class="text-sm text-muted mt-1.5 line-clamp-2 leading-relaxed">${escapeHtml(item.description || '')}</p>
+          </div>
         </div>
 
         <!-- Arrow -->
-        <svg class="w-5 h-5 text-muted group-hover:text-primary transition-colors duration-200 shrink-0 self-center" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 text-muted group-hover:text-primary transition-colors duration-200 shrink-0 self-center hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>
       </a>

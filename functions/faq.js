@@ -4,7 +4,7 @@
  */
 
 import {
-  SITE_NAME,
+  SITE_NAME, PROD_BASE,
   escapeHtml, renderHead, renderNav, renderFooter, renderBreadcrumbs,
   renderPage, htmlResponse
 } from './_shared.js';

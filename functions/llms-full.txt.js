@@ -6,12 +6,11 @@
  * (ChatGPT, Perplexity, Claude, etc.)
  */
 
-import { SITE_NAME, DOMAIN, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD } from './_shared.js';
+import { SITE_NAME, DOMAIN, PROD_BASE, TABLE_NAME, ITEMS_PATH, CATEGORY_FIELD } from './_shared.js';
 
 export async function onRequestGet(context) {
-  const { env, request } = context;
-  const url = new URL(request.url);
-  const baseUrl = `${url.protocol}//${url.host}`;
+  const { env } = context;
+  const baseUrl = PROD_BASE;
 
   try {
     const { results: items } = await env.DB.prepare(
