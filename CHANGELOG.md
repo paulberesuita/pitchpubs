@@ -4,6 +4,176 @@ What we shipped. Update after each feature.
 
 ---
 
+## 2026-02-26
+
+### SEO + Infrastructure -- 12 Fixes from New-Directory Template Audit
+
+Compared soccerbars-v2 against the new-directory template (gold standard) and fixed all SEO/code gaps.
+
+**Fixed (Critical SEO):**
+- JSON-LD URL rewriting in `renderHead` -- IIFE rewrites any preview-domain URLs to `PROD_BASE` in all structured data output, preventing non-canonical domains from leaking into Google's index
+- Pagination `rel prev/next` URLs now rewritten to production domain via `toProd()` helper (previously leaked preview URLs)
+- `noindex` added to 404 page, bar not-found, best-of not-found, and service not-found responses -- prevents thin 404 pages from being indexed
+- Custom 404 page now served from middleware for all unmatched routes (previously showed default Cloudflare 404)
+- `nofollow` added to all external links: "Visit Website" CTAs, source citations, sidebar website links, service booking links -- prevents link equity leakage to ~490 bar websites
+- HTML caching upgraded from `max-age=300` to `max-age=3600, stale-while-revalidate=86400` (1hr fresh, 24hr stale-ok)
+
+**Added (Missing Features):**
+- Homepage FAQPage schema -- 5 PitchPubs-specific Q&As with `FAQPage` JSON-LD on highest-authority page + visible expandable FAQ section
+- `/crew` added to sitemap static pages (page existed but wasn't in sitemap)
+- Newsletter email capture form in footer
+- Rich 4-column footer: Brand + RSS link, Browse links, Company links, Newsletter signup
+- `stateFullName` utility centralized in `utils.js` and exported from barrel (removed duplicate 27-line lookup table from `index.js`)
+- Responsive map height: `h-[350px] sm:h-[500px]` replaces fixed `500px` for better mobile UX
+
+---
+
+## 2026-02-22
+
+### Content -- Deep Research All 11 Salt Lake City Soccer Bars
+
+**Added:**
+- Rich content profiles for all 11 Salt Lake City bars (previously 0/11 had content)
+- Content lengths range from 1,944 to 2,539 characters per bar (avg ~2,201 chars)
+
+**Supporter club profiles:**
+- Beer Bar (1,944 chars) -- Co-owned by Ty Burrell (Modern Family), opened 2014, AO Salt Lake City home, Manchester City & Everton supporters, German beer hall atmosphere with 150+ beers
+- Fiddler's (2,203 chars) -- Utah Gooners (Arsenal FC) home, listed on arsenal.com, 30+ year Sugar House institution, reopened June 2025 by Jordanna & Jimmy Brown after Aug 2024 closure
+- Legends Pub & Grill (2,327 chars) -- SLC Spurs (Tottenham) home, verified on tottenhamhotspur.com, Aston Villa supporters, family-friendly, 9 AM openings for early EPL, TRAX accessible
+- Dick N' Dixie's (2,026 chars) -- Unofficial RSL hub where players visit after home games, co-owners Will Bourne & Kirsten Fowler, 25 screens, dive bar with soccer soul
+
+**Official RSL watch party venues:**
+- Piper Down Pub (2,208 chars) -- Since 2003, Irish Times Best Irish Pub in the World competition, naming conflict with Utah officials over "Temple Bar," shamrock bike racks, fire pit patio
+- Poplar Street Pub (2,088 chars) -- 3 floors, 3 bars, 30 screens, RSL Soapbox's "truest soccer bar," soccer scarves on walls, fire-pit patios, $1 pool tables
+- Gracie's (2,006 chars) -- Official RSL watch party location, 35 screens, 295-seat capacity, established 2009, all-day breakfast, award-winning patio
+- Shades Brewing (2,304 chars) -- Award-winning craft brewery (GABF gold medals), RSL watch parties with $5 pizza & $3 beers, founded in Park City garage, dog-friendly patio
+
+**Premium/unique venue profiles:**
+- Flanker Kitchen + Sporting Club (2,177 chars) -- 17,500 sqft, 60+ LED screens, two 20-foot displays, Carver Road Hospitality, opened Dec 2021, Chef Daniel Ontiveros, 630 capacity
+- The Bruce Scottish Pub (2,384 chars) -- Only Scottish pub in Utah, opened April 2024, tribute to William Ray Bruce (descendant of Robert the Bruce), owner Tali Bruce, Champions League events
+- The Green Pig Pub (2,539 chars) -- Founded 2009 by Bridget Gordon (Port O'Call veteran), award-winning rooftop with mountain views, eco-friendly build, World Cup destination
+
+**Salt Lake City content status: 11/11 bars with content profiles (100%)**
+
+---
+
+### Content -- Deep Research All 10 Cincinnati Soccer Bars
+
+**Added:**
+- Rich content profiles for all 10 Cincinnati bars (previously 0/10 had content)
+- Content lengths range from 2,791 to 3,138 characters per bar (avg ~2,961 chars)
+
+**FC Cincinnati match day ecosystem profiles:**
+- Northern Row Brewery (2,893 chars) -- The Pride's home base, March to TQL Stadium departure point, "Supporter" blood orange kolsch collaboration, 24oz-for-16oz match day deals
+- Samuel Adams Taproom (2,991 chars) -- Die Innenstadt's home base (largest independent FC Cincinnati supporters club), The Briogaid staging point, November 2018 opening, 12 on-site brewed beers
+- The Pitch Cincy (2,791 chars) -- Former Metropolitan Baptist Church, opened May 15 2021, 50 TVs + 9x7ft Samsung 4K video wall, Cincy Gooners/Queen City Mafia home, astroturf ceiling
+- Rhinehaus (2,805 chars) -- THE Cincinnati soccer bar since 2013, 14 4K TVs + projector, 5 EPL supporter groups (LFC Cincy, Ohio Blues, Cincy Gooners, Cincy Villains, Cincy Hammers), opens 7 AM weekends
+
+**Authentic pub profiles:**
+- Hap's Irish Pub (3,043 chars) -- Family-owned since 1974, named for founder's father "Happy," 4 generations, cash only, 7:45 AM openings, proper Guinness pours, steel-tip darts
+- Nicholson's Pub (2,898 chars) -- Founded 1997, Cincinnati's first gastropub, Cafe Royal Circle Bar-inspired design, 200+ single malt scotch whiskies, British-imported fixtures, haggis on menu
+- O'Malley's in the Alley (2,981 chars) -- Second oldest bar in Cincinnati (since 1892), former speakeasy, Blind Pig back room (2014), 130 years of drinking history
+- The Pub at Rookwood (3,138 chars) -- Premier League mural, same management as Nicholson's, early weekend openings on request, GM Kevin Malone quoted on tournament crowds
+
+**Neighborhood bar profiles:**
+- Higher Gravity (3,047 chars) -- 400+ beers, 150+ wines, all EPL matches guaranteed, BYOF policy, family-friendly, Northside craft beer culture
+- Second Place (3,023 chars) -- Littlefield team's second concept, tin ceilings/exposed brick, bourbon slushies, food walked over from Littlefield kitchen, free popcorn
+
+**Cincinnati content status: 10/10 bars with content profiles (100%)**
+
+---
+
+### Content -- Deep Research All 10 St. Louis Soccer Bars
+
+**Added:**
+- Rich content profiles for all 10 St. Louis bars (previously 0/10 had content)
+- Content lengths range from 2,452 to 2,806 characters per bar (avg ~2,618 chars)
+
+**Stadium-adjacent profiles (match-day corridor):**
+- Schlafly Tap Room (2,719 chars) -- St. Louis's original craft brewery (1991), Louligan Street block party, Supporter's Session beer, $60K+ raised for charity, St. Louligans founding story
+- The Pitch Athletic Club & Tavern (2,452 chars) -- 9,200 sqft soccer bar opened Feb 27 2023, Tony Faust's salvaged walnut woodwork (1889), SLU 10x NCAA champion memorabilia, Carnegie Deli sandwiches, 6:30 AM weekend openings
+- Maggie O'Brien's (2,530 chars) -- Since 1979, longest-running Irish pub in St. Louis, opened at 9 AM for first CITY SC home match, CITY on Tap partner, McVey brothers ownership
+- Beffa's Bar & Restaurant (2,728 chars) -- Est. 1898, fourth-generation family, STL Santos gathering point, Hispanic/Latina women-led supporter group, $15 match-day buckets
+
+**Supporter group home bars:**
+- Amsterdam Tavern (2,538 chars) -- Since 2008, American Outlaws STL home (29th chapter, est. 2010), Men in Blazers nomination, The Dam partnership, Ajax/Arsenal scarves, Morganford Road block parties
+- 2nd Shift Brewing (2,699 chars) -- Brewligans IPA collaboration with St. Louligans, The Hill (historic Italian soccer neighborhood), Steve & Libby Crider founders (2009), Guerrilla Street Food
+- International Tap House (2,498 chars) -- St. Louligans away-match hub, Draft Magazine Top 100 Craft Beer Bar, founded 2009 by college soccer players Brad Lobdell & Sean Conroy, 44 taps, beer tap fountain patio
+
+**European football hubs:**
+- Llywelyn's Pub (2,508 chars) -- Gateway Gooners (Arsenal) + Mia San STL (Bayern Munich) home, founded 1975, Gaslight Square antique bar, Webster Groves Soccer Club sponsor, CITY on Tap partner
+- Fox & Hounds Tavern (2,706 chars) -- English pub inside Cheshire Inn (since 1964), Liverpool Wings in ale hot sauce, yard of ale tradition, stone fireplace, hunting lodge atmosphere
+
+**Premium venue:**
+- Sports & Social STL (2,806 chars) -- 20+ LED TVs + media wall, Ballpark Village location, free shuttle to Energizer Park, Skee-Ball/duckpin bowling, CITY on Tap partner, $25 buckets
+
+**St. Louis content status: 10/10 bars with content profiles (100%)**
+
+---
+
+### Content -- Deep Research All 12 Las Vegas Soccer Bars
+
+**Added:**
+- Rich content profiles for all 12 Las Vegas bars (previously 0/12 had content)
+- Content lengths range from 2,175 to 2,546 characters per bar (avg ~2,373 chars)
+
+**Top-tier profiles (richest soccer identity):**
+- Crown & Anchor Pub (2,404 chars) -- Founded 1995, Las Vegas's original soccer pub, U.S. Soccer Federation sponsor, Crystal Palace/Everton/Newcastle supporter groups, Tropicana location closed 2024
+- McMullan's Irish Pub (2,487 chars) -- Liverpool OLSC home, Shenanigans flag room, $10K+ raised for homeless youth via goal donations, 24/7 full league coverage through 2026 World Cup Final
+- Ri Ra Irish Pub (2,500 chars) -- Built from restored Irish pub shipped from Ireland, EPL Breakfast Club since 2017-18, Visit Las Vegas 2026 World Cup watch venue
+- Hofbrauhaus Las Vegas (2,367 chars) -- Only Bundesliga-first soccer bar in Las Vegas, Bayern Munich viewing parties, 2022 World Cup coverage in Review-Journal, Munich-imported beer
+- Hennessey's Tavern (2,235 chars) -- American Outlaws Las Vegas home since 2011, USMNT/USWNT watch parties, Fremont Street location
+
+**Supporter club profiles:**
+- Jackpot Bar & Grill (2,206 chars) -- Sin City Gooners (Arsenal FC), listed on arsenal.com, Arsenal America branch
+- McMullan's -- Official Liverpool Supporters Club of Las Vegas
+- Crown & Anchor -- Crystal Palace, Everton, Newcastle supporter groups
+- Hennessey's -- American Outlaws Las Vegas (USMNT/USWNT)
+
+**Premium venue profiles:**
+- Flanker Kitchen (2,352 chars) -- 30x9ft LED wall, 50+ screens, 8,500 sqft, Chef Daniel Ontiveros, opened 2023
+- Nine Fine Irishmen (2,546 chars) -- Built by Irish Pub Company, shipped from Ireland, opened ~2010, AOL Top 5 Bars in LV
+- Blondies Sports Bar (2,389 chars) -- 60+ TVs, 7 AM opening for EPL on the Strip, Miracle Mile Shops
+- The Front Yard (2,455 chars) -- 18ft big screen, Ellis Island Brewery on-site, 350 capacity beer garden
+
+**Neighborhood/community profiles:**
+- Four Kegs (2,365 chars) -- Since 1977, sponsors 2 local soccer teams, Guy Fieri Diners Drive-Ins and Dives
+- Kickers (2,175 chars) -- Women-owned, 17 TVs, Neon Museum area, downtown alternative
+
+**Las Vegas content status: 12/12 bars with content profiles (100%)**
+
+---
+
+### Images -- Fill Last 2 Missing Atlanta Bar Images
+
+**Fixed:**
+- Chiringa (Atlanta) -- uploaded food/branding photo from Adventures in Atlanta blog (adventuresinatlanta.com WordPress CDN)
+- SweetWater Brewery (Atlanta) -- uploaded aerial exterior photo from Absolute Beer (absolutebeer.com WordPress CDN)
+- Georgia image coverage: 86% (19/22) -> 100% (22/22) -- no bars missing images in the state
+
+**Verification URLs:**
+- https://pitchpubs.com/images/items/chiringa-atlanta.jpg (183KB, 825x550)
+- https://pitchpubs.com/images/items/sweetwater-brewery-atlanta.jpg (656KB, 2400x1200)
+
+---
+
+### Data Quality -- Fix 12 Thin Bar Descriptions
+
+**Fixed:**
+- Rewrote 12 bar descriptions that were under 200 characters (thin content) with researched, soccer-specific descriptions (200-400 chars each)
+- Philadelphia (8 bars): The Black Taxi (104->304 chars, added 3 EPL supporter groups), The 700 (105->322, added Union/footy history), The Victoria Freehouse (110->354, added OLSC Liverpool origin story), Jose Pistola's (115->342, corrected to Fulham/Phulham supporters), Founding Fathers (159->328, added Philadelphia Spurs/Tottenham details), Hilltown Tavern (159->354, added EPL morning viewing details), Gran Caffe L'Aquila (166->362, added Bar D'Italia/Abruzzo backstory), O'Neals Pub (181->354, added 43-year history and Everton supporter details)
+- San Diego (2 bars): Knotty Barrel (178->318, added Gaslamp/screen details), SD TapRoom (183->352, added 11 TVs + projector + San Diego FC)
+- Washington DC (2 bars): Suzie Q's (194->374, added Fulham match day atmosphere), Sports & Social DC (196->341, added LED wall + FanDuel details)
+
+**Key research findings:**
+- The Black Taxi hosts 3 EPL clubs (Aston Villa, Crystal Palace, Leeds United) -- most multi-club venue in Philly
+- Victoria Freehouse is the birthplace of Official Liverpool FC Supporters Club Philadelphia
+- Jose Pistola's confirmed as Phulham (Fulham FC) home, not Liverpool as some sources suggested
+- O'Neals Pub has been family-owned for 43+ years with Guinness specials during Everton matches
+- SD TapRoom subscribes to all sports packages with sound for major matches
+
+---
+
 ## 2026-02-21
 
 ### SEO Fixes — OG Images, JSON-LD, State Normalization, Nav, Best-of Titles

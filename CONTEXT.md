@@ -4,6 +4,140 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ---
 
+## 2026-02-26
+
+### New-Directory Template Audit -- Preview Domains in Structured Data Are the Biggest SEO Risk
+
+Comparing soccerbars-v2 against the new-directory template revealed that the most dangerous gap was preview deploy URLs leaking into JSON-LD structured data. Cloudflare Pages generates unique preview URLs like `f38e74f7.soccerbars-v2.pages.dev` for every deploy. If Google crawls these (and it does -- they're publicly accessible), it indexes non-canonical domain references in structured data, diluting the production domain's authority.
+
+**The fix is a single IIFE in `renderHead`.** It detects the request origin, compares it to `PROD_BASE`, and does a global string replace on the serialized JSON-LD. This is more robust than requiring every page to use `PROD_BASE` manually in JSON-LD objects (which was the old approach and was inconsistently applied). The same `toProd()` helper rewrites `rel prev/next` pagination URLs.
+
+**`nofollow` on external links is the second-biggest win.** With ~490 bars each potentially having a `source_url`, the site was passing link equity to hundreds of external bar websites through "Visit Website" CTAs, sidebar links, and source citation links. Adding `rel="nofollow"` to all of these keeps authority within the site. The template had this from the start.
+
+**`noindex` on 404 responses prevents thin content indexing.** The site generates 404 responses for invalid slugs (e.g., `/bars/does-not-exist`). Without `noindex`, these could be indexed as real pages with thin content. The middleware now also intercepts Cloudflare's default 404 and serves the custom branded page instead.
+
+**`stale-while-revalidate` is a free performance win.** The old 5-minute `max-age` meant frequent origin hits. The new `max-age=3600, stale-while-revalidate=86400` serves cached content for 1 hour, then serves stale content for up to 24 hours while revalidating in the background. Users never see a slow page, and origin load drops significantly.
+
+**Homepage FAQ puts FAQPage schema on the highest-authority page.** The existing `/faq` page had FAQPage schema, but that page has low authority. Moving FAQ content (with schema) to the homepage gives Google the richest structured data on the page that ranks highest. The dedicated `/faq` page is kept for users who navigate there directly.
+
+**Pattern established: template as audit baseline.** The new-directory template should be the reference for any new SEO or infrastructure patterns. When the template gets a new feature, check if existing directories need it too.
+
+---
+
+## 2026-02-22
+
+### Salt Lake City Deep Research -- Utah's Unique Bar Culture Shapes a Distinctive Soccer Ecosystem
+
+Salt Lake City has 11 soccer bars that split into four distinct tiers by soccer identity:
+
+**Tier 1: Bars with verified EPL supporter club affiliations.** Fiddler's (Utah Gooners / Arsenal, listed on arsenal.com), Legends Pub & Grill (SLC Spurs / Tottenham, listed on tottenhamhotspur.com), Beer Bar (AO Salt Lake City / USMNT+USWNT, Manchester City, Everton). These three bars have formal supporter club ties verified through official club directories. The SLC Spurs are one of 106 new Official Supporters' Clubs welcomed in the most recent intake, making them among the newest Tottenham chapters in the US.
+
+**Tier 2: Official RSL Pub Partners with strong soccer identity.** Dick N' Dixie's (RSL players visit after home games -- the only bar in SLC with a player-presence claim), Piper Down Pub (Irish Times Best Irish Pub in the World competition, official RSL Pub), Poplar Street Pub (RSL Soapbox calls it "Salt Lake's truest soccer bar," scarves on walls), Shades Brewing (RSL watch parties with $5 pizza/$3 beer specials). These bars are designated RSL Pubs or have deep soccer culture without formal EPL supporter clubs.
+
+**Tier 3: Large venues with soccer programming.** Flanker Kitchen (60+ screens, 630 capacity, Carver Road Hospitality chain), Gracie's (35 screens, 295 seats, official RSL watch party location). These are premium sports bars that accommodate soccer within a broader entertainment concept.
+
+**Tier 4: European-identity pubs with soccer ties.** The Bruce Scottish Pub (only Scottish pub in Utah, Champions League events, opened April 2024), The Green Pig Pub (World Cup viewing destination, 10 screens, award-winning rooftop). These bars have European DNA that aligns with soccer culture but lack formal supporter club affiliations.
+
+**Utah's liquor laws shape the soccer bar landscape in unique ways.** Legends Pub & Grill is notable as one of the few family-friendly soccer bars in the state -- minors are welcome with an accompanying adult, which is unusual given Utah's strict licensing environment. Shades Brewing is 21-plus due to brewery licensing, with limited hours (closing at 7 PM most weekdays) that restrict its viability for early-morning EPL matches. The Bruce Scottish Pub operates under restaurant licensing that allows broader hours. These licensing nuances mean fans must choose their venue based on kickoff time, family needs, and drink preferences in ways that don't apply in most other US cities.
+
+**The Ty Burrell / Beer Bar connection is the most celebrity-backed soccer bar in the database.** Beer Bar at 161 E 200 South is co-owned by actor Ty Burrell (Phil Dunphy on Modern Family) alongside extended family members. It opened in April 2014 as a sister concept to the cocktail bar Bar X, with a menu developed by chef Viet Pham (Food & Wine Best New Chef 2011). The German beer hall atmosphere -- communal tables, 150+ beers, gourmet bratwursts -- gives AO Salt Lake City watch parties a distinctly Continental feel unlike any other American Outlaws chapter venue in the database.
+
+**Piper Down's naming story is the most Utah-specific origin in the database.** The founders wanted to name the bar "Temple Bar" after Dublin's famous district. Utah state officials (many Mormon) blocked the name because "temple" refers to LDS houses of worship. The founders pivoted to "Piper Down" but defiantly named an interior room "Temple Bar" anyway. This conflict between Utah's dominant religious culture and its bar scene is a recurring theme -- it explains why family-friendly licensing at Legends matters, why brewery hours at Shades are restricted, and why having an Irish pub named after Irish geography was seen as culturally provocative.
+
+**Bridget Gordon's Green Pig Pub is the most bootstrapped bar in our database.** She mortgaged her house, sold her car and motorcycle, completed construction in 10 weeks, then worked 18-hour shifts seven days a week for nine months without a day off. The bar's furniture, glassware, and bar counter are relics from the closed Port O'Call nightclub where she bartended for 12 years. Former Mayor Ralph Becker praised the pub's eco-friendly construction at the grand opening. The rooftop patio, voted Best Patio by City Weekly, overlooks the Wasatch Mountains -- a viewing experience unique to Salt Lake City among all bars in our database.
+
+**Dick N' Dixie's player connection is unique.** Co-owner Will Bourne told the Salt Lake Tribune that RSL players regularly visit after home games: "You almost always see one or more of them after a home game." No other bar in our 489+ bar database has a documented claim of regular player visits from their local MLS team. This transforms a dive bar with no food kitchen and a jukebox into one of the most authentic soccer gathering spots in the city.
+
+---
+
+### Cincinnati Deep Research -- FC Cincinnati's Match Day Ecosystem is the Most Structured in MLS
+
+Cincinnati has 10 soccer bars that map cleanly onto three tiers by their relationship to FC Cincinnati's match day rituals:
+
+**Tier 1: Match day infrastructure.** Northern Row (The Pride's home, March departure point since 2021), Samuel Adams Taproom (Die Innenstadt + The Briogaid staging ground), The Pitch (purpose-built soccer bar across from TQL, Cincy Gooners + Queen City Mafia home), Rhinehaus (5 EPL supporter groups, FC Cincinnati Pub Partner, opens 7 AM weekends). These four bars are formally embedded in FC Cincinnati's supporter culture and The March pregame tradition.
+
+**Tier 2: Authentic pubs with organic soccer identity.** Hap's Irish Pub (family-owned since 1974, opens 7:45 AM for EPL, cash only, proper Guinness), Nicholson's Pub (founded 1997, Cincinnati's first gastropub, 200+ scotch whiskies, Cafe Royal Circle Bar-inspired), O'Malley's in the Alley (second oldest bar in Cincinnati, since 1892, former speakeasy, European atmosphere), The Pub at Rookwood (Premier League mural, same ownership as Nicholson's, early openings on request). These are venues where soccer viewing grew naturally from British/Irish pub DNA rather than supporter club affiliation.
+
+**Tier 3: Neighborhood bars with soccer programming.** Higher Gravity (400+ beers, all EPL shown, Northside craft beer culture, BYOF), Second Place (Littlefield team's second concept, tin ceilings/exposed brick, bourbon slushies, 4 TVs). These bars show soccer as part of a broader sports and community identity.
+
+**The March is the most structured pregame tradition we've documented.** Seven supporter groups depart from designated bars (Northern Row, Samuel Adams, OTR Stillhouse, Holiday Spirits, Symphony Hotel, The Pitch) and converge at Findlay Market ~70 minutes before kickoff. The Corteo at Washington Park includes coordinated chanting, drumming, and smoke before the final procession to TQL Stadium via 14th Street. This level of formalized, multi-bar coordination exceeds what we've seen in Atlanta, Portland, or Seattle.
+
+**The Bailey at TQL Stadium is designed to amplify supporter culture.** The 3,100-capacity safe-standing section sits at a 34-degree angle at the stadium's north end. Nine recognized supporter groups (under The Incline Collective umbrella) coordinate tifos, chants, and blue-and-orange smoke. TQL Stadium won a Global "Best Venue" Award, partly because of this supporter section design.
+
+**Cincinnati's geographic layout creates natural bar corridors.** OTR bars (Rhinehaus, Northern Row, The Pitch, Samuel Adams) cluster along the route from Findlay Market to TQL Stadium. Hyde Park bars (Hap's, The Pub at Rookwood) serve eastern suburban fans. Northside bars (Higher Gravity, Second Place) serve the creative/artistic neighborhood. Downtown bars (Nicholson's, O'Malley's) fill the center. This is the most geographically diverse soccer bar distribution we've mapped in a mid-size city.
+
+**Source quality was excellent.** Key sources: Cincinnati Soccer Talk match day guides (2021, 2023), The Pride website (TQL Stadium guide, Northern Row partnership announcement), CityBeat (The Pitch opening, Second Place profile, pub roundups), Cincinnati Refined (9 Premier League bars guide), Ticketmaster FC Cincinnati supporters page (Die Innenstadt, The Pride, The Briogaid details), Scarves & Spikes (away day recommendations), Haus & Home Magazine (Nicholson's profile), newsrecord.org (The Pub soccer/rugby coverage), Soapbox Media (Higher Gravity + Second Place openings), Visit Cincy (FC Cincinnati locals guide).
+
+---
+
+### St. Louis Deep Research -- America's Original Soccer Capital with the Deepest Supporter Infrastructure in MLS
+
+St. Louis has 10 soccer bars that reveal the most layered supporter ecosystem of any MLS market in our database. The city's soccer culture predates every other American city -- the first reported game was played in 1875, The Hill neighborhood produced six members of the 1950 World Cup team, and SLU has 10 NCAA men's soccer championships. When CITY SC launched in 2023, it did not create soccer culture in St. Louis; it gave existing culture a professional home.
+
+**The match-day corridor is the most concentrated soccer zone in our database.** Within a few blocks of Energizer Park in Downtown West, four bars form an integrated match-day experience: Schlafly Tap Room (north, Louligan Street block party), The Pitch (southeast, 6:30 AM EPL openings), Maggie O'Brien's (south, since 1979), and Beffa's (west, STL Santos gathering point, since 1898). No other MLS stadium has this density of distinct, long-established bars within walking distance.
+
+**The St. Louligans are the most well-documented supporter group in our database.** Founded in 2010 by Mitch Morice and Brad DeMunbrun from seven fragmented groups, they have a permanent street sign (Louligan Street), a brewery collaboration (Brewligans IPA with 2nd Shift Brewing), a match-day beer (Supporter's Session with Schlafly), an annual charity match, a podcast, and over $60,000 raised for local charities in a single season. Their skull-and-crossbones flag inspired by FC St. Pauli reflects an independent, community-first ethos unique among American supporter groups.
+
+**STL Santos is the most distinctive Hispanic supporter group in our database.** Led predominantly by Hispanic and Latina women, they bring luchador masks, Latin food, music, and merch to Beffa's before marching to the stadium. Their presence at a fourth-generation family-owned tavern established in 1898 creates a match-day scene that bridges St. Louis's immigrant history with its present.
+
+**Amsterdam Tavern (est. 2008) is the pre-MLS anchor.** Home to American Outlaws STL (29th chapter, est. 2010) and nominated for America's Best Soccer Bar by Men in Blazers, it has been the primary soccer bar for nearly two decades. Its partnership with The Dam restaurant (food next door, beer at Amsterdam) is a unique model we have not seen elsewhere. Co-owner Jeff Lyell's quote captures its identity: "The thing that makes us different is that everyone comes to our bar and we show all the matches, and everybody gets along."
+
+**Llywelyn's is the only bar in our database hosting both an EPL and a Bundesliga supporter group.** Gateway Gooners (Arsenal) and Mia San STL (Bayern Munich) both call this 1975-founded Welsh/Celtic pub home, making it the European football hub of suburban St. Louis. Most bars host one club or none; dual-league hosting is rare.
+
+**The Pitch Athletic Club (opened Feb 27, 2023) has the richest historical provenance of any soccer bar in our database.** Its walnut woodwork was salvaged from Tony Faust's restaurant, which occupied the same site since 1889. The 9,200 sqft space was designed by The Lawrence Group to honor both the building's history and St. Louis's soccer legacy, with memorabilia dedicated to SLU's championship programs. It opens at 6:30 AM on weekends for EPL -- one of the earliest openings of any soccer bar we've documented.
+
+**Source quality for St. Louis was excellent.** Key sources: stlcitysc.com CITY Supporter Series profiles of St. Louligans, stlsoccernews.com Away Fan's Guide, stlmag.com soccer bars and CITY on Tap coverage, stlpartnership.com Beffa's history, saucemagazine.com Amsterdam Tavern and Pitch first-look reviews, feastmagazine.com 2nd Shift Brewing and Pitch profiles, do314.com event listings, untappd.com Brewligans beer entries, internationaltaphouse.com About page, llywelynspub.com history page, theamericanoutlaws.com chapter directory, thelawrencegroup.com Pitch history, KSDK and stltoday.com first home match coverage.
+
+---
+
+### Las Vegas Deep Research -- World Cup 2026 Watch Destination with Four Distinct Soccer Bar Tiers
+
+Las Vegas has 12 soccer bars that fall into four clear tiers by soccer identity:
+
+**Tier 1: Dedicated soccer pubs with supporter clubs.** Crown & Anchor (founded 1995, Crystal Palace/Everton/Newcastle, US Soccer Federation sponsor), McMullan's (Liverpool OLSC, Shenanigans room, charity program), Hennessey's (American Outlaws USMNT/USWNT since 2011), Jackpot (Sin City Gooners / Arsenal America). These four bars have formal supporter club affiliations verified through official club directories (arsenal.com, premierleague.com USA Bar Finder, theamericanoutlaws.com).
+
+**Tier 2: Authentic Irish/German pubs with strong soccer culture.** Ri Ra (EPL Breakfast Club, built from real Irish pub shipped from Ireland, Visit Las Vegas 2026 World Cup venue), Nine Fine Irishmen (built by Irish Pub Company, shipped from Ireland, Premier League on screens), Hofbrauhaus (Bayern Munich viewing parties, Bundesliga-first venue, 2022 World Cup coverage in Review-Journal). These bars don't host formal supporter clubs but have institutional-level soccer programming.
+
+**Tier 3: Premium sports bars with soccer commitment.** Flanker Kitchen (30x9ft LED wall, 50+ screens, opened 2023, full-season soccer), The Front Yard (18ft big screen, Ellis Island Brewery, 350 capacity), Blondies (60+ TVs, 7 AM Strip opening for EPL). These are general sports bars that actively accommodate soccer, particularly early-morning EPL and major tournaments.
+
+**Tier 4: Neighborhood bars with soccer ties.** Four Kegs (since 1977, sponsors 2 local soccer teams, Food Network fame), Kickers (women-owned, 17 TVs, listed on Fanzo as soccer bar). These are locals' bars where soccer is one of many sports shown.
+
+**Crown & Anchor's Tropicana closure (July 2024) was the biggest recent disruption.** After nearly 30 years, the original location at 1350 E Tropicana closed. The Spring Mountain Road "Little Crown & Anchor" (opened 2008) carries on, but the loss of the original location mirrors patterns we've seen in other cities -- Baltimore's Abbey Burger, Atlanta's Elsewhere Brewing, Indianapolis's Union Jack Pub Speedway. The Crown & Anchor brand survived because it had opened a second location seven years before the original closed. Single-location soccer bars are the most vulnerable.
+
+**McMullan's Liverpool charity program is the most unique supporter club activity in our database.** The "$1 per participating spectator per Liverpool goal" donation to the Nevada Partnership for Homeless Youth has raised over $10,000. No other supporter club in our 489-bar database has a formalized charity-per-goal program tied to match viewing. The program was profiled in Desert Companion (KNPR) in November 2022.
+
+**Las Vegas has the most 24/7 soccer bars of any city in our database.** Crown & Anchor, McMullan's, Jackpot, Kickers, and Four Kegs all operate 24 hours. This is unique to Las Vegas's hospitality culture and means no kickoff time is inaccessible. Even the "early" Strip bars (Blondies at 7 AM, Flanker at 7 AM weekdays) open hours before equivalent bars in other cities.
+
+**Source quality for Las Vegas was high.** Key sources included: KNPR/Desert Companion profile of McMullan's Liverpool club (the richest single-source document for any bar in this research), Las Vegas Review-Journal World Cup coverage, Visit Las Vegas official 2026 World Cup guide, Premier League USA Bar Finder, arsenal.com supporter club directory, theamericanoutlaws.com chapter page, Irish Pub Company case studies, Las Vegas Magazine, neighborhoods.com soccer pub guide, Fanzo listings.
+
+---
+
+### Atlanta Image Gap Closed -- Wix Sites Require Blog/Press Workarounds
+
+The last two Atlanta bars without images (Chiringa and SweetWater Brewery) were both cases where the bar's own website blocked scraping. Chiringa uses Wix which renders images client-side (no extractable URLs in page source). SweetWater uses Incapsula WAF that blocks all automated access. The previous session noted these as "unable to source."
+
+**The fix was to look at third-party sites that wrote about the bars.** Adventures in Atlanta (adventuresinatlanta.com, WordPress) had a Chiringa review with direct JPG URLs. Absolute Beer (absolutebeer.com, WordPress) had a SweetWater brewery profile page with an exterior banner photo. WordPress-hosted blogs remain the most reliable image source when official sites block scraping -- the wp-content/uploads paths are predictable and directly downloadable.
+
+**Pattern confirmed:** When a bar's own site is behind Wix, Squarespace, Cloudflare challenge pages, or WAFs, the best approach is to search for food blogs, travel blogs, local news sites, and brewery/bar review sites that wrote about the venue. These third-party WordPress sites almost always have extractable images.
+
+---
+
+### Thin Descriptions -- Supporter Group Research Reveals Philadelphia's EPL Ecosystem
+
+Fixing 12 thin descriptions (under 200 chars) required researching each bar's actual soccer credentials. The most valuable source was mcfcphilly.com/EPL, which maintains a complete map of every EPL supporter group in Philadelphia and their home bars for the current season. This single page provided verified team-to-bar mappings for all 8 Philadelphia bars.
+
+**The Black Taxi as a multi-club venue is unusual.** Most bars host one supporter group. The Black Taxi in Fairmount hosts three -- Aston Villa (Philadelphia Lions), Crystal Palace (Philly Palace), and Leeds United Philadelphia. This likely works because all three are smaller clubs whose supporters don't overlap on the match calendar often enough to conflict. The pattern is different from Tir na nOg, which hosts Brentford, Chelsea, Man City, and Wolves -- Tir na nOg is more of a "catch-all" whereas Black Taxi specifically attracts mid-table/lower-table English club fans.
+
+**Jose Pistola's Fulham connection is well-established but easily confused.** Multiple sources (Fanzo, general EPL bar lists) tag Jose Pistola's as a Liverpool bar, likely because the bar itself shows Liverpool matches and uses #YoullNeverGuacAlone. But the mcfcphilly.com EPL map and the official Fulham FC international supporters page both confirm it as the home of Phulham -- Philadelphia's Fulham FC supporters group. The Fulham connection is the specific supporter club affiliation; Liverpool is what they also show because it's popular.
+
+**Victoria Freehouse is the OLSC Philadelphia origin story.** Liverpool FC's own website (liverpoolfc.com) documents that the Official Liverpool FC Supporters Club Philadelphia formed through fans gathering informally at The Victoria Freehouse in Old City. This is a stronger soccer credential than "shows Premier League games" -- it's a founding location for an official supporters club.
+
+**Hilltown Tavern Brighton connection needs verification.** The mcfcphilly.com source lists Brighton at Urban Saloon, not Hilltown Tavern. BillyPenn 2025 also says Urban Saloon for Brighton (Philly Seagulls). The original DB had Brighton at Hilltown -- this may have been accurate at a prior point or may have been an error. Removed the Brighton claim from the description and positioned Hilltown as a strong neutral EPL morning venue instead, which is accurate per multiple sources.
+
+**SD TapRoom's "all sports packages" claim is significant.** Their own website explicitly states they subscribe to all packages and play sound for major events. This is a specific, verifiable claim that most bars don't make. Combined with 11 flat-screen TVs and a 10-foot projector, it positions SD TapRoom as one of the better-equipped soccer viewing venues in Pacific Beach.
+
+---
+
 ## 2026-02-21
 
 ### SEO Fixes — Structured Data Must Always Use Production Domain
