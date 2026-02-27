@@ -97,8 +97,8 @@ After work completes, always update:
 | Layer | Technology |
 |-------|------------|
 | Frontend | Vanilla HTML/JS + Tailwind CDN |
-| Hosting | Cloudflare Pages |
-| Functions | Cloudflare Pages Functions (SSR) |
+| Hosting | Cloudflare Workers with Static Assets |
+| Functions | Cloudflare Workers (compiled from Pages Functions) |
 | Database | Cloudflare D1 (SQLite) |
 | Storage | Cloudflare R2 |
 
@@ -106,9 +106,11 @@ After work completes, always update:
 
 ## Quick Reference
 
-**Tech:** Cloudflare Pages + D1 (SQLite) + R2 (images). Vanilla HTML/JS + Tailwind CDN. All pages server-side rendered. No local dev — deploy and test on production.
+**Tech:** Cloudflare Workers + Static Assets + D1 (SQLite) + R2 (images). Vanilla HTML/JS + Tailwind CDN. All pages server-side rendered. No local dev — deploy and test on production.
 
-**Environments:** Preview (`soccerbars-v2.pages.dev`) and Production (`soccerbars.fyi`) — single deploy updates both.
+**Architecture:** Functions are authored as Pages Functions in `functions/`, compiled into a single Worker bundle via `npx wrangler pages functions build --outdir=dist`, and deployed with `wrangler deploy`. Static files in `public/` are served via the `[assets]` binding.
+
+**Environments:** Workers dev (`soccerbars-v2.tinybuild.workers.dev`) and Production (`pitchpubs.com`) via zone-based routes.
 
 ### Project Structure
 
@@ -118,7 +120,7 @@ After work completes, always update:
 │   ├── _headers             # Cloudflare cache/security headers
 │   ├── favicon.svg          # Site icon
 │   └── llms.txt             # AI crawler description
-├── functions/               # Cloudflare Pages Functions (SSR)
+├── functions/               # Source functions (compiled to dist/ on build)
 │   ├── _middleware.js        # Short-path redirects, noindex on previews, legacy URL 301s
 │   ├── _shared.js           # Barrel re-export
 │   ├── _shared/             # Modular shared code
@@ -155,7 +157,9 @@ After work completes, always update:
 ├── .claude/
 │   ├── agents/              # setup, content, product, seo, marketing
 │   └── skills/              # 14 skill definitions
-├── wrangler.toml            # Cloudflare config (project + D1 ID + R2)
+├── package.json             # Build/deploy scripts
+├── wrangler.toml            # Worker config (main, assets, D1, R2, routes)
+├── .gitignore               # dist/, node_modules/, .wrangler/
 ├── BACKLOG.md               # Idea parking lot
 ├── CHANGELOG.md             # What changed
 └── CONTEXT.md               # Decisions & lessons
@@ -194,8 +198,14 @@ These are baked into the template — no setup needed:
 ### Deploy Commands
 
 ```bash
-# Deploy
-wrangler pages deploy ./public --project-name=soccerbars-v2
+# Build + Deploy (preferred)
+npm run deploy
+
+# Build only (compile functions → dist/)
+npm run build
+
+# Deploy only (assumes dist/ exists)
+npx wrangler deploy
 
 # Run migration
 npx wrangler d1 execute soccerbars-v2-db --file=./migrations/XXX.sql --remote

@@ -6,6 +6,16 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ## 2026-02-27
 
+### Infrastructure -- Workers with Static Assets Beats Cloudflare Pages
+
+**Why migrate?** Cloudflare Pages has limitations: no zone-based routes (custom domains must be configured in the Pages dashboard), the build pipeline is less transparent, and the deploy command (`wrangler pages deploy`) is being superseded. Workers with Static Assets gives us the same authoring pattern (Pages Functions in `functions/`) but compiles to a single Worker with explicit routing and static asset serving.
+
+**The build step is the key insight.** `npx wrangler pages functions build --outdir=dist` compiles all `functions/*.js` files into a single `dist/index.js` Worker bundle. This is the same file structure used by regular Workers, so `wrangler deploy` just works. The `[assets]` binding in `wrangler.toml` tells the Worker to serve `public/` as static files.
+
+**Zone-based routes give us control.** Instead of configuring custom domains through the Pages dashboard, `routes` in `wrangler.toml` explicitly maps `pitchpubs.com/*` and `www.pitchpubs.com/*` to the Worker. This is version-controlled and reproducible.
+
+**Old Pages project should be cleaned up.** The `soccerbars-v2` Pages project still exists with `pitchpubs.com` as a custom domain. The Worker's zone-based routes take precedence, but the Pages custom domain binding should be removed to avoid confusion.
+
 ### Template Alignment -- Why the Template's Interaction Patterns Are Better
 
 **AJAX pill switching beats full-page navigation.** The previous PitchPubs homepage used `<a href>` links for filter pills, causing a full page reload on every filter change. The template uses `<button data-pill>` with client-side `fetch()` to replace the grid contents. This is faster (no HTML re-render), smoother (grid fades during transition), and preserves scroll position. The URL updates via `history.pushState` so filters are still bookmarkable/shareable.

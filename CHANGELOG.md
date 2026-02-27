@@ -6,6 +6,19 @@ What we shipped. Update after each feature.
 
 ## 2026-02-27
 
+### Infrastructure -- Migrate from Cloudflare Pages to Workers with Static Assets
+
+Adopted the same architecture used on haunted-places (spookfinder.com). Functions are compiled into a single Worker bundle and static files are served via `[assets]` binding.
+
+**Changed:**
+- `wrangler.toml`: Replaced `pages_build_output_dir` with `main = "dist/index.js"`, `[assets]` binding, `workers_dev = true`, and zone-based routes for `pitchpubs.com`
+- Deploy command: Now `npm run deploy` (builds Worker bundle then deploys) instead of `wrangler pages deploy`
+- CLAUDE.md: Updated tech stack, deploy commands, project structure, and environment descriptions
+
+**Added:**
+- `package.json` with `build` and `deploy` scripts
+- `.gitignore` for `dist/`, `node_modules/`, `.wrangler/`
+
 ### Layout Alignment -- Match New-Directory Template Structure
 
 Aligned PitchPubs layout with the new-directory template's navigation, breadcrumbs, and homepage interaction patterns.
