@@ -120,16 +120,10 @@ async function renderBrowsePage(context, baseUrl) {
 
     const body = `
     ${renderNav('/' + ITEMS_PATH)}
-
-    <!-- Breadcrumbs -->
-    <div class="border-b border-border">
-      <div class="max-w-5xl mx-auto px-6 py-4">
         ${renderBreadcrumbs([
           { label: 'Home', href: '/' },
           { label: 'Browse' }
         ], baseUrl)}
-      </div>
-    </div>
 
     <!-- Filters -->
     <section class="bg-surface border-b border-border">
@@ -373,10 +367,6 @@ async function renderDetailPage(context, baseUrl, slug) {
 
     const body = `
     ${renderNav('/' + ITEMS_PATH)}
-
-    <!-- Breadcrumbs -->
-    <div class="border-b border-border">
-      <div class="max-w-4xl mx-auto px-6 py-4">
         ${renderBreadcrumbs([
           { label: 'Home', href: '/' },
           ...(item.state ? [{ label: item.state, href: `/states/${stateSlug}` }] : [
@@ -384,8 +374,6 @@ async function renderDetailPage(context, baseUrl, slug) {
           ]),
           { label: item.name }
         ], baseUrl)}
-      </div>
-    </div>
 
     <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-6 py-12">

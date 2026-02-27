@@ -131,16 +131,10 @@ async function renderServicesIndex(context, baseUrl) {
 
     const body = `
     ${renderNav('/services')}
-
-    <!-- Breadcrumbs -->
-    <div class="border-b border-border">
-      <div class="max-w-5xl mx-auto px-6 py-4">
         ${renderBreadcrumbs([
           { label: 'Home', href: '/' },
           { label: 'Services' }
         ], baseUrl)}
-      </div>
-    </div>
 
     <!-- Header -->
     <section class="bg-surface border-b border-border">
@@ -313,17 +307,11 @@ async function renderServiceDetail(context, baseUrl, slug) {
 
     const body = `
     ${renderNav('/services')}
-
-    <!-- Breadcrumbs -->
-    <div class="border-b border-border">
-      <div class="max-w-4xl mx-auto px-6 py-4">
         ${renderBreadcrumbs([
           { label: 'Home', href: '/' },
           { label: 'Services', href: '/services' },
           { label: service.name }
         ], baseUrl)}
-      </div>
-    </div>
 
     <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-6 py-12">

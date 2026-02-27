@@ -62,16 +62,10 @@ export async function onRequestGet(context) {
 
     const body = `
     ${renderNav('/categories')}
-
-    <!-- Breadcrumbs -->
-    <div class="border-b border-border">
-      <div class="max-w-5xl mx-auto px-6 py-4">
         ${renderBreadcrumbs([
           { label: 'Home', href: '/' },
           { label: 'Categories' }
         ], baseUrl)}
-      </div>
-    </div>
 
     <!-- Content -->
     <main class="max-w-5xl mx-auto px-6 py-14">

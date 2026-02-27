@@ -2,7 +2,7 @@
  * Homepage
  * GET /
  *
- * Lean hero, league pills, featured cities, full directory with search + filters
+ * Lean hero, scrollable filter pills, 4-column grid with "Load More" button
  */
 
 import {
@@ -18,24 +18,31 @@ export async function onRequestGet(context) {
   const url = new URL(request.url);
   const baseUrl = `${url.protocol}//${url.host}`;
 
-  const state = url.searchParams.get('state') || '';
-  const view = url.searchParams.get('view') || '';
+  const activePill = url.searchParams.get('view') || '';
+
+  // Special pills (sort/filter based)
+  const SPECIAL_PILLS = ['featured', 'latest'];
+  const isSpecialPill = SPECIAL_PILLS.includes(activePill);
+  const isStatePill = activePill && !isSpecialPill;
 
   try {
-    // Build directory query with optional state/view filter
+    // Build WHERE/ORDER based on active pill
     let whereClause = '';
     const bindings = [];
-    if (view === 'featured') {
-      whereClause = 'WHERE featured = 1';
-    } else if (state) {
-      whereClause = 'WHERE state = ?';
-      bindings.push(state);
-    }
+    let orderBy;
 
-    // Sort: "latest" view sorts by newest, default sorts featured+images first
-    const orderBy = view === 'latest'
-      ? 'created_at DESC'
-      : 'featured DESC, CASE WHEN image_url IS NOT NULL AND image_url != \'\' THEN 0 ELSE 1 END, name ASC';
+    if (activePill === 'featured') {
+      whereClause = 'WHERE featured = 1';
+      orderBy = `CASE WHEN image_url IS NOT NULL AND image_url != '' THEN 0 ELSE 1 END, name ASC`;
+    } else if (activePill === 'latest') {
+      orderBy = 'created_at DESC';
+    } else if (isStatePill) {
+      whereClause = 'WHERE state = ?';
+      bindings.push(activePill);
+      orderBy = `featured DESC, CASE WHEN image_url IS NOT NULL AND image_url != '' THEN 0 ELSE 1 END, name ASC`;
+    } else {
+      orderBy = `featured DESC, CASE WHEN image_url IS NOT NULL AND image_url != '' THEN 0 ELSE 1 END, name ASC`;
+    }
 
     // Get paginated items
     const { results: items } = await env.DB.prepare(
@@ -49,15 +56,14 @@ export async function onRequestGet(context) {
     const totalCount = countResult?.count || 0;
 
     // Get overall count (unfiltered) for hero
-    const overallCount = (state || view)
+    const overallCount = activePill
       ? (await env.DB.prepare(`SELECT COUNT(*) as count FROM ${TABLE_NAME}`).first())?.count || 0
       : totalCount;
 
-    // Get featured count for pill
-    const featuredResult = await env.DB.prepare(
+    // Featured count
+    const featuredCount = (await env.DB.prepare(
       `SELECT COUNT(*) as count FROM ${TABLE_NAME} WHERE featured = 1`
-    ).first();
-    const featuredCount = featuredResult?.count || 0;
+    ).first())?.count || 0;
 
     // Get states for filter pills
     const { results: states } = await env.DB.prepare(
@@ -102,43 +108,51 @@ export async function onRequestGet(context) {
       }] : [])
     ];
 
+    const filterLabel = isStatePill ? stateFullName(activePill) : (activePill === 'featured' ? 'Featured' : (activePill === 'latest' ? 'Latest' : ''));
     const head = renderHead({
-      title: state
-        ? `Soccer Bars in ${stateFullName(state)} - ${SITE_NAME}`
+      title: filterLabel
+        ? `${filterLabel} Soccer Bars - ${SITE_NAME}`
         : `${overallCount} Soccer Bars in America - Find Where to Watch`,
       description: `${SITE_NAME} is a curated directory of ${overallCount} soccer-friendly bars across America. Find the best spots to watch Premier League, MLS, Champions League, and World Cup 2026 matches.`,
       url: baseUrl,
       jsonLd
     });
 
-    // State filter pills
-    const statePillsHtml = states.map(s => {
-      const isActive = state === s.state;
-      const fullName = stateFullName(s.state);
-      return `<a href="/?state=${encodeURIComponent(s.state)}"
-                 class="text-sm px-4 py-1.5 rounded-full border transition-all whitespace-nowrap shrink-0 ${isActive
-                   ? 'bg-accent text-white border-accent font-medium'
-                   : 'text-muted border-border hover:text-primary hover:bg-surface'}">${escapeHtml(fullName)}</a>`;
-    }).join('\n');
+    // Build all pills: All + special (Featured, Latest) + state pills
+    const pillClass = (isActive) => `filter-pill text-sm px-5 py-2 rounded-full transition-all whitespace-nowrap shrink-0 cursor-pointer ${isActive
+      ? 'bg-accent text-white font-medium'
+      : 'bg-stone-100 text-stone-600 hover:bg-stone-200 hover:text-primary'}`;
+
+    const specialPillsHtml = [
+      featuredCount > 0 ? `<button data-pill="featured" class="${pillClass(activePill === 'featured')}">Featured (${featuredCount})</button>` : '',
+      `<button data-pill="latest" class="${pillClass(activePill === 'latest')}">Latest</button>`
+    ].filter(Boolean).join('\n');
+
+    const statePillsHtml = states.map(s =>
+      `<button data-pill="${escapeHtml(s.state)}" class="${pillClass(activePill === s.state)}">${escapeHtml(stateFullName(s.state))}</button>`
+    ).join('\n');
 
     // Directory grid
     const directoryGrid = items.length > 0
       ? items.map((item, i) =>
-          `<div class="reveal bar-card" style="transition-delay: ${Math.min(i, 8) * 60}ms">${renderCard(item)}</div>`
+          `<div class="reveal item-card" style="transition-delay: ${Math.min(i, 8) * 60}ms">${renderCard(item)}</div>`
         ).join('\n')
       : renderEmptyState({
           emoji: '&#9917;',
           title: 'No bars found',
-          message: state ? `No bars in ${stateFullName(state)} yet.` : 'Be the first to add a soccer bar.',
+          message: filterLabel ? `No bars in ${filterLabel} yet.` : 'Be the first to add a soccer bar.',
           action: { href: '/submit', label: 'Submit a Bar' }
         });
+
+    // Escape filter value for JS string injection
+    const safeActivePill = activePill.replace(/'/g, "\\'");
 
     const body = `
     ${renderNav('/')}
 
     <!-- Hero -->
     <section>
-      <div class="max-w-7xl mx-auto px-6 py-10 md:py-14 text-center">
+      <div class="max-w-7xl mx-auto px-6 pt-12 pb-10 md:pt-16 md:pb-12 text-center">
         <p class="text-sm font-medium text-muted uppercase tracking-[0.15em] mb-4 animate-fade-in"><span class="count-up">${overallCount}</span> soccer bars across America</p>
         <h1 class="font-display text-3xl md:text-4xl font-bold tracking-tight mb-4 animate-fade-in-up stagger-2">Find where to watch the beautiful game</h1>
         <p class="text-muted max-w-md mx-auto animate-fade-in-up stagger-3 leading-relaxed">Soccer-friendly bars with early opens, big screens, and fans who actually care.</p>
@@ -148,20 +162,10 @@ export async function onRequestGet(context) {
     <!-- Directory -->
     <section class="max-w-7xl mx-auto px-6 py-8">
 
-      <!-- Filters -->
-      <div class="flex items-center gap-2 overflow-x-auto mb-8 scrollbar-hide" style="-webkit-overflow-scrolling:touch;scrollbar-width:none">
-        <a href="/"
-           class="text-sm px-4 py-1.5 rounded-full border transition-all shrink-0 ${!state && !view
-             ? 'bg-accent text-white border-accent font-medium'
-             : 'text-muted border-border hover:text-primary hover:bg-surface'}">All (${overallCount})</a>
-        ${featuredCount > 0 ? `<a href="/?view=featured"
-           class="text-sm px-4 py-1.5 rounded-full border transition-all whitespace-nowrap shrink-0 ${view === 'featured'
-             ? 'bg-accent text-white border-accent font-medium'
-             : 'text-muted border-border hover:text-primary hover:bg-surface'}">Featured (${featuredCount})</a>` : ''}
-        <a href="/?view=latest"
-           class="text-sm px-4 py-1.5 rounded-full border transition-all shrink-0 ${view === 'latest'
-             ? 'bg-accent text-white border-accent font-medium'
-             : 'text-muted border-border hover:text-primary hover:bg-surface'}">Latest</a>
+      <!-- Filter pills -->
+      <div class="flex items-center gap-2 overflow-x-auto mb-8 scrollbar-hide">
+        <button data-pill="" class="${pillClass(!activePill)}">All (${overallCount})</button>
+        ${specialPillsHtml}
         ${statePillsHtml}
       </div>
 
@@ -170,33 +174,25 @@ export async function onRequestGet(context) {
         ${directoryGrid}
       </div>
 
-      <!-- Loading spinner -->
+      <!-- Load More -->
       <div id="load-more" class="flex justify-center py-12 ${totalCount <= ITEMS_PER_PAGE ? 'hidden' : ''}">
-        <div class="w-6 h-6 border-2 border-border border-t-accent rounded-full animate-spin"></div>
+        <button id="load-more-btn" class="px-8 py-3 text-sm font-medium text-muted border border-border rounded-full hover:text-primary hover:border-primary/30 transition-all cursor-pointer">Load more</button>
       </div>
+
+      <style>.scrollbar-hide::-webkit-scrollbar{display:none}</style>
 
       <!-- Scripts -->
       <script>
       (function() {
-        // Infinite scroll
         var grid = document.getElementById('directory-grid');
-        var spinner = document.getElementById('load-more');
-        var offset = ${ITEMS_PER_PAGE};
-        var total = ${totalCount};
-        var loading = false;
-        var done = offset >= total;
+        var loadMoreWrap = document.getElementById('load-more');
+        var loadBtn = document.getElementById('load-more-btn');
+        var LIMIT = ${ITEMS_PER_PAGE};
 
-        function buildUrl() {
-          var params = new URLSearchParams();
-          var state = '${state}';
-          var view = '${view}';
-          if (view === 'featured') params.set('featured', '1');
-          else if (state) params.set('state', state);
-          if (view === 'latest') params.set('sort', 'latest');
-          params.set('limit', '${ITEMS_PER_PAGE}');
-          params.set('offset', offset);
-          return '/api/items?' + params.toString();
-        }
+        var activePill = '${safeActivePill}';
+        var offset = LIMIT;
+        var loading = false;
+        var done = ${totalCount} <= LIMIT;
 
         function escHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
@@ -206,7 +202,7 @@ export async function onRequestGet(context) {
             ? '<img src="' + escHtml(imgSrc) + '" alt="' + escHtml(item.name) + '" width="400" height="300" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" loading="lazy" onerror="this.style.display=\\'none\\';this.nextElementSibling.style.display=\\'flex\\'"><div class="w-full h-full bg-surface items-center justify-center" style="display:none"><span class="text-4xl opacity-20">&#128230;</span></div>'
             : '<div class="w-full h-full bg-surface flex items-center justify-center"><span class="text-4xl opacity-20">&#128230;</span></div>';
           var loc = [item.city, item.state].filter(Boolean).join(', ');
-          return '<a href="/bars/' + escHtml(item.slug) + '" class="group block bg-white rounded-2xl overflow-hidden border border-border card-hover">'
+          return '<a href="/${ITEMS_PATH}/' + escHtml(item.slug) + '" class="group block bg-white rounded-2xl overflow-hidden border border-border card-hover">'
             + '<div class="aspect-[4/3] overflow-hidden">' + imgHtml + '</div>'
             + '<div class="p-5">'
             + '<h3 class="font-display font-semibold group-hover:text-muted transition-colors">' + escHtml(item.name) + '</h3>'
@@ -215,35 +211,82 @@ export async function onRequestGet(context) {
             + '</div></a>';
         }
 
+        function buildApiUrl(extra) {
+          var params = new URLSearchParams();
+          if (activePill === 'featured') params.set('featured', '1');
+          else if (activePill === 'latest') params.set('sort', 'latest');
+          else if (activePill) params.set('state', activePill);
+          params.set('limit', LIMIT);
+          if (extra) { for (var k in extra) params.set(k, extra[k]); }
+          return '/api/items?' + params.toString();
+        }
+
+        function refreshGrid() {
+          offset = 0;
+          done = false;
+          grid.style.opacity = '0.5';
+          grid.style.transition = 'opacity 0.15s';
+          fetch(buildApiUrl({ offset: 0 }))
+            .then(function(r) { return r.json(); })
+            .then(function(json) {
+              var items = json.data || [];
+              grid.innerHTML = items.map(function(item) {
+                return '<div class="item-card">' + renderCard(item) + '</div>';
+              }).join('');
+              grid.style.opacity = '1';
+              offset = items.length;
+              done = !json.meta.hasMore;
+              if (done) loadMoreWrap.classList.add('hidden');
+              else loadMoreWrap.classList.remove('hidden');
+              if (loadBtn) loadBtn.textContent = 'Load more';
+              var u = new URL(window.location);
+              u.search = '';
+              if (activePill) u.searchParams.set('view', activePill);
+              history.pushState(null, '', u.toString());
+            })
+            .catch(function() { grid.style.opacity = '1'; });
+        }
+
         function loadMore() {
           if (loading || done) return;
           loading = true;
-          fetch(buildUrl())
+          if (loadBtn) loadBtn.textContent = 'Loading...';
+          fetch(buildApiUrl({ offset: offset }))
             .then(function(r) { return r.json(); })
             .then(function(json) {
               var items = json.data || [];
               items.forEach(function(item) {
                 var div = document.createElement('div');
-                div.className = 'bar-card';
+                div.className = 'item-card';
                 div.innerHTML = renderCard(item);
                 grid.appendChild(div);
               });
               offset += items.length;
               done = !json.meta.hasMore;
-              if (done && spinner) spinner.classList.add('hidden');
+              if (done) loadMoreWrap.classList.add('hidden');
+              else if (loadBtn) loadBtn.textContent = 'Load more';
               loading = false;
             })
-            .catch(function() { loading = false; });
+            .catch(function() { loading = false; if (loadBtn) loadBtn.textContent = 'Load more'; });
         }
+        if (loadBtn) loadBtn.addEventListener('click', loadMore);
 
-        if (!done) {
-          var observer = new IntersectionObserver(function(entries) {
-            if (entries[0].isIntersecting) loadMore();
-          }, { rootMargin: '400px' });
-          if (spinner) observer.observe(spinner);
-        } else if (spinner) {
-          spinner.classList.add('hidden');
+        function updatePillStyles() {
+          document.querySelectorAll('.filter-pill').forEach(function(pill) {
+            var val = pill.dataset.pill;
+            var isActive = val === activePill;
+            pill.className = 'filter-pill text-sm px-5 py-2 rounded-full transition-all whitespace-nowrap shrink-0 cursor-pointer '
+              + (isActive ? 'bg-accent text-white font-medium' : 'bg-stone-100 text-stone-600 hover:bg-stone-200 hover:text-primary');
+          });
         }
+        document.querySelectorAll('.filter-pill').forEach(function(pill) {
+          pill.addEventListener('click', function() {
+            var val = this.dataset.pill;
+            activePill = (activePill === val) ? '' : val;
+            updatePillStyles();
+            refreshGrid();
+          });
+        });
       })();
       </script>
     </section>

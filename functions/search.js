@@ -114,16 +114,10 @@ export async function onRequestGet(context) {
 
     const body = `
     ${renderNav('/search')}
-
-    <!-- Breadcrumbs -->
-    <div class="border-b border-border">
-      <div class="max-w-5xl mx-auto px-6 py-4">
         ${renderBreadcrumbs([
           { label: 'Home', href: '/' },
           { label: 'Search' }
         ], baseUrl)}
-      </div>
-    </div>
 
     <!-- Search Header -->
     <section class="bg-surface border-b border-border">

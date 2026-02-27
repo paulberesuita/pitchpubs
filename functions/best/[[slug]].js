@@ -86,16 +86,10 @@ async function renderBestOfIndex(context, baseUrl) {
 
     const body = `
     ${renderNav('/best')}
-
-    <!-- Breadcrumbs -->
-    <div class="border-b border-border">
-      <div class="max-w-5xl mx-auto px-6 py-4">
         ${renderBreadcrumbs([
           { label: 'Home', href: '/' },
           { label: 'Best Of' }
         ], baseUrl)}
-      </div>
-    </div>
 
     <!-- Content -->
     <main class="max-w-5xl mx-auto px-6 py-14">
@@ -260,17 +254,11 @@ async function renderBestOfPage(context, baseUrl, topic) {
 
     const body = `
     ${renderNav('/best')}
-
-    <!-- Breadcrumbs -->
-    <div class="border-b border-border">
-      <div class="max-w-4xl mx-auto px-6 py-4">
         ${renderBreadcrumbs([
           { label: 'Home', href: '/' },
           { label: 'Best Of', href: '/best' },
           { label: 'Best ' + escapeHtml(categoryName) }
         ], baseUrl)}
-      </div>
-    </div>
 
     <!-- Header with noise texture -->
     <section class="bg-surface border-b border-border">

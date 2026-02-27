@@ -58,7 +58,7 @@ export function renderHead({ title, description, url, image, type = 'website', j
   <!-- Fonts & Tailwind -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Epilogue:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -185,13 +185,13 @@ export function renderNav(currentPath = '') {
   return `
   <header class="sticky top-0 z-40 bg-background">
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="/" class="font-display text-xl font-bold">${SITE_NAME}</a>
+      <a href="/" class="text-2xl tracking-widest hover:text-muted transition-colors" style="font-family: 'Bebas Neue', sans-serif;">${SITE_NAME.toUpperCase()}</a>
 
       <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-8 text-sm">
-        ${navLink(`/${ITEMS_PATH}`, 'Browse')}
-        ${navLink('/cities', 'Cities')}
         ${navLink('/states', 'States')}
+        ${navLink('/cities', 'Cities')}
+        ${navLink('/categories', 'Categories')}
         ${navLink('/about', 'About')}
         <a href="/submit" class="bg-primary hover:bg-primary-hover text-white font-medium px-5 py-2 rounded-xl transition-colors">
           Submit
@@ -209,9 +209,9 @@ export function renderNav(currentPath = '') {
     <!-- Mobile menu -->
     <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-background">
       <nav class="flex flex-col px-6 py-4 gap-1 text-sm">
-        ${mobileLink(`/${ITEMS_PATH}`, 'Browse')}
-        ${mobileLink('/cities', 'Cities')}
         ${mobileLink('/states', 'States')}
+        ${mobileLink('/cities', 'Cities')}
+        ${mobileLink('/categories', 'Categories')}
         ${mobileLink('/about', 'About')}
         <a href="/submit" class="bg-primary hover:bg-primary-hover text-white font-medium px-5 py-3 rounded-xl transition-colors text-center mt-3">
           Submit
@@ -255,7 +255,7 @@ export function renderFooter() {
 
         <!-- Brand -->
         <div class="col-span-2 md:col-span-1">
-          <a href="/" class="font-display text-xl font-bold hover:text-muted transition-colors">${SITE_NAME}</a>
+          <a href="/" class="text-xl tracking-widest hover:text-muted transition-colors" style="font-family: 'Bebas Neue', sans-serif;">${SITE_NAME.toUpperCase()}</a>
           <p class="text-sm text-muted mt-3 max-w-xs leading-relaxed">The best soccer bars in America. Curated for fans who want the real match-day experience.</p>
           <a href="/feed.xml" class="inline-flex items-center gap-1.5 text-xs text-muted hover:text-primary transition-colors mt-4">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -376,24 +376,11 @@ export function renderFooter() {
 /**
  * Render breadcrumbs with BreadcrumbList JSON-LD structured data
  * @param {Array<{label: string, href?: string}>} items
- * @param {string} baseUrl - Full base URL for structured data (e.g., https://example.com)
+ * @param {string} baseUrl - Ignored (kept for backward compat). Always uses PROD_BASE.
  */
 export function renderBreadcrumbs(items, baseUrl = '') {
-  const crumbs = items.map((item, i) => {
-    const isLast = i === items.length - 1;
-    if (isLast) {
-      return `<span class="text-primary font-medium">${escapeHtml(item.label)}</span>`;
-    }
-    return `
-      <a href="${escapeHtml(item.href)}" class="text-muted hover:text-primary transition-colors">${escapeHtml(item.label)}</a>
-      <svg class="w-4 h-4 text-border" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-      </svg>
-    `;
-  }).join('\n');
-
-  // BreadcrumbList JSON-LD — always use production domain
-  const jsonLd = baseUrl ? JSON.stringify({
+  // BreadcrumbList JSON-LD only — no visible nav, Google uses the structured data
+  const jsonLd = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": items.filter(item => item.href).map((item, i) => ({
@@ -402,9 +389,7 @@ export function renderBreadcrumbs(items, baseUrl = '') {
       "name": item.label,
       "item": `${PROD_BASE}${item.href}`
     }))
-  }) : '';
+  });
 
-  return `
-  ${jsonLd ? `<script type="application/ld+json">${jsonLd}</script>` : ''}
-  `;
+  return `<script type="application/ld+json">${jsonLd}</script>`;
 }
