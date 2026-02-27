@@ -1,6 +1,17 @@
 name = "soccerbars-v2"
+main = "dist/index.js"
 compatibility_date = "2024-01-01"
-pages_build_output_dir = "./public"
+
+workers_dev = true
+
+routes = [
+  { pattern = "pitchpubs.com/*", zone_name = "pitchpubs.com" },
+  { pattern = "www.pitchpubs.com/*", zone_name = "pitchpubs.com" }
+]
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
 
 [[d1_databases]]
 binding = "DB"
