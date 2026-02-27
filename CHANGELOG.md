@@ -4,6 +4,50 @@ What we shipped. Update after each feature.
 
 ---
 
+## 2026-02-27
+
+### Layout Alignment -- Match New-Directory Template Structure
+
+Aligned PitchPubs layout with the new-directory template's navigation, breadcrumbs, and homepage interaction patterns.
+
+**Changed (Navigation):**
+- Nav links now: States, Cities, Categories, About, Submit (removed "Browse" link -- browse page is footer-only like template)
+- Logo uses Bebas Neue uppercase tracking-widest style in both nav and footer (matching template branding pattern)
+- Added Bebas Neue to Google Fonts import
+
+**Changed (Breadcrumbs):**
+- Switched from visible breadcrumb nav to JSON-LD only across all 13 pages (about, bars, best, categories, category, cities, contact, crew, faq, search, services, states, submit)
+- Google uses the BreadcrumbList structured data; visible breadcrumbs added visual clutter without SEO benefit
+
+**Changed (Homepage):**
+- Replaced infinite scroll (IntersectionObserver) with "Load more" button
+- Replaced `<a href>` pill links (full page reload) with `<button data-pill>` for client-side AJAX switching
+- Added `refreshGrid()` -- fades grid opacity, fetches filtered data from `/api/items`, replaces grid HTML
+- Added `history.pushState` for URL updates without page reload
+- Added toggle behavior: clicking the active pill deselects it (returns to "All")
+- Pills now use `?view=` param for all filters (featured, latest, state codes) instead of separate `?state=` and `?view=` params
+
+**Changed (Homepage Filters):**
+- Simplified to pill-only layout (removed city dropdown, sort dropdown, count badge from previous session)
+- Added Featured (12) and Latest pills between All and state pills
+- Featured 12 bars across major US cities (NYC, Philly, Chicago, Atlanta, SF, Portland, Dallas, Miami, Minneapolis, Charlotte, Las Vegas, Austin)
+
+### SEO Pass 2 -- 7 Additional Fixes from Second Template Audit
+
+**Fixed:**
+- `noindex` on states/cities/category 404 pages (previously only bars/best/services had it)
+- `llms-full.txt.js` now uses `PROD_BASE` constant instead of request-derived URL (prevented preview domain leaking)
+- Category no-slug redirect changed from 302 to 301 (passes link equity)
+- `stateFullName()` used in states index, cities index, category filter dropdown, state detail meta title
+- Best-of ranked items made responsive (`flex-col sm:flex-row`, scaled rank/image on mobile)
+- `public/llms.txt` updated with missing pages: `/best`, `/crew`, `/services`, `/feed.xml`
+- `faq.js` imports `PROD_BASE` for consistency
+
+**Added:**
+- `?featured=1` filter support in `/api/items` endpoint
+
+---
+
 ## 2026-02-26
 
 ### SEO + Infrastructure -- 12 Fixes from New-Directory Template Audit

@@ -4,6 +4,24 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ---
 
+## 2026-02-27
+
+### Template Alignment -- Why the Template's Interaction Patterns Are Better
+
+**AJAX pill switching beats full-page navigation.** The previous PitchPubs homepage used `<a href>` links for filter pills, causing a full page reload on every filter change. The template uses `<button data-pill>` with client-side `fetch()` to replace the grid contents. This is faster (no HTML re-render), smoother (grid fades during transition), and preserves scroll position. The URL updates via `history.pushState` so filters are still bookmarkable/shareable.
+
+**"Load more" beats infinite scroll for directories.** Infinite scroll (IntersectionObserver) works well for feeds but is problematic for directories: users can't reach the footer, can't estimate how many items remain, and the scroll position becomes meaningless. A "Load more" button gives users control and makes the footer accessible. The button shows "Loading..." during fetch and hides when all items are loaded.
+
+**Visible breadcrumbs add clutter without SEO value.** Google uses BreadcrumbList JSON-LD for rich results regardless of whether breadcrumbs are visible on the page. The template outputs breadcrumbs as `<script type="application/ld+json">` only -- no visible `<div>` wrapper. This removes the border-b divider that appeared on every page between nav and content, giving a cleaner look. All 13 pages updated.
+
+**The nav should surface geographic browsing, not the browse page.** States, Cities, and Categories are the primary discovery paths for a location-based directory. The `/bars` browse page is a secondary utility page (for users who want to see everything unfiltered) -- it belongs in the footer under "Browse", not in the main nav. This matches the template exactly.
+
+**Bebas Neue logo gives visual distinction.** The previous `font-display font-bold` logo blended with body text. Bebas Neue with `tracking-widest` uppercase creates a strong visual identity that's distinct from content headings.
+
+**Featured bars need a `?view=` unified param, not separate `?state=` and `?view=`.** Using a single `?view=` parameter for all pill states (featured, latest, state codes) simplifies both server-side routing and client-side JS. The old approach had `?state=TX` and `?view=featured` as separate params that could conflict.
+
+---
+
 ## 2026-02-26
 
 ### New-Directory Template Audit -- Preview Domains in Structured Data Are the Biggest SEO Risk
