@@ -4,6 +4,18 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 ---
 
+## 2026-02-28
+
+### Rebrand -- Why We Couldn't Fully Rename the R2 Bucket
+
+**Worker and D1 renames are straightforward.** Deploying with a new `name` in `wrangler.toml` creates a new Worker. D1 databases can be created fresh and populated via `wrangler d1 export` + `wrangler d1 execute --file`. Both completed cleanly.
+
+**R2 bucket-to-bucket copy hits rate limits hard.** Cloudflare's R2 API has aggressive rate limiting on object-level operations. With 454 images, the copy script (get from source, put to destination) got 429'd after ~100 objects. The wrangler CLI spawns a new process per object, compounding the issue. The R2 bucket name (`soccerbars-v2-images`) is only referenced in `wrangler.toml` — the Worker uses the binding name `IMAGES`, and the image proxy serves from `/images/*`. No user or crawler ever sees the bucket name.
+
+**Lesson: rename infrastructure top-down, not bottom-up.** Start with the user-facing layer (GitHub repo, Worker name, domain) and work inward. Internal resource names that aren't exposed can stay as-is without any functional impact.
+
+---
+
 ## 2026-02-27
 
 ### Infrastructure -- Workers with Static Assets Beats Cloudflare Pages

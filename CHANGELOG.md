@@ -4,6 +4,29 @@ What we shipped. Update after each feature.
 
 ---
 
+## 2026-02-28
+
+### Rebrand -- Rename All Cloudflare Resources from soccerbars-v2 to pitchpubs
+
+Full rebrand of infrastructure to match the PitchPubs name.
+
+**Changed:**
+- Worker name: `soccerbars-v2` → `pitchpubs` (workers.dev URL now `pitchpubs.tinybuild.workers.dev`)
+- D1 database: `soccerbars-v2-db` → `pitchpubs-db` (new database created, all 489 rows exported and imported)
+- GitHub repo: `paulberesuita/soccerbars` → `paulberesuita/pitchpubs`
+- `wrangler.toml`: Updated worker name, D1 database name and ID
+- `CLAUDE.md`: Updated workers.dev URL and D1 commands to use `pitchpubs-db`
+
+**Removed:**
+- Old `soccerbars-v2` Worker (deleted after deploying new `pitchpubs` Worker)
+- Old `soccerbars-v2-db` D1 database (deleted after data migration)
+- Old `soccerbars-v2` Pages project (deleted, custom domain removed)
+
+**Kept:**
+- R2 bucket stays `soccerbars-v2-images` (internal Cloudflare name, not user-facing; copying 454 images hit API rate limits)
+
+---
+
 ## 2026-02-27
 
 ### Infrastructure -- Migrate from Cloudflare Pages to Workers with Static Assets
