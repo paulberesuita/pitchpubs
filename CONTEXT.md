@@ -14,7 +14,7 @@ Key decisions, insights, and lessons learned. Update when making significant dec
 
 **Zone-based routes give us control.** Instead of configuring custom domains through the Pages dashboard, `routes` in `wrangler.toml` explicitly maps `pitchpubs.com/*` and `www.pitchpubs.com/*` to the Worker. This is version-controlled and reproducible.
 
-**Old Pages project should be cleaned up.** The `soccerbars-v2` Pages project still exists with `pitchpubs.com` as a custom domain. The Worker's zone-based routes take precedence, but the Pages custom domain binding should be removed to avoid confusion.
+**Old Pages project deleted.** The `soccerbars-v2` Pages project and its `pitchpubs.com` custom domain binding were removed. The Worker's zone-based routes now handle all traffic. GitHub repo renamed from `soccerbars` to `pitchpubs`.
 
 ### Template Alignment -- Why the Template's Interaction Patterns Are Better
 

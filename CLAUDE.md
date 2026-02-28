@@ -110,7 +110,7 @@ After work completes, always update:
 
 **Architecture:** Functions are authored as Pages Functions in `functions/`, compiled into a single Worker bundle via `npx wrangler pages functions build --outdir=dist`, and deployed with `wrangler deploy`. Static files in `public/` are served via the `[assets]` binding.
 
-**Environments:** Workers dev (`soccerbars-v2.tinybuild.workers.dev`) and Production (`pitchpubs.com`) via zone-based routes.
+**Environments:** Workers dev (`pitchpubs.tinybuild.workers.dev`) and Production (`pitchpubs.com`) via zone-based routes.
 
 ### Project Structure
 
@@ -208,8 +208,8 @@ npm run build
 npx wrangler deploy
 
 # Run migration
-npx wrangler d1 execute soccerbars-v2-db --file=./migrations/XXX.sql --remote
+npx wrangler d1 execute pitchpubs-db --file=./migrations/XXX.sql --remote
 
 # Query database
-npx wrangler d1 execute soccerbars-v2-db --remote --command "SELECT COUNT(*) FROM bars;"
+npx wrangler d1 execute pitchpubs-db --remote --command "SELECT COUNT(*) FROM bars;"
 ```

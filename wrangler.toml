@@ -1,4 +1,4 @@
-name = "soccerbars-v2"
+name = "pitchpubs"
 main = "dist/index.js"
 compatibility_date = "2024-01-01"
 
@@ -15,8 +15,8 @@ binding = "ASSETS"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "soccerbars-v2-db"
-database_id = "4dd686ac-3bc7-4e22-b878-65d79e46fc26"
+database_name = "pitchpubs-db"
+database_id = "2bd2cc16-b106-46df-ab1d-d6397ab5b2f3"
 
 [[r2_buckets]]
 binding = "IMAGES"
